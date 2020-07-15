@@ -1,0 +1,638 @@
+@charset 'utf-8';
+
+@media screen and (min-width: 481px) {
+
+    /*PC用コード*/
+    body {
+        background-color: dimgrey;
+    }
+
+    h1 {
+        font-size: 20px;
+        line-height: 60px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 21px;
+    }
+
+    input {
+        /*border: none;*/
+        letter-spacing: 1px
+    }
+
+    .material-icons:hover {
+        cursor: pointer;
+    }
+
+    /*header-container*/
+    .header-container {
+        display: flex;
+        position: relative;
+        height: 60px;
+        background-color: beige;
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .header-container img {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 32px;
+        border-radius: 50%;
+    }
+
+    .header-container img:hover {
+        cursor: pointer;
+    }
+
+    .header-menu .material-icons {
+        margin-left: 32px;
+    }
+
+    .header-menu a {
+        line-height: 60px;
+        background-color: aqua;
+        padding: 5px 13px;
+        margin: 0 10px;
+        border-radius: 4px;
+    }
+
+    .header-menu a:hover {
+        background-color: darkolivegreen;
+    }
+
+    /*icon-nav*/
+    .icon-nav {
+        background-color: aquamarine;
+        width: 150px;
+        border-radius: 4px;
+        padding: 15px 0;
+        margin-left: 80%;
+    }
+
+    .icon-nav a {
+        display: inline-block;
+        line-height: 25px;
+        padding-left: 20px;
+        background-color: burlywood;
+        width: 100%;
+    }
+
+    .icon-nav a:hover {
+        background-color: cadetblue;
+    }
+
+    /*navとsectionの親要素*/
+    .main-contents {
+        display: flex;
+        justify-content: center;
+    }
+
+    /*nev*/
+    .line {
+        margin: 10px 0;
+        width: 100%;
+        height: 2px;
+        background-color: #000;
+    }
+
+    .main-contents nav {
+        background-color: cadetblue;
+        width: 300px;
+        padding: 25px 0;
+        font-size: 15px;
+        font-weight: bolder;
+        line-height: 25px;
+    }
+
+    .main-contents nav a {
+        padding-left: 25px;
+        display: inline-block;
+        background-color: bisque;
+        height: 25px;
+        width: 100%;
+    }
+
+    .main-contents nav a:hover {
+        background-color: chocolate;
+    }
+
+    .main-contents nav form {
+        padding-left: 25px;
+        margin-bottom: 15px;
+    }
+
+    .search-window {
+        width: 200px;
+        height: 25px;
+        border-radius: 4px;
+        border: none;
+        font-size: 13px;
+        padding-left: 5px;
+        margin-bottom: 5px;
+    }
+
+    .main-contents .button {}
+
+    .main-contents .button:hover {}
+
+    /*section*/
+    .article-list {
+        display: flex;
+        position: relative;
+        background-color: aliceblue;
+        width: 580px;
+        height: 80px;
+    }
+
+    .article-list:hover {
+        background-color: chartreuse;
+        cursor: pointer;
+    }
+
+    .article-list img {
+        position: absolute;
+        top: 50%;
+        margin-left: 5px;
+        transform: translateY(-50%);
+        height: 48px;
+        width: 48px;
+        border-radius: 50%;
+    }
+
+    .article-supplement {
+        margin: auto 0 auto 60px;
+        padding-top: 18px;
+        /*                background-color: dodgerblue;*/
+        width: 100%;
+        height: 100%;
+    }
+
+    .favorite-count {
+        display: flex;
+        line-height: 30px;
+        background-color: aquamarine;
+    }
+
+    .favorite-count p:first-child {
+        margin-right: 30px;
+    }
+
+    .favorite-count i {}
+
+    /*--記事投稿画面--*/
+    /*category*/
+    .add-container {
+        background-color: chocolate;
+        margin: 0 0 0 auto;
+        width: 250px;
+    }
+
+    .add-article-parts div {
+        display: flex;
+        justify-content: space-between;
+        height: 40px;
+        padding: 10px 20px;
+    }
+
+    .add-article-parts div:hover {
+        background-color: darkcyan;
+        cursor: pointer;
+    }
+
+    .add-category {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    .add-category p {
+        margin: 6px 0;
+    }
+
+    .add-category .button {
+        display: block;
+        height: 40px;
+        width: 100px;
+        border: none;
+    }
+
+    /*記事記載エリア*/
+    .article-post-form {
+        display: flex;
+        background-color: beige;
+    }
+
+    .text-contents {
+        background-color: cadetblue;
+        width: 1000px;
+        margin: 0 auto 0 0;
+    }
+
+    .text-contents input,
+    .text-contents textarea {
+        display: block;
+        width: 100%;
+        margin: 10px 0;
+        padding-left: 10px;
+        font-size: 15px;
+    }
+
+    .text-contents div {
+        display: flex;
+        position: relative;
+    }
+
+    .delete-icon {
+        position: absolute;
+        top: 10px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .text-contents .text {
+        height: 40px;
+    }
+
+    .text-contents textarea {
+        height: 200px;
+    }
+
+    /*--フレンド募集画面--*/
+    /*募集書き込み*/
+    .friend-post-form {
+        background-color: aqua;
+        width: 800px;
+        margin: 30px auto 50px auto;
+    }
+
+    .user-name {
+        display: flex;
+        height: 50px;
+        margin-bottom: 10px;
+    }
+
+    .user-name img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    .user-name p {
+        background-color: darksalmon;
+        margin-left: 30px;
+        line-height: 50px;
+    }
+
+    .friend-post-select {
+        background-color: deeppink;
+        display: flex;
+    }
+
+    .friend-post-select p {
+        margin-bottom: 5px;
+    }
+
+    .friend-post-select div {
+        margin: 0 0 10px 35px;
+    }
+
+    .friend-post-form textarea {
+        display: block;
+        height: 100px;
+        width: 700px;
+        margin: 0 auto 5px;
+        padding: 10px;
+    }
+
+    .friend-post-button {
+        display: block;
+        margin-left: 30px;
+    }
+
+    .friend-post-button:hover {}
+
+    /*投稿メッセージ一覧*/
+    .friend-message-container {
+        background-color: blueviolet;
+        border-bottom: 1px solid #000;
+        width: 800px;
+        margin: 0 auto 15px;
+        padding-left: 30px;
+    }
+
+    /*アイコンの段*/
+    .friend-message-head {
+        display: flex;
+        justify-content: space-between;
+        height: 50px;
+        margin-bottom: 10px;
+    }
+
+    .friend-message-container img {
+        height: 40px;
+        width: 40px;
+        margin-top: 5px;
+    }
+
+    /*アイコンの段の投稿日と編集アイコン*/
+    .friend-message-report {
+        display: flex;
+        justify-content: space-between;
+        width: 130px;
+        background-color: cadetblue;
+        line-height: 50px;
+    }
+
+
+    /*目的とPSID*/
+    .friend-message-data {
+        display: flex;
+        height: 30px;
+        margin-bottom: 10px;
+    }
+
+    .friend-message-data p {
+        line-height: 30px;
+    }
+
+    .friend-message-purpose {
+        background-color: blue;
+        margin-right: 30px;
+        padding: 0 15px;
+    }
+
+    /*メッセージ本文エリア*/
+    .friend-message-container > p {
+        background-color: chartreuse;
+        width: 600px;
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+
+    /*--設定画面--*/
+    /*共通部分*/
+    .setting {
+        background-color: aqua;
+        width: 800px;
+        margin: 30px auto 0;
+    }
+
+    .setting form {
+        background-color: aquamarine;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #000;
+    }
+
+    .setting form > p {
+        margin-bottom: 10px;
+    }
+
+    .setting form > input {
+        display: block;
+        margin-bottom: 5px;
+        padding-left: 5px;
+        width: 300px;
+        height: 30px;
+    }
+
+    /*ボタン*/
+    .setting-button {
+        margin: 10px 0 10px;
+    }
+
+    .setting-button input {
+        width: 70px;
+        height: 25px;
+    }
+
+    /*アイコン*/
+    .setting img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+
+    /*プロフィール*/
+    .change-pfofile {
+        height: 100px;
+        width: 100%;
+        padding: 10px;
+    }
+
+    /*ログアウト・削除*/
+    .setting > div p {
+        background-color: coral;
+        width: 150px;
+        height: 40px;
+        line-height: 40px;
+        margin-bottom: 30px;
+        text-align: center;
+        border-radius: 3px;
+    }
+
+    .setting > div p:hover {
+        /**/
+        background-color: burlywood;
+    }
+
+    /*--マイページ--*/
+    .mypage-container {
+        display: flex;
+        background-color: chocolate;
+        width: 1000px;
+        margin: 30px auto 0;
+    }
+
+    .profile-area {
+        background-color: darkviolet;
+        height: 450px;
+        padding: 0 15px;
+    }
+
+    .mypage-profile {
+        background-color: azure;
+        margin: 15px 0;
+        padding: 10px;
+        border: 1px solid #000;
+        border-radius: 5px
+    }
+
+    .article-data {
+        display: flex;
+        justify-content: space-around;
+        background-color: aquamarine;
+        height: 40px;
+        margin: 30px 0;
+        ;
+    }
+
+    .article-data p {
+        line-height: 40px;
+    }
+
+    .to-setting {
+        background-color: forestgreen;
+        width: 180px;
+        height: 30px;
+        text-align: center;
+        border-radius: 5px;
+    }
+
+    .to-setting:hover {
+        background-color: aqua;
+        cursor: pointer;
+    }
+
+    .to-setting p {
+        line-height: 30px;
+    }
+
+    /*--記事詳細画面--*/
+    /*記事詳細全体*/
+    .article-container {
+        background-color: blueviolet;
+        width: 1000px;
+        margin: auto auto 30px auto;
+        padding: 30px;
+    }
+
+    /*ユーザー・記事情報上段*/
+    .article-head {
+        display: flex;
+        justify-content: space-between;
+        background-color: aqua;
+        height: 50px;
+        margin-bottom: 30px;
+    }
+
+    /*ユーザー情報・更新日*/
+    .article-head-data {
+        display: flex;
+        background-color: forestgreen;
+    }
+
+    .article-head-data > p {
+        margin-left: 30px;
+    }
+
+    .article-title {
+        font-size: 35px;
+        margin-bottom: 10px;
+    }
+
+    /*記事タグといいねアイコン*/
+    .article-tag-container {
+        display: flex;
+        background-color: darkturquoise;
+        height: 30px;
+        margin-bottom: 20px;
+    }
+
+    .article-tag-container p {
+        display: inline-block;
+        margin: 0 10px 15px 0;
+        padding: 0 20px;
+        background-color: crimson;
+        line-height: 30px;
+    }
+
+    .article-favorite {
+        background-color: fuchsia;
+        margin-left: 90px;
+    }
+
+    .article-text {
+        text-align: center;
+        background-color: darkseagreen;
+        padding: 15px;
+    }
+
+    .article-text h3 {
+        text-align: left;
+        font-size: 25px;
+        margin: 30px 0 10px;
+    }
+
+    .article-text p {
+        text-align: left;
+        font-size: 17px;
+        margin: 21px 0
+    }
+
+    .article-text img {
+        margin: 10px 0;
+        width: 600px;
+    }
+
+    /*コメント一覧*/
+    .comment-list-container {
+        background-color: dodgerblue;
+        width: 1000px;
+        margin: auto auto 10px;
+        border-bottom: 1px solid #000;
+        padding: 20px 20px 10px;
+    }
+
+    .comment-head {
+        display: flex;
+        justify-content: space-between;
+        height: 50px;
+        margin-bottom: 10px;
+    }
+
+    .commetn-report {
+        background-color: bisque;
+        display: flex;
+        justify-content: space-between;
+        width: 130px;
+    }
+
+    .comment-text {
+        padding: 10px;
+    }
+
+    /*コメント投稿*/
+    .comment-post-form {
+        background-color: firebrick;
+        width: 1000px;
+        margin: 45px auto;
+        padding: 20px;
+        width: 1000px;
+        margin: 45px auto;
+        text-align: center
+    }
+
+
+    .comment-post-form textarea {
+        width: 900px;
+        height: 100px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .unregister-comment-container {
+        background-color: darkorange;
+        width: 1000px;
+        margin: 45px auto;
+        padding: 15px;
+        width: 1000px;
+        margin: 45px auto;
+        text-align: center
+    }
+
+    .unregister-comment-container p {
+        margin-bottom: 10px;
+    }
+}
