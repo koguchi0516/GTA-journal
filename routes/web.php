@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+    Route::get('home','Users\HomeController@home');
+    Route::get('mypage','Users\HomeController@mypage');
