@@ -1,6 +1,5 @@
 @extends('layouts.header')
 
-@section('content')
 <section>
     <div class="article-list">
         <a href="#">
@@ -16,4 +15,3 @@
         </div>
     </div>
 </section>
-@endsection

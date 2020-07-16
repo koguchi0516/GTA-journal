@@ -42,7 +42,3 @@
         <a href="setting.html">設定</a><br>
         <a href="#">ログアウト</a><br>
     </div>
-    @yield('content')
-</body>
-
-</html>
