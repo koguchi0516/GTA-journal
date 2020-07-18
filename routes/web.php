@@ -16,11 +16,12 @@ Route::get('/', function () {
 });
 
     Route::get('home','Users\HomeController@home');
-    Route::get('mypage','Users\HomeController@myPage');
+    Route::get('mypage','Users\HomeController@myPage')->middleware('auth');
     Route::get('article-post','Users\HomeController@articlePost');
     Route::get('article','Users\HomeController@article');
     Route::get('recrute-friend','Users\HomeController@recruteFriend');
     Route::get('setting','Users\HomeController@setting');
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// 必要なの確認
+// Route::get('/home', 'HomeController@index')->name('home');
