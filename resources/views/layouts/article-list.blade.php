@@ -1,9 +1,12 @@
 @extends('layouts.header')
 
-<section>
+
+@section('content')
+
+@yield('content-top')
     <div class="article-list">
-        <a href="#">
-            <img src="../img/default-icon.jpeg" alt="">
+        <a href="mypage">
+            <img src="../img/default-icon.jpeg" alt="icon">
         </a>
         <div class="article-supplement">
             <h2>記事タイトル</h2>
@@ -14,4 +17,6 @@
             </div>
         </div>
     </div>
-</section>
+@yield('content-bottom')
+
+@endsection
