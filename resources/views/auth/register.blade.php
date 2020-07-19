@@ -24,7 +24,7 @@
                                 @enderror
                             </div>
                         </div>
-
+<!--
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
@@ -38,6 +38,21 @@
                                 @enderror
                             </div>
                         </div>
+-->
+                        <div class="form-group row">
+                            <label for="user-id" class="col-md-4 col-form-label text-md-right">User Id</label>
+
+                            <div class="col-md-6">
+                                <input id="user-id" type="text" class="form-control @error('user-id') is-invalid @enderror" name="user-id" value="{{ old('user-id') }}" required>
+
+                                @error('user-id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
