@@ -16,10 +16,10 @@ class UpdateUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('email');
             $table->dropColumn('email_verified_at');
-            $table->string('user_id')->unique()->after('name')->comment('表示名');
-            $table->string('icon')->after('password')->comment('トプ画ファイル名');
-            $table->string('psid')->nullable()->after('icon')->comment('PSID');
-            $table->string('profile')->nullable()->after('psid')->comment('自己紹介文');
+            $table->string('user_id',25)->unique()->after('name')->comment('表示名');
+            $table->string('icon',40)->after('password')->comment('トプ画ファイル名');
+            $table->string('psid',20)->nullable()->after('icon')->comment('PSID');
+            $table->string('profile',140)->nullable()->after('psid')->comment('自己紹介文');
         });
     }
 

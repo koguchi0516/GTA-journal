@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h2>ようこそ、{{ Auth::user()->fullname }}さん！</h2>
+<h2>ようこそ、{{ Auth::user()->user_id }}さん！</h2>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
