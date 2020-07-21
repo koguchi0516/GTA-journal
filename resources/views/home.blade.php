@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+@section('content')e
 <h2>ようこそ、{{ Auth::user()->user_id }}さん！</h2>
 <div class="container">
     <div class="row justify-content-center">
