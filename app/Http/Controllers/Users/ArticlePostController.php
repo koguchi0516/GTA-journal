@@ -7,5 +7,5 @@ use App\Http\Controllers\Controller;
 
 class ArticlePostController extends Controller
 {
-    //
+    public function articlePost(Request $request){}
 }
