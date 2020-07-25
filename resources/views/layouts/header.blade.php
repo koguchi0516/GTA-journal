@@ -16,17 +16,18 @@
     <title>GTA journal</title>
 </head>
 
+@guest
 <body>
     <div class="unregistered-header">
         <div class="header-container">
             <a href="home"><h1>GTA journal</h1></a>
             <div class="header-menu">
-                <a href="create.html">ユーザー登録</a>
-                <a href="login.html">ログイン</a>
+                <a href="register">ユーザー登録</a>
+                <a href="login">ログイン</a>
             </div>
         </div>
     </div>
-
+@else
     <div class="register-header">
         <div class="header-container">
             <a href="home"><h1>GTA journal</h1></a>
@@ -36,11 +37,12 @@
             </div>
         </div>
     </div>
+@endguest
 
     <div class="icon-nav">
         <a href="mypage">マイページ</a><br>
         <a href="setting">設定</a><br>
-        <a href="#">ログアウト</a><br>
+        <a href="logout">ログアウト</a><br>
     </div>
     @yield('content')
 </body>

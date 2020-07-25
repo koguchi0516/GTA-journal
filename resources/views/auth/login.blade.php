@@ -10,18 +10,17 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
                         <div class="form-group row">
-                            <label for="user-id" class="col-md-4 col-form-label text-md-right">User ID</label>
-
+                            <label for="user_id" class="col-md-4 col-form-label text-md-right">ユーザID</label>
+                            
                             <div class="col-md-6">
-                                <input id="user-id" type="text" class="form-control @error('user-id') is-invalid @enderror" name="user-id" value="{{ old('user-id') }}" required autofocus>
-
-                                @error('user-id')
+                                <input id="user_id" type="text" class="form-control{{ $errors->has('user_id') ? ' is-invalid' : '' }}" name="user_id" value="{{ old('user_id') }}" required autofocus>
+                               
+                                @if ($errors->has('user_id'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>af
+                                        <strong>{{ $errors->first('user_id') }}</strong>
                                     </span>
-                                @enderror
+                                @endif
                             </div>
                         </div>
 

@@ -12,18 +12,29 @@ class SettingController extends Controller
         return view('users.setting');
     }
     
-    public function settingHandle(){
-        $change_item = Input::get();
+    public function settingHandle(Request $request){
+        $change_item = $request->input('setting-subbmit');
+        
         switch($change_item){
-            case 'icon':
-                $htis->changeIcon();
+            case 'アイコン変更':
+                return view('users.setting',compact('change_item'));
                 break;
-            case 'name':
-                $this->changeName();
+                
+            case '表示名変更':
+                return view('users.setting',compact('change_item'));
+                break;
+                
+            case 'PSID変更':
+                return view('users.setting',compact('change_item'));
+                break;
+                
+            case 'プロフィール変更':
+                return view('users.setting',compact('change_item'));
+                break;
+                
+            case 'パスワード変更':
+                return view('users.setting',compact('change_item'));
+                break;
         }
     }
-    public function changeName(){
-            $data='成功';
-            return view('users.setting',$data);
-        }
 }
