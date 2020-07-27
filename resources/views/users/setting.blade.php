@@ -1,7 +1,9 @@
 @extends('layouts.header')
 
 @section('content')
-<p>{{Auth::user()->psid}}</p>
+@if(isset($test))
+<p>{{$test}}</p>
+@endif
 
 <div class="setting">
 
@@ -11,11 +13,16 @@
             <p>アイコン</p>
         　　@if(isset( $message ) && $message == 'アイコン' )
         　　<p>{{ $message }}を変更しました</p>
-        　　@endif            
+        　　@endif
+        　　@if ($errors->has('newIcon'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('newIcon') }}</strong>
+                </span>
+            @endif
             <div>
-                <img src="{{ Auth::user()->icon }}" alt="">
+                <img src="/user-icons/{{ Auth::user()->icon }}" alt="">
             </div>
-            <input type="file" name="change-icon">
+            <input type="file" name="newIcon">
             <div class="setting-button">
                 <input type="submit" value="アイコン変更" class="setting-button" name="setting-subbmit">
             </div>

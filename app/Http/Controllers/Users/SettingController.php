@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Input;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
@@ -20,6 +21,14 @@ class SettingController extends Controller
         
         switch($change_value){
             case 'アイコン変更':
+                $this -> validate($request,['newIcon'=>'required|file|max:2048|mimes:jpeg,png,jpg']);
+                $new_icon = $request -> file('newIcon');
+                $new_icon_name = Auth::user() -> user_id. '-icon' . '.' .$new_icon -> getClientOriginalExtension();
+                $target_path = public_path('user-icons');
+                $new_icon -> move($target_path,$new_icon_name);
+                
+                $users -> icon = $new_icon_name;
+                $users -> save();
                 $message = 'アイコン';
                 break;
                 

@@ -33,7 +33,7 @@
             <a href="home"><h1>GTA journal</h1></a>
             <div class="header-menu">
                 <a href="article-post">投稿する</a>
-                <img src="../img/default-icon.jpeg" alt="icon">
+                <img src="/user-icons/{{ Auth::user()->icon }}" alt="icon">
             </div>
         </div>
     </div>

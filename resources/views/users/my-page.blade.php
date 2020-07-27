@@ -4,7 +4,7 @@
 <div class="mypage-container">
     <div class="profile-area">
         <div class="user-name">
-            <img src="{{ $data->icon }}" alt="">
+            <img src="/user-icons/{{ Auth::user()->icon }}" alt="">
             <p>{{ $data->name }}</p>
         </div>
         
