@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 /*ホーム画面*/
+Route::get('/home','HomeController@home');
 /*投稿画面*/
 /*記事詳細画面*/
 /*マイーページ*/
