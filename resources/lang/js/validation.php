@@ -153,10 +153,15 @@ return [
       | 読みやすいものと交換するために使用されます。
       |
     */
+    
+    'psid' => ':attribute は3~16文字の半角英数字と"-"または"_"が有効です',
 
     'attributes' => [
         'change-name' => '表示名',
         'change-psid' => 'PSID',
+        'old-password' => '現在のパスワード',
+        'new-password1' => '新しいパスワード',
+        'new-password2' => '確認用パスワード',
         ],
 
 ];

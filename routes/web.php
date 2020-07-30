@@ -17,22 +17,30 @@ Route::get('/', function () {
 
 /*ホーム画面*/
 Route::get('/home','HomeController@home');
+
 /*投稿画面*/
+
 /*記事詳細画面*/
+
 /*マイーページ*/
-    Route::get('/mypage','Users\MyPageController@showMyPage')->middleware('auth');
+Route::get('/mypage','Users\MyPageController@showMyPage')->middleware('auth');
+
 /*フレンド募集画面*/
+Route::get('/recrute-friend','Users\RecruitFriendController@showRecruitFriend');
+Route::post('/recrute-friend','Users\RecruitFriendController@friendMessage');
+
 /*設定画面*/
-    Route::get('/setting','Users\SettingController@showSettingPage')->middleware('auth');
-    Route::post('/setting','Users\SettingController@settingHandle')->middleware('auth');
+Route::get('/setting','Users\SettingController@showSettingPage')->middleware('auth');
+Route::post('/setting','Users\SettingController@settingHandle')->middleware('auth');
+
 /*管理画面*/
-    Route::get('/home','Users\HomeController@home');
-    Route::get('/article-post','Users\HomeController@articlePost');
-    Route::get('/article','Users\HomeController@article');
-    Route::get('/recrute-friend','Users\HomeController@recruteFriend');
-    Route::get('/setting','Users\HomeController@setting');
+Route::get('/home','Users\HomeController@home');
+Route::get('/article-post','Users\HomeController@articlePost');
+Route::get('/article','Users\HomeController@article');
+Route::get('/setting','Users\HomeController@setting');
+
 /*ログアウト*/
-    Route::get('/logout','LogoutController@logout');
+Route::get('/logout','LogoutController@logout');
     
-    Auth::routes();
-    Route::get('/index', 'HomeController@index')->name('home');
+Auth::routes();
+Route::get('/index', 'HomeController@index')->name('home');

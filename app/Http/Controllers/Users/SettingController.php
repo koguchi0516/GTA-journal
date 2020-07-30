@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Input;
 use App\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class SettingController extends Controller
 {
@@ -17,91 +17,96 @@ class SettingController extends Controller
     }
     
     public function settingHandle(Request $request){
-        global $input_data,$users;
         $input_data = $request;
         $change_value = $request->input('setting-subbmit');
         $users = User::find(Auth::user()->id);
         
         switch($change_value){
             case 'アイコン変更':
-                return $this -> changeIcon();
+                $message = $this -> changeIcon( $request,$users );
                 break;
                 
             case '表示名変更':
-                return $this -> changeName();
+                $message = $this -> changeName( $request,$users );
                 break;
                 
             case 'PSID変更':
-                return $this -> changePsid();
+                $message = $this -> changePsid( $request,$users );
                 break;
                 
             case 'プロフィール変更':
-                return $this -> changeProfile();
+                $message = $this -> changeProfile( $request,$users );
                 break;
                 
             case 'パスワード変更':
-                $request->input('password');
-                return $this -> changePassword();
+                $message = $this -> changePassword( $request,$users );
                 break;
         }
+        return view('users.setting',compact('message'));
     }
     
-    public function changeIcon(){
-        global $input_data,$users; //grobalやめてconfig使用
-        $this -> validate($input_data,['newIcon'=>'required|file|max:2048|mimes:jpeg,png,jpg']);
-        $new_icon = $input_data -> file('newIcon');
+    public function changeIcon(Request $request,$users){
+        $this -> validate($request,user::$change_icon_rule);
+        $new_icon = $request -> file('newIcon');
         $new_icon_name = Auth::user() -> user_id. '-icon' . '.' .$new_icon -> getClientOriginalExtension();
         $target_path = public_path('user-icons');
         $new_icon -> move($target_path,$new_icon_name);
-                
+        
         $users -> icon = $new_icon_name;
         $users -> save();
-        $message = 'アイコン';
-        return view('users.setting',compact('message')); //この行重複、親関数作ってまとめる方がいい？
-        // return redirect('/setting'); 変更内容が随時反映されるが$messageを渡せない
+        return $message = var_dump($data = $request->session()->all());
     }
     
-    public function changeName(){
-        global $input_data,$users;
-        $this->validate($input_data,['change-name'=>'required|max:255']);
-        $new_name = $input_data->input('change-name');
+    public function changeName(Request $request,$users){
+        $this->validate($request,user::$change_name_rule);
+        $new_name = $request -> input('change-name');
         $users -> name = $new_name;
         $users -> save();
-        $message = '表示名';
-        return view('users.setting',compact('message'));
+        return $message = '表示名';
     }
     
-    public function changePsid(){
-        global $input_data,$users;
-        $new_psid = $input_data->input('change-psid');
+    public function changePsid(Request $request,$users){
+        $new_psid = $request -> input('change-psid');
         if($new_psid == ''){
             $users -> psid = '';
         }else{
-            $this->validate($input_data,['change-psid'=>'max:20|alpha_dash']);
+            $this->validate($request,user::$change_psid_rule);
             $users -> psid = $new_psid;
         }
         $users ->save();
-        $message = 'PSID';
-        return view('users.setting',compact('message'));
+        return $message = 'PSID';
     }
     
-    public function changeProfile(){
-        global $input_data,$users;
-        $new_profile = $input_data -> input('change-profile');
+    public function changeProfile(Request $request,$users){
+        $new_profile = $request -> input('change-profile');
         if($new_profile == ''){
             $users -> profile = '';
         }else{
-            $this -> validate($input_data,['change-profile'=>'max:255']);
+            $this -> validate($request,user::$change_profile_rule);
             $users -> profile = $new_profile;
         }
         $users -> save();
         $message = 'プロフィール';
-        return view('users.setting',compact('message'));
+        return $message;
     }
     
-    public function changePassword(){
-        global $input_data,$users;
-        return view('users.setting',compact('message'));
+    public function changePassword(Request $request,$users){
+        $old_password = $request -> input('old-password');
+        
+        if(preg_match("/^[a-zA-Z0-9]{3,16}+$/",$old_password)){
+            if(Hash::check($old_password,Auth::user() -> password)){
+                $this -> validate($request,user::$change_password_rule);
+                // $users -> password = Hash::meke($request -> input('new-password1'));
+                // $users -> save();
+                $message = 'パスワード';
+                return $message;
+            }else{
+                $message = ['password-error' => '現在のパスワードが一致しません'];
+                return $message;
+            }
+        }else{
+            $message = ['password-error' => 'パスワードは8文字以上で半角英数字と"-"、"_"が使用できます'];
+            return $message;
+        }
     }
-    
 }

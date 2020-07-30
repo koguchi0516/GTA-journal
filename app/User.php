@@ -6,6 +6,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\Rules\Psid;
+use Illuminate\Support\Facades;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -37,8 +40,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
-    public static $rules = [
-        //
-        ];
+    public static $change_icon_rule = [
+        'newIcon' => 'required|file|max:2048|mimes:jpeg,png,jpg'
+    ];
+        
+    public static $change_name_rule = [
+        'change-name' => 'required|max:255'
+    ];
+        
+    public static $change_psid_rule = [
+        'change-psid' => 'required|between:3,16|alpha_dash'
+    ];
+    
+    public static $change_profile_rule = [
+        'change-profile'=>'max:255'
+    ];
+    
+    public static $change_password_rule = [
+        'new-password1' => 'required|min:8|alpha_num|different:old-password',
+        'new-password2' => 'required|min:8|alpha_num|same:new-password1',
+    ];
 
 }
