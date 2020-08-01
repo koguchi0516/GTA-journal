@@ -14,7 +14,7 @@ class UpdateRecruitingFriendsTable extends Migration
     public function up()
     {
         Schema::table('recruiting_friends', function (Blueprint $table) {
-                // $table->timestamps('expiration_date')->change();
+                $table->string('psid')->after('purpose')->comment('投稿PSID');
         });
     }
 
@@ -26,7 +26,7 @@ class UpdateRecruitingFriendsTable extends Migration
     public function down()
     {
         Schema::table('recruiting_friends', function (Blueprint $table) {
-            // $table->integer('expiration_date')->change();
+            $table->dropColumn('psid');
         });
     }
 }

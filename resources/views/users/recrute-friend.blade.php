@@ -2,8 +2,8 @@
 
 @section('content')
 
-@if(isset($hoge))
-<P>{{ $hoge }}</p>
+@if(isset($test))
+<p>{{ $test }}</p><br>
 @endif
 
 @error('psid')
@@ -18,11 +18,12 @@
     </span>
 @enderror
 
+@auth
 <form class="friend-post-form" action="{{ url('/recrute-friend') }}" method="post">
     @csrf
     <div class="user-name">
         <img src="/user-icons/{{ Auth::user() -> icon }}" alt="">
-        <p>User naem</p>
+        <p>{{ Auth::user() -> name }}</p>
     </div>
     <div class="friend-post-select">
         <div class="">
@@ -53,26 +54,32 @@
     <textarea name="friend-message" id="" placeholder="メッセージ"></textarea>
     <input class="friend-post-button" type="submit" value="投稿">
 </form>
+@endauth
 
-<div class="friend-message-container">
-    <div class="friend-message-head">
-        <div class="user-name">
-            <img src="../img/default-icon.jpeg" alt="">
-            <p>User naem</p>
+@foreach($recruiting_friend as $friend)
+    <div class="friend-message-container">
+        <div class="friend-message-head">
+            <div class="user-name">
+                <img src="user-icons/{{ $friend -> user -> icon }}" alt="">
+                <p>{{ $friend -> user -> name }}</p>
+            </div>
+            <div class="friend-message-report">
+                <p class="post-date">{{ date('m月d日 G時i分',strtotime($friend -> created_at)) }}</p>
+                <p><i class="material-icons">more_horiz</i></p>
+            </div>
         </div>
-        <div class="friend-message-report">
-            <p class="post-date">2xxx/xx/xx</p>
-            <p><i class="material-icons">more_horiz</i></p>
+        <div class="friend-message-data">
+            <p class="friend-message-purpose">{{ $friend -> purpose }}</p>
+            
+            @if(time() < $friend -> expiration_date)
+            <p class="friend-message-psid">PSID : {{ $friend -> psid }}</p>
+            @else
+            <p class="friend-message-psid">PSID : 非表示</p>
+            @endif
+            
         </div>
+        <p>{{ $friend -> friend_message}}</p>
     </div>
-    <div class="friend-message-data">
-        <p class="friend-message-purpose">協力</p>
-        <p class="friend-message-psid">PSID : koguchi-0516</p>
-    </div>
-    <p>でなぜかnain.cssが以前の設定から反映されない
-        →キャッシュが残っていたことが原因。
-        ディベロッパーツールを開きリロード矢印↻で右クリック、
-        ［キャッシュの消去とハード再読み込み］でキャッシュを削除で解決。</p>
-</div>
+@endforeach
 
 @endsection

@@ -10,11 +10,9 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     public function home(){
-        // if(Auth::check){
-        //     $request -> session() -> put(['user_id' => 'Auth::user -> user_id']);
-        // }
         return view('users.home');
     }
+    
     public function myPage(){
         return view('users.my-page');
     }

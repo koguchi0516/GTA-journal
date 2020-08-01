@@ -38,6 +38,6 @@ class LoginController extends Controller
     }
     
     public function username(){
-        return 'user_id';
+        return 'user_code';
     }
 }

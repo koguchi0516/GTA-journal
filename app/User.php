@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\Rules\Psid;
 use Illuminate\Support\Facades;
+use Illuminate\Database\Eloquent\Models;
 
 class User extends Authenticatable
 {
@@ -19,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'user_id', 'password','icon','psid','profile'
+        'name', 'user_code', 'password','icon','psid','profile'
     ];
 
     /**
@@ -39,6 +40,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    
+    /*
+    *リレーション
+    */
+    public function recruitingFriend()
+    {
+        return $this->hasMany('App\Models\RecruitingFriend');
+    }
+    
     
     public static $change_icon_rule = [
         'newIcon' => 'required|file|max:2048|mimes:jpeg,png,jpg'
@@ -60,5 +71,6 @@ class User extends Authenticatable
         'new-password1' => 'required|min:8|alpha_num|different:old-password',
         'new-password2' => 'required|min:8|alpha_num|same:new-password1',
     ];
+
 
 }

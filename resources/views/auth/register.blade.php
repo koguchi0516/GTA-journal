@@ -26,14 +26,14 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="user_id" class="col-md-4 col-form-label text-md-right">ユーザーID</label>
+                            <label for="user_code" class="col-md-4 col-form-label text-md-right">ユーザーID</label>
 
                             <div class="col-md-6">
-                                <input id="user_id" type="text" class="form-control @error('user_id') is-invalid @enderror" name="user_id" value="{{ old('user_id') }}" required>
+                                <input id="user_code" type="text" class="form-control @error('user_code') is-invalid @enderror" name="user_code" value="{{ old('user_code') }}" required>
 
-                                @if ($errors->has('user_id'))
+                                @if ($errors->has('user_code'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('user_id') }}</strong>
+                                        <strong>{{ $errors->first('user_code') }}</strong>
                                     </span>
                                 @endif
                             </div>

@@ -2,10 +2,6 @@
 
 @section('content')
 
-@if(isset($message))
-<p>{{$message}}</p>
-@endif
-
 <div class="setting">
     <form action="{{ url('/setting') }}" class="change-icon-form" method="post" enctype="multipart/form-data">
         @csrf

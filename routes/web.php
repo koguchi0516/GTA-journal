@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route::get('','');
+// Route::post('','');
+
 /*ホーム画面*/
 Route::get('/home','HomeController@home');
 

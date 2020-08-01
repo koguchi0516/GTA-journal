@@ -19,7 +19,7 @@ class SettingController extends Controller
     public function settingHandle(Request $request){
         $input_data = $request;
         $change_value = $request->input('setting-subbmit');
-        $users = User::find(Auth::user()->id);
+        $users = User::find(Auth::user() -> id);
         
         switch($change_value){
             case 'アイコン変更':
@@ -48,13 +48,13 @@ class SettingController extends Controller
     public function changeIcon(Request $request,$users){
         $this -> validate($request,user::$change_icon_rule);
         $new_icon = $request -> file('newIcon');
-        $new_icon_name = Auth::user() -> user_id. '-icon' . '.' .$new_icon -> getClientOriginalExtension();
+        $new_icon_name = Auth::user() -> user_code. '-icon' . '.' .$new_icon -> getClientOriginalExtension();
         $target_path = public_path('user-icons');
         $new_icon -> move($target_path,$new_icon_name);
         
         $users -> icon = $new_icon_name;
         $users -> save();
-        return $message = var_dump($data = $request->session()->all());
+        return $message = 'アイコン';
     }
     
     public function changeName(Request $request,$users){
@@ -96,8 +96,6 @@ class SettingController extends Controller
         if(preg_match("/^[a-zA-Z0-9]{3,16}+$/",$old_password)){
             if(Hash::check($old_password,Auth::user() -> password)){
                 $this -> validate($request,user::$change_password_rule);
-                // $users -> password = Hash::meke($request -> input('new-password1'));
-                // $users -> save();
                 $message = 'パスワード';
                 return $message;
             }else{

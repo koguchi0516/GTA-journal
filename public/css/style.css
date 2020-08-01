@@ -349,9 +349,13 @@
     .friend-message-report {
         display: flex;
         justify-content: space-between;
-        width: 130px;
+        width: 150px;
         background-color: cadetblue;
         line-height: 50px;
+    }
+    
+    .post-date{
+        font-size:13px;
     }
 
 
@@ -636,4 +640,41 @@
     .unregister-comment-container p {
         margin-bottom: 10px;
     }
+    .paginationWrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 38px;
+    margin-bottom: 40px;
+}
+
+.paginationWrap ul.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+.paginationWrap ul.pagination li {
+  display: inline;
+  margin-right: 4px;
+}
+
+.paginationWrap ul.pagination li a {
+    color: #2f3859;
+    padding: 8px 14px;
+    text-decoration: none;
+}
+
+.paginationWrap ul.pagination li a.active {
+    background-color: #4b90f6;
+    color: white;
+    border-radius: 40px;
+    width: 38px;
+    height: 38px;
+}
+
+.paginationWrap ul.pagination li a:hover:not(.active) {
+    background-color: #e1e7f0;
+    border-radius: 40px;
+}
+
 }
