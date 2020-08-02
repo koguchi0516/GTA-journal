@@ -1,6 +1,5 @@
 @extends('layouts.header')
 
-
 @section('content')
 
 @yield('content-top')

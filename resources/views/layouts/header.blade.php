@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/style-mobile.css">
     <!--js-->
-    <script src="../script/script.js"></script>
+    <script src="js/script.js"></script>
     <title>GTA journal</title>
 </head>
 

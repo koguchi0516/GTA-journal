@@ -2,10 +2,6 @@
 
 @section('content')
 
-@if(isset($test))
-<p>{{ $test }}</p><br>
-@endif
-
 @error('psid')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong><br>
@@ -56,18 +52,29 @@
 </form>
 @endauth
 
+<span hidden>{{ $i = 1 }}</span>
 @foreach($recruiting_friend as $friend)
+<span hidden id="target-content-keyId-{{ $i }}">{{ $friend -> id }}</span>
     <div class="friend-message-container">
         <div class="friend-message-head">
             <div class="user-name">
-                <img src="user-icons/{{ $friend -> user -> icon }}" alt="">
+                <img src="user-icons/{{ $friend -> user -> icon }}" alt="ユーザーアイコン">
                 <p>{{ $friend -> user -> name }}</p>
             </div>
-            <div class="friend-message-report">
-                <p class="post-date">{{ date('m月d日 G時i分',strtotime($friend -> created_at)) }}</p>
-                <p><i class="material-icons">more_horiz</i></p>
+
+            <div class="report-area">
+                <div class="friend-message-report">
+                    <p class="post-date">{{ date('m月d日 G時i分',strtotime($friend -> created_at)) }}</p>
+                    <p id="report-icon">
+                        <i class="material-icons">more_horiz</i>
+                    </p>
+                </div>
+                <div class="openBtn" id="keyId-{{ $i }}" onclick="openBtn(this)">
+                    <p>報告する</p>
+                </div>
             </div>
         </div>
+
         <div class="friend-message-data">
             <p class="friend-message-purpose">{{ $friend -> purpose }}</p>
             
@@ -80,6 +87,36 @@
         </div>
         <p>{{ $friend -> friend_message}}</p>
     </div>
+    <span hidden>{{ $i++ }}</span>
 @endforeach
+
+<div id="modal" class="modal">
+    <form action="#" method="post" class="modal-content">
+        <div class="modal-content-header">
+            <h3>報告内容を選択</h3>
+            <i class="material-icons" id="closeBtn">clear</i>
+        </div>
+        <div class="radio-contain">
+            <label class="check_lb">
+                <input type="radio" name="report-content" value="法令違反">法令違反（著作権侵害、プライバシー侵害、名誉棄損等）
+            </label>
+            <label class="check_lb">
+                <input type="radio" name="report-content" value="社会的に不適切">社会的に不適切（公的風俗に反する）
+            </label>
+            <label class="check_lb">
+                <input type="radio" name="report-content" value="宣伝行為">宣伝行為
+            </label>
+            <label class="check_lb">
+                <input type="radio" name="report-content" value="スパムの疑い">スパムの疑い
+            </label>
+            <label class="check_lb">
+                <input type="radio" name="report-content" value="その他">それ以外でGTA journalにふさわしくない（ガイドライン違反）
+            </label>
+        </div>
+        <input type="hidden" name="repoeter_id" value="{{ Auth::user() -> user_code }}">
+        <input type="hidden" name="target_content_id" id="target_content_id" value="">
+        <input type="submit" value="送信">
+    </form>
+</div>
 
 @endsection
