@@ -9,7 +9,7 @@
         </div>
         
         <div class="id-display">
-            <p>User Id : {{ $data->user_id }}</p>
+            <p>User Id : {{ $data->user_code }}</p>
             @if(!$data->psid)
             <p>PSID : 未登録</p>
             @else
@@ -34,6 +34,9 @@
     </div>
 
     <section>
+        <div class="my-articles-area">
+            <p>あなたさんの投稿</p>
+        </div>
 @endsection
 
 @section('content-bottom')

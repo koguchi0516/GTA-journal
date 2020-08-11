@@ -23,12 +23,13 @@ class UpdateUsersTable extends Migration
             $table->string('profile')->nullable()->after('psid')->comment('自己紹介文');
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *
      * @return void
      */
+     
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {

@@ -13,7 +13,7 @@ class RecruitingFriend extends Model
         return $this->belongsTo('App\User');
     }
 
-    public static $recruite_friend_rule = [
+    public static $recruit_friend_rule = [
         'psid' => 'between:3,16|alpha_dash',
         'friend-message' => 'required|max:500',
     ];

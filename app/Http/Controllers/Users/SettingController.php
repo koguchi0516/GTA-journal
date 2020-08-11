@@ -96,6 +96,9 @@ class SettingController extends Controller
         if(preg_match("/^[a-zA-Z0-9]{3,16}+$/",$old_password)){
             if(Hash::check($old_password,Auth::user() -> password)){
                 $this -> validate($request,user::$change_password_rule);
+                $new_password = $request -> input('new-password1');
+                $users -> password = password_hash($new_password,PASSWORD_BCRYPT);
+                $users -> save();
                 $message = 'パスワード';
                 return $message;
             }else{

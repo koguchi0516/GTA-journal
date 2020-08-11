@@ -17,10 +17,6 @@ class HomeController extends Controller
         return view('users.my-page');
     }
     
-    public function articlePost(){
-        return view('users.article-post');
-    }
-    
     public function article(){
         return view('users.article');
     }

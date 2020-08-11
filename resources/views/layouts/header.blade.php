@@ -22,8 +22,8 @@
         <div class="header-container">
             <a href="home"><h1>GTA journal</h1></a>
             <div class="header-menu">
-                <a href="register">ユーザー登録</a>
-                <a href="login">ログイン</a>
+                <a href="register" class="link-btn">ユーザー登録</a>
+                <a href="login" class="link-btn">ログイン</a>
             </div>
         </div>
     </div>
@@ -32,17 +32,19 @@
         <div class="header-container">
             <a href="home"><h1>GTA journal</h1></a>
             <div class="header-menu">
-                <a href="article-post">投稿する</a>
-                <img src="/user-icons/{{ Auth::user()->icon }}" alt="icon">
+                <a href="/article-post" class="link-btn">投稿する</a>
+                <a href="{{url('/mypage')}}" class="head-img-linl"><img src="/user-icons/{{ Auth::user()->icon }}" alt="icon"></a>
+                <i class="material-icons open-menu" id="open-menu" onclick="menuOpen()">arrow_drop_down</i>
             </div>
         </div>
     </div>
 @endguest
 
-    <div class="icon-nav">
+    <div class="icon-nav" id="menu-accordion">
         <a href="mypage">マイページ</a><br>
         <a href="setting">設定</a><br>
         <a href="logout">ログアウト</a><br>
+        <input type="hidden" id="menu_click" value="Open">
     </div>
     @yield('content')
 </body>

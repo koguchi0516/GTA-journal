@@ -2,6 +2,16 @@
 
 @section('content')
 
+@if(isset($test))
+<p>{{ $test }}</p><br>
+@endif
+
+@error('report_content')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong><br>
+    </span>
+@enderror
+
 @error('psid')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong><br>
@@ -15,8 +25,8 @@
 @enderror
 
 @auth
-<form class="friend-post-form" action="{{ url('/recrute-friend') }}" method="post">
-    @csrf
+<form class="friend-post-form" action="{{ url('/recrut-friend') }}" method="post">
+    {{ csrf_field() }}
     <div class="user-name">
         <img src="/user-icons/{{ Auth::user() -> icon }}" alt="">
         <p>{{ Auth::user() -> name }}</p>
@@ -52,7 +62,7 @@
 </form>
 @endauth
 
-<span hidden>{{ $i = 1 }}</span>
+@php $i=1; @endphp
 @foreach($recruiting_friend as $friend)
 <span hidden id="target-content-keyId-{{ $i }}">{{ $friend -> id }}</span>
     <div class="friend-message-container">
@@ -87,34 +97,35 @@
         </div>
         <p>{{ $friend -> friend_message}}</p>
     </div>
-    <span hidden>{{ $i++ }}</span>
+    @php $i++; @endphp
 @endforeach
 
 <div id="modal" class="modal">
-    <form action="#" method="post" class="modal-content">
+    <form action="{{ url('/report') }}" method="post" class="modal-content">
+        {{ csrf_field() }}
         <div class="modal-content-header">
             <h3>報告内容を選択</h3>
             <i class="material-icons" id="closeBtn">clear</i>
         </div>
         <div class="radio-contain">
             <label class="check_lb">
-                <input type="radio" name="report-content" value="法令違反">法令違反（著作権侵害、プライバシー侵害、名誉棄損等）
+                <input type="radio" name="report_content" value="1">法令違反（著作権侵害、プライバシー侵害、名誉棄損等）
             </label>
             <label class="check_lb">
-                <input type="radio" name="report-content" value="社会的に不適切">社会的に不適切（公的風俗に反する）
+                <input type="radio" name="report_content" value="2">社会的に不適切（公的風俗に反する）
             </label>
             <label class="check_lb">
-                <input type="radio" name="report-content" value="宣伝行為">宣伝行為
+                <input type="radio" name="report_content" value="3">宣伝行為
             </label>
             <label class="check_lb">
-                <input type="radio" name="report-content" value="スパムの疑い">スパムの疑い
+                <input type="radio" name="report_content" value="4">スパムの疑い
             </label>
             <label class="check_lb">
-                <input type="radio" name="report-content" value="その他">それ以外でGTA journalにふさわしくない（ガイドライン違反）
+                <input type="radio" name="report_content" value="5">それ以外でGTA journalにふさわしくない（ガイドライン違反）
             </label>
         </div>
-        <input type="hidden" name="repoeter_id" value="{{ Auth::user() -> user_code }}">
         <input type="hidden" name="target_content_id" id="target_content_id" value="">
+        <input type="hidden" name="content_type" value="3">
         <input type="submit" value="送信">
     </form>
 </div>

@@ -3,7 +3,7 @@
 @section('content-top')
 <div class="main-contents">
     <nav>
-        <a href="recrute-friend">フレンド募集</a>
+        <a href="recrut-friend">フレンド募集</a>
         <div class="line"></div>
         <a href="#">最新記事</a><br>
         <a href="#">今種の人気記事</a><br>

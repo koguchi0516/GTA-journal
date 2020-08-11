@@ -11,14 +11,14 @@ use App\User;
 
 class RecruitFriendController extends Controller
 {
-    public function showRecruitFriend(){
+    public function recrutShow(){
         $recruiting_friend = RecruitingFriend::all()->sortByDesc("created_at");
-        return view('users.recrute-friend',compact('recruiting_friend'));
+        return view('users.recrut-friend',compact('recruiting_friend'));
     }
     
-    public function friendMessage(Request $request){
+    public function recrutMessage(Request $request){
         $timestamp = time();
-        $this -> validate($request,RecruitingFriend::$recruite_friend_rule);
+        $this -> validate($request,RecruitingFriend::$recruit_friend_rule);
         
         $user_id = Auth::user() -> id;
         $purpose = $request -> input('purpose');
@@ -36,8 +36,6 @@ class RecruitFriendController extends Controller
         $recruiting_friend -> save();
         
         $recruiting_friend = RecruitingFriend::all()->sortByDesc("created_at");
-        return view('users.recrute-friend',compact('recruiting_friend'));
+        return view('users.recrut-friend',compact('recruiting_friend'));
     }
-    
-    public function messageDisplay(Request $request){}
 }

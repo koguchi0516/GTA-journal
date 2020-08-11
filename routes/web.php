@@ -15,9 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('','');
-// Route::post('','');
-
 /*ホーム画面*/
 Route::get('/home','HomeController@home');
 
@@ -29,8 +26,8 @@ Route::get('/home','HomeController@home');
 Route::get('/mypage','Users\MyPageController@showMyPage')->middleware('auth');
 
 /*フレンド募集画面*/
-Route::get('/recrute-friend','Users\RecruitFriendController@showRecruitFriend');
-Route::post('/recrute-friend','Users\RecruitFriendController@friendMessage');
+Route::get('/recrut-friend','Users\RecruitFriendController@recrutShow');
+Route::post('/recrut-friend','Users\RecruitFriendController@recrutMessage');
 
 /*設定画面*/
 Route::get('/setting','Users\SettingController@showSettingPage')->middleware('auth');
@@ -38,12 +35,18 @@ Route::post('/setting','Users\SettingController@settingHandle')->middleware('aut
 
 /*管理画面*/
 Route::get('/home','Users\HomeController@home');
-Route::get('/article-post','Users\HomeController@articlePost');
 Route::get('/article','Users\HomeController@article');
 Route::get('/setting','Users\HomeController@setting');
 
+/*記事投稿画面*/
+Route::get('/article-post','Users\ArticlePostController@showArticlePost');
+Route::post('/article-post','Users\ArticlePostController@articlePost');
+
+/*報告*/
+Route::post('/report','AdminController@report')->name('report.post');
+
 /*ログアウト*/
-Route::get('/logout','LogoutController@logout');
-    
+Route::get('/logout','LogoutController@logout')->name('logout');
+
 Auth::routes();
 Route::get('/index', 'HomeController@index')->name('home');

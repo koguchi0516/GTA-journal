@@ -1,18 +1,34 @@
 @extends('layouts.header')
 
 @section('content')
-<form class="article-post-form" action="#" method="post" name="" enctype="multipart/form-data">
+
+@error('title')
+<p>{{ $message }}</p>
+@enderror
+
+@for($i=0 ; $i <= 100 ; $i++)
+@error('post-'.$i)
+<p>{{ $message }}</p>
+@enderror
+@endfor
+
+@if(isset($info))
+<p>{{ $info }}</p>
+@endif
+
+<form class="article-post-form" action="/article-post" method="post" name="article-post" enctype="multipart/form-data">
+    {{ csrf_field() }}
     <div class="add-container">
         <div class="add-article-parts">
-            <div class="add-h3-tag-container">
+            <div class="add-h3-tag-container" id="addH3" onclick="addText(this)">
                 <p>見出し</p>
                 <i class="material-icons">add_circle_outline</i>
             </div>
-            <div class="add-p-tag-container">
+            <div class="add-p-tag-container" id="addP" onclick="addText(this)">
                 <p>本文</p>
                 <i class="material-icons">add_circle_outline</i>
             </div>
-            <div class="add-img-tag-container">
+            <div class="add-img-tag-container" id="addImg" onclick="addText(this)">
                 <p>画像</p>
                 <i class="material-icons">add_circle_outline</i>
             </div>
@@ -31,26 +47,8 @@
         </div>
     </div>
 
-    <div class="text-contents">
-        <input class="title text" name="title" type="text" placeholder="記事タイトル">
-        <div class="h3-tag-container">
-            <input class="h3-tag text" name="h3-tag" type="text" placeholder="見出し">
-            <div class="delete-icon delete-h3-tag">
-                <p><i class="material-icons">remove_circle_outline</i></p>
-            </div>
-        </div>
-        <div class="p-tag-container">
-            <textarea class="p-tag" name="p-tag" placeholder="本文"></textarea>
-            <div class="delete-icon delete-p-tag">
-                <p><i class="material-icons">remove_circle_outline</i></p>
-            </div>
-        </div>
-        <div class="img-tag-container">
-            <input type="file" name="img-tag">
-            <div class="delete-icon delete-img-tag">
-                <p><i class="material-icons">remove_circle_outline</i></p>
-            </div>
-        </div>
+    <div class="text-contents" id="text-contents">
+        <input class="title text" name="title" type="text" placeholder="記事タイトル" value="{{ old('title') }}">
     </div>
 </form>
 @endsection
