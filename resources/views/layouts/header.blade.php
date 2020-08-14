@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/style-mobile.css">
     <!--js-->
     <script src="js/script.js"></script>
+    @yield('script')
     <title>GTA journal</title>
 </head>
 

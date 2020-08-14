@@ -22,24 +22,24 @@ class SettingController extends Controller
         $users = User::find(Auth::user() -> id);
         
         switch($change_value){
-            case 'アイコン変更':
-                $message = $this -> changeIcon( $request,$users );
+            case 'アイコン':
+                $this -> changeIcon( $request,$users );
                 break;
                 
-            case '表示名変更':
-                $message = $this -> changeName( $request,$users );
+            case '表示名':
+                $this -> changeName( $request,$users );
                 break;
                 
-            case 'PSID変更':
-                $message = $this -> changePsid( $request,$users );
+            case 'PSID':
+                $this -> changePsid( $request,$users );
                 break;
                 
-            case 'プロフィール変更':
-                $message = $this -> changeProfile( $request,$users );
+            case 'プロフィール':
+                $this -> changeProfile( $request,$users );
                 break;
                 
-            case 'パスワード変更':
-                $message = $this -> changePassword( $request,$users );
+            case 'パスワード':
+                $this -> changePassword( $request,$users );
                 break;
         }
         return view('users.setting',compact('message'));
@@ -54,7 +54,7 @@ class SettingController extends Controller
         
         $users -> icon = $new_icon_name;
         $users -> save();
-        return $message = 'アイコン';
+        $request -> Session() -> flash('info','アイコンを変更しました');
     }
     
     public function changeName(Request $request,$users){
@@ -62,7 +62,7 @@ class SettingController extends Controller
         $new_name = $request -> input('change-name');
         $users -> name = $new_name;
         $users -> save();
-        return $message = '表示名';
+        $request -> Session() -> flash('info','表示名を変更しました');
     }
     
     public function changePsid(Request $request,$users){
@@ -74,7 +74,7 @@ class SettingController extends Controller
             $users -> psid = $new_psid;
         }
         $users ->save();
-        return $message = 'PSID';
+        $request -> Session() -> flash('info','PSIDを変更しました');
     }
     
     public function changeProfile(Request $request,$users){
@@ -86,8 +86,7 @@ class SettingController extends Controller
             $users -> profile = $new_profile;
         }
         $users -> save();
-        $message = 'プロフィール';
-        return $message;
+        $request -> Session() -> flash('info','プロフィールを変更しました');
     }
     
     public function changePassword(Request $request,$users){
@@ -99,15 +98,12 @@ class SettingController extends Controller
                 $new_password = $request -> input('new-password1');
                 $users -> password = password_hash($new_password,PASSWORD_BCRYPT);
                 $users -> save();
-                $message = 'パスワード';
-                return $message;
+                $request -> Session() -> flash('info','パスワードを変更しました');
             }else{
-                $message = ['password-error' => '現在のパスワードが一致しません'];
-                return $message;
+                $request -> Session() -> flash('info','現在のパスワードが一致しません');
             }
         }else{
-            $message = ['password-error' => 'パスワードは8文字以上で半角英数字と"-"、"_"が使用できます'];
-            return $message;
+            $request -> Session() -> flash('info','パスワードは8文字以上で半角英数字と"-"、"_"が使用できます');
         }
     }
 }

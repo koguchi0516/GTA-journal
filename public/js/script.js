@@ -1,5 +1,23 @@
-var idCounter = 0;
-// if (idCounter == '') idCounter = 1;
+var idCounter = 0,
+    lastPostNum;
+    
+window.onload = function (){
+    var closeBtn = document.getElementById('closeBtn'),
+        reportIcon = document.getElementById('report-icon'),
+        modal = document.getElementById('modal');
+
+    lastPostNum = document.getElementById('last-post-num').value;
+    if(!lastPostNum == '') idCounter = lastPostNum++;
+
+    closeBtn.addEventListener('click', function () {
+    modal.style.display = 'none';
+    })
+    window.addEventListener('click', function (e) {
+        if (e.target == modal) {
+            modal.style.display = 'none';
+        }
+    })
+}
 
 function addText(ele) {
     if (idCounter > 99) exit;
@@ -24,6 +42,7 @@ function addText(ele) {
     childDiv.setAttribute('onclick', 'postDelete(this)');
     inputHidden.setAttribute('name', 'type[]');
     inputImg.setAttribute('type', 'file');
+    inputImg.setAttribute('class', 'post-img')
     inputImg.setAttribute('name', `post-${idCounter}`);
     postNum.setAttribute('type', 'hidden');
     postNum.setAttribute('name', 'post-num[]');
@@ -63,7 +82,9 @@ function addText(ele) {
     childDiv.appendChild(iconP);
     parentDiv.appendChild(childDiv);
     textContents.appendChild(parentDiv);
+    console.log(idCounter);
     idCounter++;
+    document.getElementById('last-post-num').value = idCounter;
 }
 
 function postDelete(ele) {
@@ -71,22 +92,6 @@ function postDelete(ele) {
         textContents = document.getElementById('text-contents'),
         deleteItem = document.getElementById(`post-item-${deleteNum}`);
     textContents.removeChild(deleteItem);
-}
-
-window.onload = function (){
-    var closeBtn = document.getElementById('closeBtn');
-    var reportIcon = document.getElementById('report-icon');
-    var modal = document.getElementById('modal');
-    
-    closeBtn.addEventListener('click', function () {
-    modal.style.display = 'none';
-    })
-
-    window.addEventListener('click', function (e) {
-        if (e.target == modal) {
-            modal.style.display = 'none';
-        }
-    })
 }
 
 function openBtn(ele){

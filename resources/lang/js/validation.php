@@ -162,6 +162,7 @@ return [
         'old-password' => '現在のパスワード',
         'new-password1' => '新しいパスワード',
         'new-password2' => '確認用パスワード',
+        'title' => 'タイトル',
         ],
 
 ];

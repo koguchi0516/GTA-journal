@@ -17,17 +17,28 @@ class ArticlePostController extends Controller
         }
         
     public function articlePost(Request $request){
-        $type = $request -> input('type');
-        if(!isset($type)){ 
-            $info = 'タイトルだけでは投稿できません';
-            return view('users.article-post',compact('info'));
+        if($request -> input('all-clear') !== null){
+            $request -> Session() -> forget('post_num');
+            $request -> Session() -> forget('post_type');
+            return view('users.article-post');
         }
         
+        $request -> Session() -> forget('post_num');
+        $request -> Session() -> forget('post_type');
+        $request -> Session() -> flash('last_post_num' , $request -> input('last-post-num'));
+        $post_type = $request -> input('type');
+        if(!isset($post_type)){ 
+            $request -> Session() -> flash('info' , 'タイトルだけでは投稿できません');
+            return view('users.article-post');
+        }
+        
+        $post_num = $request -> input('post-num');
+        $request -> Session() -> put('post_num',$post_num);
+        $request -> Session() -> put('post_type',$post_type);
         $this -> validate($request,ArticleTitle::$article_post_rule);
         $title = $request -> input('title');
         $category = $request -> input('category');
-        $post_num = $request -> input('post-num');
-        $count = count($type);
+        $count = count($post_type);
         
         for($i = 0 ; $i < $count ; $i++){
             $post_rule = ['post-'.$post_num[$i] => 'required'];
@@ -57,7 +68,7 @@ class ArticlePostController extends Controller
         for($i = 0 ; $i < $count ; $i++){
             $data['i'] = $i;
             
-            switch($type[$i]){
+            switch($post_type[$i]){
                 case 'h3':
                     $this -> h3Post($data);
                     break;
@@ -71,8 +82,10 @@ class ArticlePostController extends Controller
                     break;
             }
         }
-            $info = '投稿しました';
-            return view('users.article-post',compact('info'));
+            $request -> Session() -> forget('post_num');
+            $request -> Session() -> forget('post_type');
+            $request -> Session() -> flash('info','投稿しました');
+            return view('users.article-post');
     }
     
     public function h3Post($data){
