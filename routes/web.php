@@ -16,12 +16,12 @@ Route::get('/', function () {
 });
 
 /*ホーム画面*/
-Route::get('/home','HomeController@home');
+Route::get('/home','Users\HomeController@home') -> name('home');
 
 /*記事詳細画面*/
 
 /*マイーページ*/
-Route::get('/mypage','Users\MyPageController@showMyPage')->middleware('auth');
+Route::get('/mypage/{user_id}','Users\MyPageController@showMyPage')->middleware('auth');
 
 /*フレンド募集画面*/
 Route::get('/recrut-friend','Users\RecruitFriendController@recrutShow');
@@ -31,10 +31,10 @@ Route::post('/recrut-friend','Users\RecruitFriendController@recrutMessage');
 Route::get('/setting','Users\SettingController@showSettingPage')->middleware('auth');
 Route::post('/setting','Users\SettingController@settingHandle')->middleware('auth');
 
-/*管理画面*/
-Route::get('/home','Users\HomeController@home');
-Route::get('/article','Users\HomeController@article');
-Route::get('/setting','Users\HomeController@setting');
+/*記事詳細画*/
+Route::get('/article/{article_title_id}','Users\ArticleTextController@showArticle');
+Route::post('/article/{article_title_id}','Users\ArticleTextController@toComment');
+Route::get('/favo/{article_title_id}','Users\ArticleTextController@favoArticle');
 
 /*記事投稿画面*/
 Route::get('/article-post','Users\ArticlePostController@showArticlePost');

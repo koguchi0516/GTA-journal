@@ -35,11 +35,11 @@
         <div class="">
             <p>目的</p>
             <select name="purpose" id="">
-                <option value="フレンド募集">フレンド募集</option>
-                <option value="協力">協力</option>
-                <option value="対戦">対戦</option>
-                <option value="強盗">強盗</option>
-                <option value="カジノ">カジノ</option>
+                <option value="1">フレンド募集</option>
+                <option value="2">協力</option>
+                <option value="3">対戦</option>
+                <option value="4">強盗</option>
+                <option value="5">カジノ</option>
             </select>
         </div>
         <div class="">
@@ -57,7 +57,7 @@
             </select>
         </div>
     </div>
-    <textarea name="friend-message" id="" placeholder="メッセージ"></textarea>
+    <textarea name="friend-message" placeholder="メッセージ"></textarea>
     <input class="friend-post-button" type="submit" value="投稿">
 </form>
 @endauth
@@ -86,8 +86,8 @@
         </div>
 
         <div class="friend-message-data">
-            <p class="friend-message-purpose">{{ $friend -> purpose }}</p>
-            
+            <p class="friend-message-purpose">{{ $friend -> purpose -> purpose_name  }}</p>
+            <p>test</p>
             @if(time() < $friend -> expiration_date)
             <p class="friend-message-psid">PSID : {{ $friend -> psid }}</p>
             @else

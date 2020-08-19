@@ -163,6 +163,7 @@ return [
         'new-password1' => '新しいパスワード',
         'new-password2' => '確認用パスワード',
         'title' => 'タイトル',
+        'comment-post' => 'コメント内容',
         ],
 
 ];

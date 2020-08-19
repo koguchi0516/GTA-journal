@@ -8,11 +8,11 @@
     <!--google-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--css-->
-    <link rel="stylesheet" href="css/style-reset.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/style-mobile.css">
+    <link rel="stylesheet" href="{{ asset('css/style-reset.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style-mobile.css') }}">
     <!--js-->
-    <script src="js/script.js"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
     @yield('script')
     <title>GTA journal</title>
 </head>
@@ -21,7 +21,9 @@
 <body>
     <div class="unregistered-header">
         <div class="header-container">
-            <a href="home"><h1>GTA journal</h1></a>
+            <a href="/home">
+                <h1>GTA journal</h1>
+            </a>
             <div class="header-menu">
                 <a href="register" class="link-btn">ユーザー登録</a>
                 <a href="login" class="link-btn">ログイン</a>
@@ -31,23 +33,27 @@
 @else
     <div class="register-header">
         <div class="header-container">
-            <a href="home"><h1>GTA journal</h1></a>
+            <a href="/home">
+                <h1>GTA journal</h1>
+            </a>
             <div class="header-menu">
                 <a href="/article-post" class="link-btn">投稿する</a>
-                <a href="{{url('/mypage')}}" class="head-img-linl"><img src="/user-icons/{{ Auth::user()->icon }}" alt="icon"></a>
+                <a href="/mypage/{{ Auth::user() -> id }}" class="head-img-linl">
+                    <img src="/user-icons/{{ Auth::user() -> icon }}" alt="icon">
+                </a>
                 <i class="material-icons open-menu" id="open-menu" onclick="menuOpen()">arrow_drop_down</i>
             </div>
         </div>
     </div>
-@endguest
-
     <div class="icon-nav" id="menu-accordion">
-        <a href="mypage">マイページ</a><br>
-        <a href="setting">設定</a><br>
-        <a href="logout">ログアウト</a><br>
+        <a href="/mypage/{{ Auth::user() -> id }}">マイページ</a><br>
+        <a href="/setting">設定</a><br>
+        <a href="/logout">ログアウト</a><br>
         <input type="hidden" id="menu_click" value="Open">
     </div>
-    @yield('content')
+@endguest
+    
+@yield('content')
 </body>
 
 </html>

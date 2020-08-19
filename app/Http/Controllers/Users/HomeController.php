@@ -13,19 +13,4 @@ class HomeController extends Controller
         return view('users.home');
     }
     
-    public function myPage(){
-        return view('users.my-page');
-    }
-    
-    public function article(){
-        return view('users.article');
-    }
-    
-    public function recruteFriend(){
-        return view('users.recrute-friend');
-    }
-    
-    public function setting(){
-        return view('users.setting');
-    }
 }

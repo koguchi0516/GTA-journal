@@ -1,6 +1,6 @@
-@extends('layouts.article-list')
+@extends('layouts.header')
 
-@section('content-top')
+@section('content')
 <div class="main-contents">
     <nav>
         <a href="recrut-friend">フレンド募集</a>
@@ -14,9 +14,10 @@
             <input class="search-window" type="text" placeholder="ユーザーID"><br>
             <input class="button" type="submit" value="検索">
         </form>
+        
         <form action="category" method="post">
             <p>カテゴリ検索</p>
-            <select class="search-window" name="category" id="">
+            <select class="search-window" name="category">
                 <option value="1">ストーリー</option>
                 <option value="2">オンライン</option>
                 <option value="3">乗り物</option>
@@ -27,9 +28,7 @@
         </form>
     </nav>
     <section>
-@endsection
-
-@section('content-bottom')
+        
     </section>
 </div>
 @endsection

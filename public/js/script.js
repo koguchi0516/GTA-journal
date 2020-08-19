@@ -4,19 +4,22 @@ var idCounter = 0,
 window.onload = function (){
     var closeBtn = document.getElementById('closeBtn'),
         reportIcon = document.getElementById('report-icon'),
-        modal = document.getElementById('modal');
-
-    lastPostNum = document.getElementById('last-post-num').value;
-    if(!lastPostNum == '') idCounter = lastPostNum++;
+        modal = document.getElementById('modal'),
+        menu = document.getElementById('menu-accordion');
 
     closeBtn.addEventListener('click', function () {
     modal.style.display = 'none';
     })
+    
     window.addEventListener('click', function (e) {
         if (e.target == modal) {
             modal.style.display = 'none';
         }
     })
+    
+    lastPostNum = document.getElementById('last-post-num').value;
+    if(!lastPostNum == '') idCounter = lastPostNum++;
+    // 一番下に記載、フレンド申請の報告のモーダルが閉じなくなる
 }
 
 function addText(ele) {
@@ -95,9 +98,9 @@ function postDelete(ele) {
 }
 
 function openBtn(ele){
-    var keyId = ele.id;
-    var targetContentId = document.getElementById('target-content-' + keyId).textContent;
-    var postTargetContentId = document.getElementById('target_content_id');
+    var keyId = ele.id,
+        targetContentId = document.getElementById('target-content-' + keyId).textContent,
+        postTargetContentId = document.getElementById('target_content_id');
     postTargetContentId.value = targetContentId;
     
     var modal = document.getElementById('modal');
@@ -105,13 +108,13 @@ function openBtn(ele){
 }
 
 function menuOpen() {
-    if (document.getElementById("menu_click").value == "Close") {
-        document.getElementById("menu-accordion").style.display = "none";
-        document.getElementById("menu_click").value = "Open"
+    if (document.getElementById('menu_click').value == 'Close') {
+        document.getElementById('menu-accordion').style.display = 'none';
+        document.getElementById('menu_click').value = 'Open'
         document.getElementById('open-menu').textContent = 'arrow_drop_down';
     } else {
-        document.getElementById("menu-accordion").style.display = "block";
-        document.getElementById("menu_click").value = "Close"
+        document.getElementById('menu-accordion').style.display = 'block';
+        document.getElementById('menu_click').value = 'Close'
         document.getElementById('open-menu').textContent = 'arrow_drop_up';
     }
 }

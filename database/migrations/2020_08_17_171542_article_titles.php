@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArticleTitlesTable extends Migration
+class ArticleTitles extends Migration
 {
     /**
      * Run the migrations.
@@ -17,7 +17,7 @@ class CreateArticleTitlesTable extends Migration
             $table->bigIncrements('id');
             $table->string('user_id')->comments('作成者ID');
             $table->string('title')->comments('記事タイトル');
-            $table->integer('category')->comments('カテゴリ');
+            $table->integer('category_id')->comments('カテゴリ');
             $table->timestamps();
         });
     }

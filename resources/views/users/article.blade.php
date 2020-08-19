@@ -1,88 +1,84 @@
 @extends('layouts.header')
 
 @section('content')
+
+@error('comment-post')
+<p>{{ $message }}</p>
+@enderror
+
 <div class="article-container">
     <div class="article-head">
         <div class="article-head-data">
             <div class="user-name">
-                <img src="../img/default-icon.jpeg" alt="">
-                <p>筋肉プレイヤー</p>
+                <img src="/user-icons/{{ $data['title_data'] -> user -> icon }}" alt="icon">
+                <p>{{ $data['title_data'] -> user -> name }}</p>
             </div>
-            <p>2xxx/xx/xx 更新</p>
+            <p>{{ date('m月d日 G時i分',strtotime($data['title_data'] -> updated_at)) }} 更新</p>
         </div>
         <i class="material-icons">more_horiz</i>
     </div>
 
-    <h2 class="article-title">記事タイトル</h2>
+    <h2 class="article-title">{{ $data['title_data'] -> title }}</h2>
     <div class="article-tag-container">
         <div class="article-tags">
-            <p>ストーリー</p>
-            <p>オンライン</p>
-            <p>乗り物</p>
+            <p>{{ $data['title_data'] -> category -> category_name }}</p>
         </div>
-        <div class="article-favorite">
+        <a href="/favo/{{ $data['title_data']['id'] }}" class="article-favorite">
             <i class="material-icons">favorite_border</i>
-        </div>
+        </a>
     </div>
 
     <div class="article-text">
-        <h3>見出しが入るよ</h3>
-        <p>ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。
-            ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。こ
-            こに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここ
-            に本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに
-            本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本
-            文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文
-            が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が
-            入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入
-            ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。
-        </p>
-        <img src="../img/IMG_20191208_171352.jpg" alt="">
-        <p>ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。
-            ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。こ
-            こに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここ
-            に本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに
-            本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本
-            文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文
-            が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が
-            入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入
-            ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。
-        </p>
-        <h3>見出しが入るよ</h3>
-        <img src="../img/todd-diemer-uFomxGheuGk-unsplash.jpg" alt="">
-        <img src="../img/tumblr_mzg4xl85Eb1qz5rxno5_1280.jpg" alt="">
+        @php $i = 0; @endphp
+        @foreach($content_types as $content_type)
+            @if($content_type == 'h3_content')
+                <h3>{{ $contents[$i]['h3_content'] }}</h3>
+            @elseif($content_type == 'p_content')
+                <p>{{ $contents[$i]['p_content'] }}</p>
+            @else
+                <img src="/article-imgs/{{ $contents[$i]['img_content'] }}"></img>
+            @endif
+            @php $i++; @endphp
+        @endforeach
     </div>
 </div>
 
-<div class="comment-list-container">
-    <div class="comment-head">
+@if(!empty($data['comments']))
+    @foreach($data['comments'] as $comment)
+        <div class="comment-list-container">
+            <div class="comment-head">
+                <div class="user-name">
+                    <img src="/user-icons/{{ $comment -> user -> icon }}" alt="icon">
+                    <p>{{ $comment -> user -> name }}</p>
+                </div>
+                <div class="commetn-report">
+                    <p>{{ date('m月d日 G時i分',strtotime($comment -> updated_at)) }}</p>
+                    <i class="material-icons">more_horiz</i>
+                </div>
+            </div>
+            <div class="comment-text">
+                <p>{{ $comment['comment_content'] }}</p>
+            </div>
+        </div>
+    @endforeach
+@endif
+
+@auth
+    <form method="post" action="/article/{{ $data['title_data'] -> id }}" class="comment-post-form">
+        {{ csrf_field() }}
         <div class="user-name">
-            <img src="../img/default-icon.jpeg" alt="">
-            <p>魔法戦士ボーイング</p>
+            <img src="/user-icons/{{ Auth::user() -> icon }}" alt="icon">
+            <p>{{ Auth::user() -> name }}</p>
         </div>
-        <div class="commetn-report">
-            <p>2xxx/xx/xx</p>
-            <i class="material-icons">more_horiz</i>
-        </div>
+        <textarea name="comment-post"></textarea>
+        <input type="submit" value="コメント">
+    </form>
+@else
+    <div class="unregister-comment-container">
+        <p>あなたもコメントしてみませんか？</p>
+        <p><a href="create.html">登録</a></p>
+        <p><a href="login.html">ログイン</a></p>
     </div>
-    <div class="comment-text">
-        <p>ここにコメントが入ります。ここにコメントが入ります。ここにコメントが入ります。ここにコメントが入ります。ここにコメントが入ります。ここにコメントが入ります。ここにコメントが入ります。ここにコメントが入ります。ここにコメントが入ります。ここにコメントが入ります。ここにコメントが入ります。
-    </div>
-</div>
-
-<form method="post" action="" class="comment-post-form">
-    <div class="user-name">
-        <img src="../img/default-icon.jpeg" alt="">
-        <p>あなたの名前
-        </p>
-    </div>
-    <textarea name="comment-post"></textarea>
-    <input type="submit" value="コメント">
-</form>
-<div class="unregister-comment-container">
-    <p>あなたもコメントしてみませんか？</p>
-    <p><a href="create.html">登録</a></p>
-    <p><a href="login.html">ログイン</a></p>
-</div>
+@endauth
 
 @endsection

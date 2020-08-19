@@ -12,7 +12,7 @@ use App\User;
 class RecruitFriendController extends Controller
 {
     public function recrutShow(){
-        $recruiting_friend = RecruitingFriend::all()->sortByDesc("created_at");
+        $recruiting_friend = RecruitingFriend::all()->sortByDesc('created_at');
         return view('users.recrut-friend',compact('recruiting_friend'));
     }
     
@@ -28,7 +28,7 @@ class RecruitFriendController extends Controller
         
         $recruiting_friend = new RecruitingFriend;
         $recruiting_friend -> user_id = $user_id;
-        $recruiting_friend -> purpose = $purpose;
+        $recruiting_friend -> purpose_id = $purpose;
         $recruiting_friend -> psid = $psid;
         $recruiting_friend -> expiration_date = $expiration_date;
         $recruiting_friend -> friend_message = $friend_message;

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateRecruitingFriendsTable extends Migration
+class Purposes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class UpdateRecruitingFriendsTable extends Migration
      */
     public function up()
     {
-        Schema::table('recruiting_friends', function (Blueprint $table) {
-                $table->string('psid')->after('purpose')->comment('投稿PSID');
+        Schema::create('purposes', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('purpose_name')->comments('募集目的');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ class UpdateRecruitingFriendsTable extends Migration
      */
     public function down()
     {
-        Schema::table('recruiting_friends', function (Blueprint $table) {
-            $table->dropColumn('psid');
-        });
+        Schema::dropIfExists('purposes');
     }
 }

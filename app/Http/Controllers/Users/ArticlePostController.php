@@ -57,7 +57,7 @@ class ArticlePostController extends Controller
         $article_title = new ArticleTitle;
         $article_title -> user_id = Auth::user() -> id;
         $article_title -> title = $title;
-        $article_title -> category = $category;
+        $article_title -> category_id = $category;
         $article_title -> save();
         
         $last_id = $article_title -> id;

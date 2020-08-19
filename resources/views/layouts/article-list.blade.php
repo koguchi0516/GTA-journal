@@ -1,21 +1,21 @@
-@extends('layouts.header')
-
-@section('content')
-
-@yield('content-top')
+@if(empty($article_data))
     <div class="article-list">
-        <a href="mypage">
-            <img src="../img/default-icon.jpeg" alt="icon">
-        </a>
-        <div class="article-supplement">
-            <h2>記事タイトル</h2>
-            <div class="favorite-count">
-                <p>20xx/xx/xx</p>
-                <i class="material-icons">favorite</i>
-                <p>x</p>
+    <p>投稿はありません</p>
+    </div>
+@else
+    @foreach($article_data as $data)
+    <a href="/article/{{ $data -> id }}" class="link-btn">
+        <div class="article-list">
+            <img src="user-icons/{{ Auth::user() -> icon }}" alt="icon">
+            <div class="article-supplement">
+                <h2>{{ $data -> title }}</h2>
+                <div class="favorite-count">
+                    <p>{{ date('m月d日 G時i分',strtotime($data -> updated_at)) }}</p>
+                    <i class="material-icons">favorite</i>
+                    <p>favoCount</p>
+                </div>
             </div>
         </div>
-    </div>
-@yield('content-bottom')
-
-@endsection
+    </a>
+    @endforeach
+@endif

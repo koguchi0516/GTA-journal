@@ -45,12 +45,21 @@ class User extends Authenticatable
     /*
     *リレーション
     */
-    public function recruitingFriend()
-    {
-        return $this->hasMany('App\Models\RecruitingFriend');
+    public function recruitingFriend(){
+        return $this -> hasMany('App\Models\RecruitingFriend');
     }
     
+    public function articleTitle(){
+        return $this -> hasMany('App\Models\ArticleTitle');
+    }
     
+    public function comment(){
+        return $this -> hasMany('App\Models\Comment');
+    }
+    
+    /*
+    *バリデーションルール
+    */
     public static $change_icon_rule = [
         'newIcon' => 'required|file|max:2048|mimes:jpeg,png,jpg'
     ];
