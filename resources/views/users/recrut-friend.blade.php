@@ -2,27 +2,25 @@
 
 @section('content')
 
-@if(isset($test))
-<p>{{ $test }}</p><br>
-@endif
-
-@error('report_content')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong><br>
-    </span>
-@enderror
-
-@error('psid')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong><br>
-    </span>
-@enderror
-
-@error('friend-message')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-    </span>
-@enderror
+<div class="message-box">
+    <ul>
+        @error('report_content')
+            <li>{{ $message }}</li>
+        @enderror
+        
+        @error('psid')
+            <li>{{ $message }}</li>
+        @enderror
+        
+        @error('friend-message')
+            <li>{{ $message }}</li>
+        @enderror
+        
+        @if(Session::has('info'))
+            <li>{{ Session('info') }}</li>
+        @endif
+    </ul>
+</div>
 
 @auth
 <form class="friend-post-form" action="{{ url('/recrut-friend') }}" method="post">
@@ -57,12 +55,18 @@
             </select>
         </div>
     </div>
-    <textarea name="friend-message" placeholder="メッセージ"></textarea>
+    <textarea name="friend-message" placeholder="メッセージ">{{ old('friend-message') }}</textarea>
     <input class="friend-post-button" type="submit" value="投稿">
 </form>
+@else
+    <div class="unregister-comment-container">
+        <p>あなたも仲間を募集迂してみませんか？</p>
+        <p><a href="/register">登録</a></p>
+        <p><a href="/login">ログイン</a></p>
+    </div>
 @endauth
 
-@php $i=1; @endphp
+@php $i = 0; @endphp
 @foreach($recruiting_friend as $friend)
 <span hidden id="target-content-keyId-{{ $i }}">{{ $friend -> id }}</span>
     <div class="friend-message-container">
@@ -79,7 +83,7 @@
                         <i class="material-icons">more_horiz</i>
                     </p>
                 </div>
-                <div class="openBtn" id="keyId-{{ $i }}" onclick="openBtn(this)">
+                <div class="openBtn" id="friend-{{ $friend -> id }}" onclick="openBtn(this)">
                     <p>報告する</p>
                 </div>
             </div>
@@ -100,34 +104,6 @@
     @php $i++; @endphp
 @endforeach
 
-<div id="modal" class="modal">
-    <form action="{{ url('/report') }}" method="post" class="modal-content">
-        {{ csrf_field() }}
-        <div class="modal-content-header">
-            <h3>報告内容を選択</h3>
-            <i class="material-icons" id="closeBtn">clear</i>
-        </div>
-        <div class="radio-contain">
-            <label class="check_lb">
-                <input type="radio" name="report_content" value="1">法令違反（著作権侵害、プライバシー侵害、名誉棄損等）
-            </label>
-            <label class="check_lb">
-                <input type="radio" name="report_content" value="2">社会的に不適切（公的風俗に反する）
-            </label>
-            <label class="check_lb">
-                <input type="radio" name="report_content" value="3">宣伝行為
-            </label>
-            <label class="check_lb">
-                <input type="radio" name="report_content" value="4">スパムの疑い
-            </label>
-            <label class="check_lb">
-                <input type="radio" name="report_content" value="5">それ以外でGTA journalにふさわしくない（ガイドライン違反）
-            </label>
-        </div>
-        <input type="hidden" name="target_content_id" id="target_content_id" value="">
-        <input type="hidden" name="content_type" value="3">
-        <input type="submit" value="送信">
-    </form>
-</div>
+@include('layouts.modal',['article_title_id'=>'friend_report'])
 
 @endsection

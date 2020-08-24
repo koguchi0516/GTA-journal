@@ -10,20 +10,38 @@ class AdminController extends Controller
 {
     public function showAdmin(Request $request){}
     
-    public function report(Request $request){
+    public function report(Request $request,$article_title_id){
         $this -> validate($request,Report::$report_rule);
-        $content_type = $request -> content_type;
+        $target_content_id = explode('-',$request -> input('target_content_id'));
+        $repoeter_id = 0;
+        
+        if(Auth::check()) $repoeter_id = Auth::user() -> id;
+        
+        switch($target_content_id[0]){
+            case 'article':
+                $target_content_id[0] = 1;
+                break;
+            
+            case 'comment':
+                $target_content_id[0] = 2;
+                break;
+                
+            case 'friend':
+                $target_content_id[0] = 3;
+                break;
+        }
         
         $report = new Report;
-        $report -> repoeter_id = Auth::user() -> user_code;
-        $report -> target_content_id = $request -> target_content_id;
-        $report -> content_type = $content_type;
+        $report -> repoeter_id = $repoeter_id;
+        $report -> target_content_id = $target_content_id[1];
+        $report -> content_type = $target_content_id[0];
         $report -> report_content = $request -> report_content;
         $report -> save();
+        $request -> Session() -> flash('info','報告が完了しました');
         
-        switch($content_type){
-            case ($content_type == 1 || $content_type == 2):
-                return redirect('/hogehogehoge'.$content_type);/*記事と記事コメントの報告処理*/
+        switch($target_content_id[0]){
+            case ($target_content_id[0] == 1 || $target_content_id[0] == 2):
+                return redirect('/article/'.$article_title_id);
                 break;
                 
             case 3:
@@ -31,10 +49,9 @@ class AdminController extends Controller
                 break;
                 
             default:
-                return redirect('/hoge');
+                return redirect('/home');
                 break;
         }
-        
     }
     
     public function reportList(Request $request){}

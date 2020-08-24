@@ -1,6 +1,3 @@
-var idCounter = 0,
-    lastPostNum;
-    
 window.onload = function (){
     var closeBtn = document.getElementById('closeBtn'),
         reportIcon = document.getElementById('report-icon'),
@@ -16,14 +13,19 @@ window.onload = function (){
             modal.style.display = 'none';
         }
     })
-    
-    lastPostNum = document.getElementById('last-post-num').value;
-    if(!lastPostNum == '') idCounter = lastPostNum++;
-    // 一番下に記載、フレンド申請の報告のモーダルが閉じなくなる
 }
 
 function addText(ele) {
-    if (idCounter > 99) exit;
+    // if (idCounter > 99) exit;
+    var lastPostNum = document.getElementById('last-post-num').value,
+        idCounter;
+        
+    if(lastPostNum == ''){
+        idCounter = 0;
+    }else{
+        idCounter = parseInt(lastPostNum) + 1;
+    }
+        
     var textContents = document.getElementById('text-contents'),
         parentDiv = document.createElement('div'),
         inputText = document.createElement('input'),
@@ -35,6 +37,7 @@ function addText(ele) {
         textArea = document.createElement('textarea'),
         inputImg = document.createElement('input');
 
+    console.log(idCounter);
     parentDiv.setAttribute('class', 'h3-tag-container');
     parentDiv.id = `post-item-${idCounter}`;
     iconI.setAttribute('class', 'material-icons');
@@ -85,8 +88,6 @@ function addText(ele) {
     childDiv.appendChild(iconP);
     parentDiv.appendChild(childDiv);
     textContents.appendChild(parentDiv);
-    console.log(idCounter);
-    idCounter++;
     document.getElementById('last-post-num').value = idCounter;
 }
 
@@ -98,12 +99,11 @@ function postDelete(ele) {
 }
 
 function openBtn(ele){
-    var keyId = ele.id,
-        targetContentId = document.getElementById('target-content-' + keyId).textContent,
-        postTargetContentId = document.getElementById('target_content_id');
-    postTargetContentId.value = targetContentId;
-    
-    var modal = document.getElementById('modal');
+    var reportId = ele.id,
+        postTargetContentId = document.getElementById('target_content_id'),
+        modal = document.getElementById('modal');
+        
+    postTargetContentId.value = reportId;
     modal.style.display = 'block';
 }
 

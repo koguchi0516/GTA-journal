@@ -13,10 +13,10 @@ use App\User;
 class MyPageController extends Controller
 {
     public function showMyPage($user_id){
-        $user_data = $user_id;
         $user_data = User::find($user_id);
-        $article_data = ArticleTitle::where('user_id',$user_id) -> get() -> toArray();
-        $favo_title_id = ArticleTitle::where('user_id',Auth::user() -> id) -> select('id') -> get() -> toArray();
+        $article_title = new ArticleTitle;
+        $article_data = $article_title -> where('user_id',$user_id) -> orderBy('updated_at','desc') -> get();
+        $favo_title_id = $article_title -> where('user_id',$user_id) -> select('id') -> get() -> toArray();
         $favo_total = 0;
         $favo_count = 0;
         

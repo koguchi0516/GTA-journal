@@ -16,16 +16,18 @@ use App\Models\FavoriteArticle;
 
 class ArticleTextController extends Controller
 {
-    
     public function showArticle(Request $request,$article_title_id){
         $title_data = ArticleTitle::find($article_title_id);
         $contents = H3Tag::where('article_title_id',$article_title_id) -> select('h3_content','turn') -> get() -> toArray();
         $contents = array_merge($contents , Ptag::where('article_title_id',$article_title_id) -> select('p_content','turn') -> get() -> toArray());
         $contents = array_merge($contents , ImgTag::where('article_title_id',$article_title_id) -> select('img_content','turn') -> get() -> toArray());
         $comments = Comment::where('article_title_id',$article_title_id) -> get();
-        $test = collect($contents);
-        $contents = $test -> sortBy('turn') -> values();
+        $colle = collect($contents);
+        $contents = $colle -> sortBy('turn') -> values();
         $content_types;
+        $favo_article = '';
+        
+        if(Auth::check()) $favo_article = FavoriteArticle::where('user_id',Auth::user() -> id) -> where('article_title_id',$article_title_id) -> exists();
         
         foreach($contents as $content){
             foreach($content as $kye => $value){
@@ -37,8 +39,9 @@ class ArticleTextController extends Controller
         $data = [
             'title_data' => $title_data,
             'comments' => $comments,
+            'favo_article' => $favo_article,
         ];
-
+        
         return view('users.article',compact('data','contents','content_types'));
     }
     
@@ -50,16 +53,12 @@ class ArticleTextController extends Controller
         $favo_article -> user_id = Auth::user() -> id;
         $favo_article -> article_title_id = $article_title_id;
         $favo_article -> save();
-        return redirect('/article/'.$article_title_id);
+        return back();
         }else{
             $favo_article -> delete();
         }
-        return redirect('/article/'.$article_title_id);
+        return back();
     }
-    
-    public function deleteArticle(Request $request){}
-    
-    public function editArticle(Request $request){}
     
     public function toComment(Request $request,$article_title_id){
         $this -> validate($request,Comment::$comment_rule);
@@ -69,7 +68,29 @@ class ArticleTextController extends Controller
         $comment -> article_title_id = $article_title_id;
         $comment -> comment_content = $request -> input('comment-post');
         $comment -> save();
-        
-        return redirect('/article/'.$article_title_id);
+        return back();
+    }
+    
+    public function deleteComment(Request $request,$content_type,$content_id){
+        switch($content_type){
+            case 'article':
+                ArticleTitle::destroy($content_id);
+                H3Tag::where('article_title_id',$content_id) -> delete();
+                Ptag::where('article_title_id',$content_id) -> delete();
+                ImgTag::where('article_title_id',$content_id) -> delete();
+                FavoriteArticle::where('article_title_id',$content_id) -> delete();
+                Comment::where('article_title_id',$content_id) -> delete();
+                return redirect('/mypage/'.Auth::user() -> id);
+                break;
+                
+            case 'comment':
+                Comment::destroy($content_id);
+                break;
+                
+            case 'friend':
+                RecruitingFriend::destroy($content_id);
+                break;
+        }
+        return back();
     }
 }

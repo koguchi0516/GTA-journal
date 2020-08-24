@@ -12,21 +12,50 @@ use Illuminate\Support\Facades\Auth;
 
 class ArticlePostController extends Controller
 {
-        public function showArticlePost(){
-            return view('users.article-post');
+    public function showArticlePost(Request $request){
+        return view('users.article-post');
+    }
+    
+    public function showEditArticle(Request $request,$article_title_id){
+        $title_data = ArticleTitle::find($article_title_id);
+        $contents = H3Tag::where('article_title_id',$article_title_id) -> select('h3_content','turn') -> get() -> toArray();
+        $contents = array_merge($contents , Ptag::where('article_title_id',$article_title_id) -> select('p_content','turn') -> get() -> toArray());
+        $contents = array_merge($contents , ImgTag::where('article_title_id',$article_title_id) -> select('img_content','turn') -> get() -> toArray());
+        $colle = collect($contents);
+        $contents = $colle -> sortBy('turn') -> values();
+        // $request -> Session() -> put('last_post_num',count($contents));
+        $content_types;
+        
+        foreach($contents as $content){
+            foreach($content as $kye => $value){
+                $content_types[] = $kye;
+                }
+            array_pop($content_types);
         }
+        return view('users.article-edit',compact('content_types','contents','title_data'));
+    }
         
     public function articlePost(Request $request){
+        
         if($request -> input('all-clear') !== null){
+        $request -> Session() -> forget('last_post_num');
+        $request -> Session() -> forget('post_num');
+        $request -> Session() -> forget('post_type');
+        return redirect('/article-post');
+            
+        }elseif($request -> input('reset') !== null){
+            $request -> Session() -> forget('last_post_num');
             $request -> Session() -> forget('post_num');
             $request -> Session() -> forget('post_type');
-            return view('users.article-post');
+            $article_title_id = $request -> input('title-id');
+            return redirect('/edit/'.$article_title_id);
         }
         
         $request -> Session() -> forget('post_num');
         $request -> Session() -> forget('post_type');
         $request -> Session() -> flash('last_post_num' , $request -> input('last-post-num'));
         $post_type = $request -> input('type');
+        
         if(!isset($post_type)){ 
             $request -> Session() -> flash('info' , 'タイトルだけでは投稿できません');
             return view('users.article-post');
@@ -39,7 +68,7 @@ class ArticlePostController extends Controller
         $title = $request -> input('title');
         $category = $request -> input('category');
         $count = count($post_type);
-        
+
         for($i = 0 ; $i < $count ; $i++){
             $post_rule = ['post-'.$post_num[$i] => 'required'];
             $this -> validate($request , $post_rule);
@@ -61,13 +90,11 @@ class ArticlePostController extends Controller
         $article_title -> save();
         
         $last_id = $article_title -> id;
-        
         $data['posts'] = $posts;
         $data['lastId'] = $last_id;
         
         for($i = 0 ; $i < $count ; $i++){
             $data['i'] = $i;
-            
             switch($post_type[$i]){
                 case 'h3':
                     $this -> h3Post($data);
@@ -85,6 +112,7 @@ class ArticlePostController extends Controller
             $request -> Session() -> forget('post_num');
             $request -> Session() -> forget('post_type');
             $request -> Session() -> flash('info','投稿しました');
+            // 更新の場合はここで過去の投稿削除
             return view('users.article-post');
     }
     

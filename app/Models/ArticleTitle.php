@@ -14,6 +14,10 @@ class ArticleTitle extends Model
         return $this -> belongsTo('App\Category');
     }
     
+    public function favoriteArticle(){
+        return $this -> hasMany('App\Models\FavoriteArticle');
+    }
+    
     public static $article_post_rule = [
         'category' => 'required',
         'title' => 'required|max:255',

@@ -2,51 +2,41 @@
 
 @section('content')
 
-@if(Session::has('info'))
-<p>{{ Session('info') }}</p>
-@endif
-
-@error('newIcon')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-    </span>
-@enderror
-
-@error('change-name')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-    </span>
-@enderror
-
-@error('change-psid')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-    </span>
-@enderror
-
-@error('change-profile')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-    </span>
-@enderror
-
-@if(isset($message['password-error']))
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message['password-error'] }}</strong>
-    </span>
-@endif
+<div class="message-box">
+    <ul>
+        @if(Session::has('info'))
+            <p>{{ Session('info') }}</p>
+        @endif
             
-@error('new-password1')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong><br>
-    </span>
-@enderror
-            
-@error('new-password2')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-    </span>
-@enderror
+        @error('newIcon')
+            <li>{{ $message }}</li>
+        @enderror
+        
+        @error('change-name')
+            <li>{{ $message }}</li>
+        @enderror
+        
+        @error('change-psid')
+            <li>{{ $message }}</li>
+        @enderror
+        
+        @error('change-profile')
+            <li>{{ $message }}</li>
+        @enderror
+        
+        @error('new-password1')
+            <li>{{ $message }}</li>
+        @enderror
+        
+        @error('new-password2')
+            <li>{{ $message }}</li>
+        @enderror
+        
+        @if(isset($message['password-error']))
+            <li>{{ $message['password-error'] }}</li>
+        @endif
+    </ul>
+</div>
 
 <div class="setting">
     <form action="{{ url('/setting') }}" class="change-icon-form" method="post" enctype="multipart/form-data">

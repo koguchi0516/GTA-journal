@@ -164,6 +164,9 @@ return [
         'new-password2' => '確認用パスワード',
         'title' => 'タイトル',
         'comment-post' => 'コメント内容',
+        'friend-message' => 'メッセージ',
+        'psid' => 'PSID',
+        'newIcon' => 'アイコン',
         ],
 
 ];

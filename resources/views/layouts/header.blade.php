@@ -25,8 +25,8 @@
                 <h1>GTA journal</h1>
             </a>
             <div class="header-menu">
-                <a href="register" class="link-btn">ユーザー登録</a>
-                <a href="login" class="link-btn">ログイン</a>
+                <a href="/register" class="link-btn">ユーザー登録</a>
+                <a href="/login" class="link-btn">ログイン</a>
             </div>
         </div>
     </div>

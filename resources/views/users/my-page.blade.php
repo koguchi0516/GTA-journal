@@ -28,9 +28,13 @@
                 <p>Get <i class="material-icons">favorite</i> : {{ $data['favo_total'] }}</p>
             </div>
             
-            <div class="to-setting">
-                <a href="setting"><p>プロフィール設定</p></a>
-            </div>
+            @if(Auth::check())
+                @if($data['user_data'] -> id == Auth::user() -> id)
+                <div class="to-setting">
+                    <a href="/setting"><p>プロフィール設定</p></a>
+                </div>
+                @endif
+            @endif
         </div>
 
         <section>
@@ -38,27 +42,13 @@
                 <p>{{ $data['user_data'] -> name }}の投稿</p>
             </div>
             
-        @if($data['article_data'] == Null)
+        @if(count($data['article_data']) == 0)
             <div class="article-list">
             <p>投稿はありません</p>
             </div>
-        @else
-            @foreach($data['article_data'] as $val)
-            <a href="/article/{{ $val['id'] }}" class="link-btn">
-                <div class="article-list">
-                    <img src="/user-icons/{{ $data['user_data'] -> icon }}" alt="icon">
-                    <div class="article-supplement">
-                        <h2>{{ $val['title'] }}</h2>
-                        <div class="favorite-count">
-                            <p>{{ date('m月d日 G時i分',strtotime($val['updated_at'])) }}</p>
-                            <i class="material-icons">favorite</i>
-                            <p>favoCount</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            @endforeach
         @endif
+        
+        @include('layouts.article-list',['article_data' => $data['article_data']])
         </section>
         
     </div>

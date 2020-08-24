@@ -3,11 +3,11 @@
 @section('content')
 <div class="main-contents">
     <nav>
-        <a href="recrut-friend">フレンド募集</a>
+        <a href="/recrut-friend">フレンド募集</a>
         <div class="line"></div>
-        <a href="#">最新記事</a><br>
-        <a href="#">今種の人気記事</a><br>
-        <a href="#">お気に入り</a>
+        <a href="/home">最新記事</a><br>
+        <a href="/home/weekly">今種の人気記事</a><br>
+        <a href="/home/favo">お気に入り</a>
         <div class="line"></div>
         <form action="#" method="post">
             <p>ユーザー検索</p>
@@ -28,7 +28,7 @@
         </form>
     </nav>
     <section>
-        
+        @include('layouts.article-list',['article_data' => $article_data])
     </section>
 </div>
 @endsection

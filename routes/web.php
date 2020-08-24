@@ -16,12 +16,14 @@ Route::get('/', function () {
 });
 
 /*ホーム画面*/
-Route::get('/home','Users\HomeController@home') -> name('home');
+Route::get('/home','Users\HomeController@showHome') -> name('home');
+Route::get('/home/weekly','Users\HomeController@showHomeWeekly');
+Route::get('/home/favo','Users\HomeController@showHomeFavo');
 
 /*記事詳細画面*/
 
 /*マイーページ*/
-Route::get('/mypage/{user_id}','Users\MyPageController@showMyPage')->middleware('auth');
+Route::get('/mypage/{user_id}','Users\MyPageController@showMyPage');
 
 /*フレンド募集画面*/
 Route::get('/recrut-friend','Users\RecruitFriendController@recrutShow');
@@ -36,12 +38,16 @@ Route::get('/article/{article_title_id}','Users\ArticleTextController@showArticl
 Route::post('/article/{article_title_id}','Users\ArticleTextController@toComment');
 Route::get('/favo/{article_title_id}','Users\ArticleTextController@favoArticle');
 
-/*記事投稿画面*/
+/*記事投稿・編集画面*/
 Route::get('/article-post','Users\ArticlePostController@showArticlePost');
 Route::post('/article-post','Users\ArticlePostController@articlePost');
+Route::get('/edit/{article_title_id}','Users\ArticlePostController@showEditArticle');
 
 /*報告*/
-Route::post('/report','AdminController@report')->name('report.post');
+Route::post('/report/{article_title_id}','AdminController@report')->name('report.post');
+
+/*削除・編集*/
+Route::get('/delete/{content_type}/{content_id}','Users\ArticleTextController@deleteComment');
 
 /*ログアウト*/
 Route::get('/logout','LogoutController@logout')->name('logout');
