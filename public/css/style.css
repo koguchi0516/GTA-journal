@@ -103,7 +103,7 @@
 
     /*icon-nav*/
     .icon-nav {
-        z-index: 1;
+        z-index: 199;
         position: absolute;
         background-color: aquamarine;
         width: 150px;
@@ -318,6 +318,17 @@
         margin: 0;
         padding: 0;
     }
+    
+    .edit-img-container{
+        min-width:300px;
+        min-height:200px;
+        margin:10px;
+    }
+    
+    .edit-img{
+        max-width:300px;
+        max-height:200px;
+    }
 
     /*--フレンド募集画面--*/
     /*募集書き込み*/
@@ -384,7 +395,7 @@
     }
 
     /*アイコンの段*/
-    .friend-message-head {
+    .message-head {
         display: flex;
         justify-content: space-between;
         height: 50px;
@@ -398,7 +409,7 @@
     }
 
     /*アイコンの段の投稿日と編集アイコン*/
-    .friend-message-report {
+    .message-report {
         display: flex;
         justify-content: space-between;
         width: 150px;
@@ -438,7 +449,7 @@
 
     /*--設定画面--*/
     /*共通部分*/
-        .setting {
+    .setting {
         background-color: aqua;
         width: 800px;
         margin: 30px auto 0;
@@ -582,6 +593,12 @@
 
     /*--記事詳細画面--*/
     /*記事詳細全体*/
+    .report-button-area{
+        position:absolute;
+        z-index:1;
+        width:150px;
+    }
+    
     .article-container {
         background-color: blueviolet;
         max-width: 1000px;
@@ -753,21 +770,18 @@
     }
 
     /*「報告する」の表示*/
-    .openBtn {
-        background-color: forestgreen;
-        height: 35px;
-        text-align: center;
-        /*        display: none;*/
+    .report-button-area{
+        background-color:darkorange;
     }
-
-    .openBtn :hover {
-        cursor: pointer;
-        background-color: brown;
-    }
-
-    .openBtn p {
-        line-height: 35px;
-    }
+    
+    .report-button{
+        line-height:35px;
+        text-align:center;
+     }
+    
+     .report-button:hover{
+        background-color:red;
+     }
 
     /*モーダルウィンドウ*/
     .modal {

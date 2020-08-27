@@ -42,15 +42,21 @@ class SettingController extends Controller
                 $this -> changePassword( $request,$users );
                 break;
         }
-        return view('users.setting',compact('message'));
+        return redirect('/setting');
     }
     
     public function changeIcon(Request $request,$users){
         $this -> validate($request,user::$change_icon_rule);
         $new_icon = $request -> file('newIcon');
+        
+        if($users -> icon !== 'default-icon.jpg'){
+            $delete_name = storage_path().'/app/public/user-icons/'.$users -> icon;
+            \File::delete($delete_name);
+        }
+        
         $new_icon_name = Auth::user() -> user_code. '-icon' . '.' .$new_icon -> getClientOriginalExtension();
-        $target_path = public_path('user-icons');
-        $new_icon -> move($target_path,$new_icon_name);
+        $target_path = 'public/user-icons';
+        $new_icon -> storeAs($target_path,$new_icon_name);
         
         $users -> icon = $new_icon_name;
         $users -> save();

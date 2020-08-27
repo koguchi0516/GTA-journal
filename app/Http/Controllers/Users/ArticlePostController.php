@@ -9,12 +9,14 @@ use App\Models\H3Tag;
 use App\Models\Ptag;
 use App\Models\ImgTag;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
-class ArticlePostController extends Controller
-{
+class ArticlePostController extends Controller{
+    
     public function showArticlePost(Request $request){
         return view('users.article-post');
     }
+    
     
     public function showEditArticle(Request $request,$article_title_id){
         $title_data = ArticleTitle::find($article_title_id);
@@ -23,7 +25,6 @@ class ArticlePostController extends Controller
         $contents = array_merge($contents , ImgTag::where('article_title_id',$article_title_id) -> select('img_content','turn') -> get() -> toArray());
         $colle = collect($contents);
         $contents = $colle -> sortBy('turn') -> values();
-        // $request -> Session() -> put('last_post_num',count($contents));
         $content_types;
         
         foreach($contents as $content){
@@ -34,30 +35,27 @@ class ArticlePostController extends Controller
         }
         return view('users.article-edit',compact('content_types','contents','title_data'));
     }
+    
         
     public function articlePost(Request $request){
-        
-        if($request -> input('all-clear') !== null){
         $request -> Session() -> forget('last_post_num');
         $request -> Session() -> forget('post_num');
         $request -> Session() -> forget('post_type');
-        return redirect('/article-post');
-            
+        $title_id = $request -> input('title-id');
+        
+        if($request -> input('all-clear') !== null){
+            return redirect('/article-post');
         }elseif($request -> input('reset') !== null){
-            $request -> Session() -> forget('last_post_num');
-            $request -> Session() -> forget('post_num');
-            $request -> Session() -> forget('post_type');
-            $article_title_id = $request -> input('title-id');
+            $article_title_id = $title_id;
             return redirect('/edit/'.$article_title_id);
         }
         
-        $request -> Session() -> forget('post_num');
-        $request -> Session() -> forget('post_type');
         $request -> Session() -> flash('last_post_num' , $request -> input('last-post-num'));
         $post_type = $request -> input('type');
         
-        if(!isset($post_type)){ 
+        if(!isset($post_type)){
             $request -> Session() -> flash('info' , 'タイトルだけでは投稿できません');
+            $request -> Session() -> flash('title',$request -> input('title'));
             return view('users.article-post');
         }
         
@@ -68,7 +66,7 @@ class ArticlePostController extends Controller
         $title = $request -> input('title');
         $category = $request -> input('category');
         $count = count($post_type);
-
+        
         for($i = 0 ; $i < $count ; $i++){
             $post_rule = ['post-'.$post_num[$i] => 'required'];
             $this -> validate($request , $post_rule);
@@ -84,12 +82,33 @@ class ArticlePostController extends Controller
         }
         
         $article_title = new ArticleTitle;
-        $article_title -> user_id = Auth::user() -> id;
-        $article_title -> title = $title;
-        $article_title -> category_id = $category;
-        $article_title -> save();
         
-        $last_id = $article_title -> id;
+        if($title_id == Null){
+            $article_title -> user_id = Auth::user() -> id;
+            $article_title -> title = $title;
+            $article_title -> category_id = $category;
+            $article_title -> save();
+            $last_id = $article_title -> id;
+            $request -> Session() -> flash('info','投稿しました');
+        }else{
+            $article_title = $article_title -> where('id',$title_id) -> first();
+            $updated_at = $article_title -> updated_at;
+            $article_title -> title = $title;
+            $article_title -> category_id = $category;
+            $article_title -> save();
+            
+            $last_id = $article_title -> id;
+            H3Tag::where('article_title_id',$article_title -> id) -> delete();
+            Ptag::where('article_title_id',$article_title -> id) -> delete();
+            $img_count = ImgTag::where('article_title_id',$article_title -> id) -> pluck('img_content');
+            for($i = 0 ; $i < count($img_count) ; $i++){
+                $delete_name = storage_path().'/app/public/article-imgs/'.$img_count[$i];
+                \File::delete($delete_name);
+            }
+            ImgTag::where('article_title_id',$article_title -> id) -> delete();
+            $request -> Session() -> flash('info','更新しました');
+        }
+        
         $data['posts'] = $posts;
         $data['lastId'] = $last_id;
         
@@ -111,10 +130,9 @@ class ArticlePostController extends Controller
         }
             $request -> Session() -> forget('post_num');
             $request -> Session() -> forget('post_type');
-            $request -> Session() -> flash('info','投稿しました');
-            // 更新の場合はここで過去の投稿削除
-            return view('users.article-post');
+            return redirect('/article/'.$last_id);
     }
+    
     
     public function h3Post($data){
         $h3_tag = new H3Tag;
@@ -136,8 +154,8 @@ class ArticlePostController extends Controller
         $img_tag = new imgTag;
         $img = $data['posts'][$data['i']]; 
         $img_name = Auth::user() -> user_code . '-' .$data['lastId'] . '-' . $data['i'] . '.' . $img -> getClientOriginalExtension();
-        $target_path = public_path('article-imgs');
-        $img -> move($target_path,$img_name);
+        $target_path = 'public/article-imgs';
+        $img -> storeAs($target_path,$img_name);
         
         $img_tag -> article_title_id = $data['lastId'];
         $img_tag -> turn = $data['i'];

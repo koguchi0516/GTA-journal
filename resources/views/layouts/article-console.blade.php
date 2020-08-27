@@ -23,6 +23,6 @@
             <option value="5">不動産</option>
         </select>
         <input class="button" type="submit" value="{{ $display }}">
-        <input class="button" type="submit" name='{{ $aim }}' value="クリア">
+        <input class="button" type="submit" name='{{ $aim }}' value="{{ $message }}">
     </div>
 </div>

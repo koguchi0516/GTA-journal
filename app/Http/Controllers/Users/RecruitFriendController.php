@@ -36,6 +36,6 @@ class RecruitFriendController extends Controller
         $recruiting_friend -> save();
         
         $recruiting_friend = RecruitingFriend::all()->sortByDesc("created_at");
-        return view('users.recrut-friend',compact('recruiting_friend'));
+        return back();
     }
 }

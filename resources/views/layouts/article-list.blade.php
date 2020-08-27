@@ -1,7 +1,7 @@
 @foreach($article_data as $data)
     <div class="article-list">
         <a href="/mypage/{{ $data -> user -> id }}">
-            <img src="/user-icons/{{ $data -> user -> icon }}" alt="icon">
+            <img src="/storage/user-icons/{{ $data -> user -> icon }}" alt="icon">
         </a>
         <div class="article-supplement">
             <a href="/article/{{ $data['id'] }}" class="link-btn">

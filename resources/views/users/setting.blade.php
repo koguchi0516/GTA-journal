@@ -45,7 +45,7 @@
             <p>アイコン</p>
             
             <div>
-                <img src="/user-icons/{{ Auth::user()->icon }}" alt="">
+                <img src="/storage/user-icons/{{ Auth::user()->icon }}" alt="">
             </div>
             <input type="file" name="newIcon">
             <div class="setting-button">
@@ -66,9 +66,9 @@
             <p>PSID（未入力で削除できます）</p>
             
             @if(!Auth::user()->psid)
-            <input type="text" class="change-psid" name="change-psid" placeholder="公開するPSID">
+                <input type="text" class="change-psid" name="change-psid" placeholder="公開するPSID">
             @else
-            <input type="text" class="change-psid" name="change-psid" value="{{ Auth::user()->psid }}">
+                <input type="text" class="change-psid" name="change-psid" value="{{ Auth::user()->psid }}">
             @endif
             
             <div class="setting-button">
@@ -80,9 +80,9 @@
             <p>プロフィール</p>
             
             @if(!Auth::user()->profile)
-            <textarea class="change-profile" name="change-profile"></textarea>
+                <textarea class="change-profile" name="change-profile"></textarea>
             @else
-            <textarea class="change-profile" name="change-profile">{{ Auth::user()->profile }}</textarea>
+                <textarea class="change-profile" name="change-profile">{{ Auth::user()->profile }}</textarea>
             @endif
             
             <div class="setting-button">

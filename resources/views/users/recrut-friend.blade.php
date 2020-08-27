@@ -68,36 +68,42 @@
 
 @php $i = 0; @endphp
 @foreach($recruiting_friend as $friend)
-<span hidden id="target-content-keyId-{{ $i }}">{{ $friend -> id }}</span>
+    <span hidden id="target-content-keyId-{{ $i }}">{{ $friend -> id }}</span>
+    
     <div class="friend-message-container">
-        <div class="friend-message-head">
+        <div class="message-head">
             <div class="user-name">
-                <img src="user-icons/{{ $friend -> user -> icon }}" alt="ユーザーアイコン">
+                <a href="/mypage/{{ $friend -> user -> id }}">
+                    <img src="/storage/user-icons/{{ $friend -> user -> icon }}" alt="ユーザーアイコン">
+                </a>
                 <p>{{ $friend -> user -> name }}</p>
             </div>
-
             <div class="report-area">
-                <div class="friend-message-report">
+                <div class="message-report">
                     <p class="post-date">{{ date('m月d日 G時i分',strtotime($friend -> created_at)) }}</p>
                     <p id="report-icon">
                         <i class="material-icons">more_horiz</i>
                     </p>
                 </div>
-                <div class="openBtn" id="friend-{{ $friend -> id }}" onclick="openBtn(this)">
-                    <p>報告する</p>
+                <div class="report-button-area">
+                    <p class="report-button" id="friend-{{ $friend -> id }}" onclick="openBtn(this)">報告</p>
+                    @auth
+                        @if($friend -> user -> id == Auth::user() -> id)
+                            <a href="/delete/friend/{{ $friend -> id }}"><p class="report-button">削除</p></a>
+                        @endif
+                    @endauth 
                 </div>
             </div>
         </div>
-
+        
         <div class="friend-message-data">
             <p class="friend-message-purpose">{{ $friend -> purpose -> purpose_name  }}</p>
             <p>test</p>
             @if(time() < $friend -> expiration_date)
-            <p class="friend-message-psid">PSID : {{ $friend -> psid }}</p>
+                <p class="friend-message-psid">PSID : {{ $friend -> psid }}</p>
             @else
-            <p class="friend-message-psid">PSID : 非表示</p>
+                <p class="friend-message-psid">PSID : 非表示</p>
             @endif
-            
         </div>
         <p>{{ $friend -> friend_message}}</p>
     </div>

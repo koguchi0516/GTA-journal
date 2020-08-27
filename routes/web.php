@@ -19,6 +19,9 @@ Route::get('/', function () {
 Route::get('/home','Users\HomeController@showHome') -> name('home');
 Route::get('/home/weekly','Users\HomeController@showHomeWeekly');
 Route::get('/home/favo','Users\HomeController@showHomeFavo');
+Route::post('/home/user','Users\HomeController@searchUser');
+Route::get('/home/category/{category_id}','Users\HomeController@linkChcategory');
+Route::post('/home/category','Users\HomeController@searchCategory');
 
 /*記事詳細画面*/
 
@@ -42,7 +45,7 @@ Route::get('/favo/{article_title_id}','Users\ArticleTextController@favoArticle')
 Route::get('/article-post','Users\ArticlePostController@showArticlePost');
 Route::post('/article-post','Users\ArticlePostController@articlePost');
 Route::get('/edit/{article_title_id}','Users\ArticlePostController@showEditArticle');
-
+ 
 /*報告*/
 Route::post('/report/{article_title_id}','AdminController@report')->name('report.post');
 

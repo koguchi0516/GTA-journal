@@ -5,6 +5,7 @@
             <h3>報告内容を選択</h3>
             <i class="material-icons" id="closeBtn">clear</i>
         </div>
+        
         <div class="radio-contain">
             <label class="check_lb">
                 <input type="radio" name="report_content" value="1">法令違反（著作権侵害、プライバシー侵害、名誉棄損等）

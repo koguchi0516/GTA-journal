@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
 use App\Http\Controllers\Users\Route;
 use App\Models\FavoriteArticle;
+use App\Models\RecruitingFriend;
 
 class ArticleTextController extends Controller
 {
@@ -77,9 +78,15 @@ class ArticleTextController extends Controller
                 ArticleTitle::destroy($content_id);
                 H3Tag::where('article_title_id',$content_id) -> delete();
                 Ptag::where('article_title_id',$content_id) -> delete();
-                ImgTag::where('article_title_id',$content_id) -> delete();
                 FavoriteArticle::where('article_title_id',$content_id) -> delete();
                 Comment::where('article_title_id',$content_id) -> delete();
+                
+                $img_count = ImgTag::where('article_title_id',$content_id) -> pluck('img_content');
+                for($i = 0 ; $i < count($img_count) ; $i++){
+                $delete_name = storage_path().'/app/public/article-imgs/'.$img_count[$i];
+                \File::delete($delete_name);
+                }
+                ImgTag::where('article_title_id',$content_id) -> delete();
                 return redirect('/mypage/'.Auth::user() -> id);
                 break;
                 

@@ -2,16 +2,6 @@
 
 @section('content')
 
-        @if(Session::has('post_num'))
-            @foreach(Session('post_num') as $i)
-            <p>{{ $i }}</p>
-            @endforeach
-        @endif
-        
-        @if(Session::has('last_post_num'))
-            <p>{{ Session('last_post_num') }}</p>
-        @endif
-
     <div class="message-box">
         <ul>
             @error('title')
@@ -35,10 +25,14 @@
     <form class="article-post-form" action="/article-post" method="post" name="article-post" enctype="multipart/form-data">
         {{ csrf_field() }}
         
-        @include('layouts.article-console',['display'=>'投稿','aim'=>'all-clear'])
+        @include('layouts.article-console',['display'=>'投稿','aim'=>'all-clear','message'=>'クリア'])
     
         <div class="text-contents" id="text-contents">
-            <input class="title-text" name="title" type="text" placeholder="記事タイトル" value="{{ old('title') }}">
+            @if(Session::has('title'))
+                <input class="title-text" name="title" type="text" placeholder="記事タイトル" value="{{ Session('title') }}">
+            @else
+                <input class="title-text" name="title" type="text" placeholder="記事タイトル" value="{{ old('title') }}">
+            @endif
             
             @if(Session::has('post_num'))
                 @php $i = 0; @endphp
@@ -82,9 +76,9 @@
             @endif
             
             @if(!Session::has('last_post_num'))
-            <input type="text" name="last-post-num" id="last-post-num" value="">
+            <input type="hidden" name="last-post-num" id="last-post-num" value="">
             @else
-            <input type="text" name="last-post-num" id="last-post-num" value="{{ Session('last_post_num') }}">
+            <input type="hidden" name="last-post-num" id="last-post-num" value="{{ Session('last_post_num') }}">
             @endif
         </div>
     </form>
