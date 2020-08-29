@@ -1,5 +1,5 @@
 <div id="modal" class="modal">
-    <form action="/report/{{ $article_title_id }}" method="post" class="modal-content">
+    <form action="/report/{{ $article_title_id }}" method="post" class="modal-content material">
         {{ csrf_field() }}
         <div class="modal-content-header">
             <h3>報告内容を選択</h3>
@@ -24,6 +24,6 @@
             </label>
         </div>
         <input type="hidden" name="target_content_id" id="target_content_id" value="">
-        <input type="submit" value="送信">
+        <input class="btn-flat-logo" type="submit" value="送信">
     </form>
 </div>

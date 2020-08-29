@@ -2,32 +2,14 @@
 
 @section('content')
 
-    <div class="message-box">
-        <ul>
-            @error('title')
-                <li>{{ $message }}</li>
-            @enderror
-            
-            @if(Session::has('post_num'))
-                @for($i=0 ; $i <= count(Session('post_num')) ; $i++)
-                    @error('post-'.$i)
-                        <li>空欄があると投稿できません。画像はjpeg,png,jpgのみ使用できます</li>
-                    @enderror
-                @endfor
-            @endif
-            
-            @if(Session::has('info'))
-                <li>{{ Session('info') }}</li>
-            @endif
-        </ul>
-    </div>
+    @include('layouts.message-box')
     
     <form class="article-post-form" action="/article-post" method="post" name="article-post" enctype="multipart/form-data">
         {{ csrf_field() }}
         
         @include('layouts.article-console',['display'=>'投稿','aim'=>'all-clear','message'=>'クリア'])
     
-        <div class="text-contents" id="text-contents">
+        <div class="text-contents material" id="text-contents">
             @if(Session::has('title'))
                 <input class="title-text" name="title" type="text" placeholder="記事タイトル" value="{{ Session('title') }}">
             @else
@@ -44,7 +26,7 @@
                         <input type="hidden" name="post-num[]" value="{{ Session('post_num')[$i] }}">
                         <div class="delete-icon delete-img-tag" id="delete-item-{{ Session('post_num')[$i] }}" onclick="postDelete(this)">
                             <p>
-                                <i class="material-icons">remove_circle_outline</i>
+                                <i class="material-icons">close</i>
                             </p>
                         </div>
                     </div>
@@ -55,7 +37,7 @@
                         <input type="hidden" name="post-num[]" value="{{ Session('post_num')[$i] }}">
                         <div class="delete-icon delete-img-tag" id="delete-item-{{ Session('post_num')[$i] }}" onclick="postDelete(this)">
                             <p>
-                                <i class="material-icons">remove_circle_outline</i>
+                                <i class="material-icons">close</i>
                             </p>
                         </div>
                     </div>
@@ -66,7 +48,7 @@
                         <input type="hidden" name="post-num[]" value="{{ Session('post_num')[$i] }}">
                         <div class="delete-icon delete-img-tag" id="delete-item-{{ Session('post_num')[$i] }}" onclick="postDelete(this)">
                             <p>
-                                <i class="material-icons">remove_circle_outline</i>
+                                <i class="material-icons">close</i>
                             </p>
                         </div>
                     </div>

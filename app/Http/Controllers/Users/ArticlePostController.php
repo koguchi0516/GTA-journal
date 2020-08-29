@@ -101,10 +101,12 @@ class ArticlePostController extends Controller{
             H3Tag::where('article_title_id',$article_title -> id) -> delete();
             Ptag::where('article_title_id',$article_title -> id) -> delete();
             $img_count = ImgTag::where('article_title_id',$article_title -> id) -> pluck('img_content');
+            
             for($i = 0 ; $i < count($img_count) ; $i++){
                 $delete_name = storage_path().'/app/public/article-imgs/'.$img_count[$i];
                 \File::delete($delete_name);
             }
+            
             ImgTag::where('article_title_id',$article_title -> id) -> delete();
             $request -> Session() -> flash('info','更新しました');
         }

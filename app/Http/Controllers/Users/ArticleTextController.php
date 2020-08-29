@@ -69,6 +69,7 @@ class ArticleTextController extends Controller
         $comment -> article_title_id = $article_title_id;
         $comment -> comment_content = $request -> input('comment-post');
         $comment -> save();
+        $request -> Session() -> flash('info','コメントを投稿しました');
         return back();
     }
     
@@ -98,6 +99,7 @@ class ArticleTextController extends Controller
                 RecruitingFriend::destroy($content_id);
                 break;
         }
+        $request -> Session() -> flash('info','コメントを削除しました');
         return back();
     }
 }

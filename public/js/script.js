@@ -15,8 +15,50 @@ window.onload = function (){
     })
 }
 
+function reportIcon(ele){
+    var flag = ele.children[1].innerText,
+        brother = ele.parentNode,
+        parent = brother.parentNode;
+        target = parent.children[1];
+        
+        if(flag == 0){
+            ele.children[1].innerText = 1;
+            target.style.display = 'block';
+        }else{
+            ele.children[1].innerText = 0;
+            target.style.display = 'none';
+        }
+}
+
+function postDelete(ele) {
+    var deleteNum = ele.id.substr(12),
+        textContents = document.getElementById('text-contents'),
+        deleteItem = document.getElementById(`post-item-${deleteNum}`);
+    textContents.removeChild(deleteItem);
+}
+
+function openBtn(ele){
+    var reportId = ele.id,
+        postTargetContentId = document.getElementById('target_content_id'),
+        modal = document.getElementById('modal');
+        
+    postTargetContentId.value = reportId;
+    modal.style.display = 'block';
+}
+
+function menuOpen() {
+    if (document.getElementById('menu_click').value == 'Close') {
+        document.getElementById('menu-accordion').style.display = 'none';
+        document.getElementById('menu_click').value = 'Open'
+        document.getElementById('open-menu').textContent = 'arrow_drop_down';
+    } else {
+        document.getElementById('menu-accordion').style.display = 'block';
+        document.getElementById('menu_click').value = 'Close'
+        document.getElementById('open-menu').textContent = 'arrow_drop_up';
+    }
+}
+
 function addText(ele) {
-    // if (idCounter > 99) exit;
     var lastPostNum = document.getElementById('last-post-num').value,
         idCounter;
         
@@ -41,7 +83,7 @@ function addText(ele) {
     parentDiv.setAttribute('class', 'h3-tag-container');
     parentDiv.id = `post-item-${idCounter}`;
     iconI.setAttribute('class', 'material-icons');
-    iconI.innerHTML = 'remove_circle_outline';
+    iconI.innerHTML = 'close';
     inputHidden.setAttribute('type', 'hidden');
     childDiv.setAttribute('class', 'delete-icon delete-img-tag');
     childDiv.id = `delete-item-${idCounter}`;
@@ -89,32 +131,4 @@ function addText(ele) {
     parentDiv.appendChild(childDiv);
     textContents.appendChild(parentDiv);
     document.getElementById('last-post-num').value = idCounter;
-}
-
-function postDelete(ele) {
-    var deleteNum = ele.id.substr(12),
-        textContents = document.getElementById('text-contents'),
-        deleteItem = document.getElementById(`post-item-${deleteNum}`);
-    textContents.removeChild(deleteItem);
-}
-
-function openBtn(ele){
-    var reportId = ele.id,
-        postTargetContentId = document.getElementById('target_content_id'),
-        modal = document.getElementById('modal');
-        
-    postTargetContentId.value = reportId;
-    modal.style.display = 'block';
-}
-
-function menuOpen() {
-    if (document.getElementById('menu_click').value == 'Close') {
-        document.getElementById('menu-accordion').style.display = 'none';
-        document.getElementById('menu_click').value = 'Open'
-        document.getElementById('open-menu').textContent = 'arrow_drop_down';
-    } else {
-        document.getElementById('menu-accordion').style.display = 'block';
-        document.getElementById('menu_click').value = 'Close'
-        document.getElementById('open-menu').textContent = 'arrow_drop_up';
-    }
 }

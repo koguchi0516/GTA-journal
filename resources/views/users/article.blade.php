@@ -2,19 +2,9 @@
 
 @section('content')
 
-<div class="message-box">
-    <ul>
-        @error('comment-post')
-            <li>{{ $message }}</li>
-        @enderror
-        
-        @if(Session::has('info'))
-            <li>{{ Session('info') }}</li>
-        @endif
-    </ul>
-</div>
+@include('layouts.message-box')
 
-<div class="article-container">
+<div class="article-container material">
     <div class="message-head">
             <div class="user-name">
                 <a href="/mypage/{{ $data['title_data'] -> user -> id }}">
@@ -22,11 +12,13 @@
                 </a>
                 <p>{{ $data['title_data'] -> user -> name }}</p>
             </div>
+            
             <div class="report-area">
                 <div class="message-report">
                     <p class="post-date">{{ date('Y/n/j G:i',strtotime($data['title_data'] -> updated_at)) }}</p>
-                    <p id="report-icon">
+                    <p onclick="reportIcon(this)">
                         <i class="material-icons">more_horiz</i>
+                        <i class="flag">0</i>
                     </p>
                 </div>
                 <div class="report-button-area">
@@ -43,6 +35,7 @@
                     @endauth                    
                 </div>
             </div>
+            
         </div>
 
     <h2 class="article-title">{{ $data['title_data'] -> title }}</h2>
@@ -55,9 +48,9 @@
         @if(Auth::check())
             <a href="/favo/{{ $data['title_data']['id'] }}" class="article-favorite">
                 @if($data['favo_article'] == 0)
-                <i class="material-icons">favorite_border</i>
+                <i class="material-icons article-heart">favorite_border</i>
                 @else
-                <i class="material-icons">favorite</i>
+                <i class="material-icons article-heart">favorite</i>
                 @endif
             </a>
         @endif
@@ -80,7 +73,7 @@
 
 @if(!empty($data['comments']))
     @foreach($data['comments'] as $comment)
-        <div class="comment-list-container">
+        <div class="comment-list-container material">
             <div class="message-head">
                 <div class="user-name">
                     <a href="/mypage/{{ $comment -> user -> id }}">
@@ -91,8 +84,9 @@
                 <div class="report-area">
                     <div class="message-report">
                         <p class="post-date">{{ date('m月d日 G時i分',strtotime($comment -> updated_at)) }}</p>
-                        <p id="report-icon">
+                        <p onclick="reportIcon(this)">
                             <i class="material-icons">more_horiz</i>
+                            <i class="flag">0</i>
                         </p>
                     </div>
                     <div class="report-button-area">
@@ -115,17 +109,17 @@
 @endif
 
 @auth
-    <form method="post" action="/article/{{ $data['title_data'] -> id }}" class="comment-post-form">
+    <form method="post" action="/article/{{ $data['title_data'] -> id }}" class="comment-post-form material">
         {{ csrf_field() }}
         <div class="user-name">
             <img src="/storage/user-icons/{{ Auth::user() -> icon }}" alt="icon">
-            <p>{{ Auth::user() -> name }}</p>
+            <p class="white">{{ Auth::user() -> name }}</p>
         </div>
         <textarea name="comment-post"></textarea>
-        <input type="submit" value="コメント">
+        <input type="submit" class="btn-flat-logo" value="コメント">
     </form>
 @else
-    <div class="unregister-comment-container">
+    <div class="unregister-comment-container material">
         <p>あなたもコメントしてみませんか？</p>
         <p><a href="/register">登録</a></p>
         <p><a href="/login">ログイン</a></p>

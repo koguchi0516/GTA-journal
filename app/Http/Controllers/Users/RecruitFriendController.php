@@ -32,10 +32,9 @@ class RecruitFriendController extends Controller
         $recruiting_friend -> psid = $psid;
         $recruiting_friend -> expiration_date = $expiration_date;
         $recruiting_friend -> friend_message = $friend_message;
-        
         $recruiting_friend -> save();
         
-        $recruiting_friend = RecruitingFriend::all()->sortByDesc("created_at");
+        $request -> Session() -> flash('info','投稿しました');
         return back();
     }
 }

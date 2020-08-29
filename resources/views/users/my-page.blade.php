@@ -2,14 +2,14 @@
 
 @section('content')
     <div class="mypage-container">
-        <div class="profile-area">
+        <div class="profile-area material">
             <div class="user-name">
                 <img src="/storage/user-icons/{{ $data['user_data'] -> icon }}" alt="">
                 <p>{{ $data['user_data'] -> name }}</p>
             </div>
             
             <div class="id-display">
-                <p>User Id : {{ $data['user_data'] -> user_code }}</p>
+                <p>ユーザーID : {{ $data['user_data'] -> user_code }}</p>
                 @if(!$data['user_data'] -> psid)
                     <p>PSID : 未登録</p>
                 @else
@@ -25,21 +25,13 @@
             
             <div class="article-data">
                 <p>投稿数 : {{ count($data['article_data']) }}</p>
-                <p>Get <i class="material-icons">favorite</i> : {{ $data['favo_total'] }}</p>
+                <p>Get <i class="material-icons mypage">favorite</i> : {{ $data['favo_total'] }}</p>
             </div>
-            
-            @if(Auth::check())
-                @if($data['user_data'] -> id == Auth::user() -> id)
-                    <div class="to-setting">
-                        <a href="/setting"><p>プロフィール設定</p></a>
-                    </div>
-                @endif
-            @endif
         </div>
 
         <section>
             <div class="my-articles-area">
-                <p>{{ $data['user_data'] -> name }}の投稿</p>
+                <p class="white">{{ $data['user_data'] -> name }}の投稿</p>
             </div>
             
             @if(count($data['article_data']) == 0)

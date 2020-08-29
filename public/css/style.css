@@ -4,20 +4,38 @@
 
     /*PC用コード*/
     body {
-        background-color: dimgrey;
+        background-color:#f2f2f2;
+        font-family: 'Sawarabi Gothic', sans-serif;
+    }
+    
+    section{
+        /**/
     }
 
     h1 {
-        font-size: 20px;
+        font-size: 29px;
         line-height: 60px;
+        font-family: 'Coda Caption', sans-serif;
+        letter-spacing: -3px;
+        color:#eaeaea;
     }
 
     h2 {
-        font-size: 18px;
+        color:#454545;
+        font-weight:bolder;
+        margin-bottom:6px;
+        line-height:20px;
+    }
+    
+    h3{
+        color:#454545;
+        padding-left:10px;
+        border-left:7px solid #ca0000;
     }
 
     a {
         text-decoration: none;
+        color:#454545;
     }
 
     p {
@@ -26,8 +44,59 @@
     }
 
     input {
-        /*border: none;*/
-        letter-spacing: 1px
+        letter-spacing: 1px;
+        border:none;
+    }
+    
+    .red{
+        font-size: 25px;
+        color:#ca0000;
+    }
+    
+    .white{
+        color:#eaeaea;
+    }
+    
+    .input {
+        width: 90%;
+        height: 32px;
+        border-radius: 3px;
+        border: none;
+        font-size: 13px;
+        padding-left: 5px;
+        margin-bottom: 5px;
+    }
+    
+    .material{
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+        border-radius:3px;
+    }
+    
+    .material-icons.open-menu{
+        color:#eaeaea;
+    }
+    
+    .material-icons.heart{
+        color:#ca0000;
+        margin-right:5px;
+    }
+    
+    .material-icons.article-heart{
+        color:#ca0000;
+        font-size:30px;
+    }
+    
+    .material-icons.mypage{
+        font-size:30px;
+        color:#ca0000;
+    }
+    
+    .article-favorite .article-heart{
+        font-size:40px;
+        position:absolute;
+        top:50%;
+        left:15%;
+        transform:translateY(-50%);
     }
 
     .material-icons:hover {
@@ -39,15 +108,20 @@
         line-height: 23px;
         font-size: 20px;
         height: 200px;
+        border:none;
+        border-radius:3px;
     }
     
     .message-box{
-        background-color:#000;
+        background-color:#ca0000;
+        color:#eaeaea;
         max-width:600px;
-        margin:auto;
+        margin:20px auto;
         padding:10px;
         font-weight:bolder;
         text-align:center;
+        border:solid 1.5px #ca0000;
+        border-radius:3px;
     }
     
     li {
@@ -55,15 +129,90 @@
         font-size:17px;
         line-height:20px;
     }
-
+    
+    .flag{
+        display:none;
+    }
+    
+    .header-sticky {
+        postion: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        z-index:200;
+    }
+    
+    .menu-sticky{
+        postion: -webkit-sticky;
+        position: sticky;
+        top: 60px;
+        z-index:200;
+    }
+    
+    .report-button-area{
+        background-color:#454545;
+        display:none;
+        position:absolute;
+        z-index:1;
+        width:150px;
+        border-radius:3px;
+    }
+    
+    .report-button-area p{
+        color:#eaeaea;
+    }
+    
+    .report-button:hover{
+        background-color:#ca0000;
+        transition: .4s;
+     }
+    
+    /*ボタン*/
+    .btn-flat-logo {
+        position: relative;
+        display: inline-block;
+        font-weight: bold;
+        padding: 5px 10px;
+        text-decoration: none;
+        color: #FFF;
+        background: #454545;
+        transition: .4s;
+        border-radius:3px;
+    }
+    
+    .btn-flat-logo:hover {
+        background: #ca0000;
+    }
+    
+    .btn-flat-logo.header{
+        line-height: 30px;
+        height:40px;
+        margin: 10px;
+    }
+    
+    .btn-flat-logo.friend{
+        margin:10px 0 10px 19px;
+        width:80px;
+    }
+    
+    .setting-form .btn-flat-logo{
+        width:120px;
+    }
+    
+    .setting.btn-flat-logo{
+        margin:20px 0;
+        width:150px;
+        text-align:center;
+    }
+    
     /*header-container*/
     .header-container {
         display: flex;
         position: relative;
         height: 60px;
-        background-color: beige;
+        background-color: #454545;
         width: 100%;
         justify-content: space-around;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
     }
 
     .header-container img {
@@ -89,40 +238,27 @@
         margin-left: 32px;
     }
 
-    .header-menu .link-btn {
-        line-height: 60px;
-        background-color: aqua;
-        padding: 5px 13px;
-        margin: 0 10px;
-        border-radius: 4px;
-    }
-
-    .header-menu a:hover {
-        background-color: darkolivegreen;
-    }
-
     /*icon-nav*/
     .icon-nav {
-        z-index: 199;
-        position: absolute;
-        background-color: aquamarine;
+        background-color: #454545;
         width: 150px;
-        border-radius: 4px;
-        padding: 15px 0;
-        margin-left: 80%;
         display: none;
+        width:100%;
+        height:150px;
+        padding:0 300px;
     }
 
-    .icon-nav a {
-        display: inline-block;
-        line-height: 25px;
-        padding-left: 20px;
-        background-color: burlywood;
-        width: 100%;
+    .icon-nav p {
+        color:#eaeaea;
+        line-height: 50px;
+        height:50px;
+        background-color: #454545;
+        text-align:center;
+        transition: .2s;
     }
 
-    .icon-nav a:hover {
-        background-color: cadetblue;
+    .icon-nav p:hover {
+        background-color: #ca0000;
     }
 
     /*navとsectionの親要素*/
@@ -133,60 +269,44 @@
     }
 
     /*nev*/
-    .line {
-        margin: 10px 0;
-        width: 100%;
-        height: 2px;
-        background-color: #000;
-    }
-
     .main-contents nav {
-        background-color: cadetblue;
         width: 300px;
         padding: 25px 0;
         font-size: 15px;
-        font-weight: bolder;
-        line-height: 25px;
+        background-color:#eaeaea;
     }
 
-    .main-contents nav a {
+    .main-contents nav a > p {
+        color:#454545;
         padding-left: 25px;
         display: inline-block;
-        background-color: bisque;
-        height: 25px;
+        height: 40px;
+        line-height:40px;
         width: 100%;
+        transition: .4s;
     }
 
-    .main-contents nav a:hover {
-        background-color: chocolate;
+    .main-contents nav a > p:hover {
+        border-left:15px solid #ca0000;
+        transition: .4s;
     }
 
     .main-contents nav form {
         padding-left: 25px;
-        margin-bottom: 15px;
+        margin-top: 20px;
     }
-
-    .search-window {
-        width: 90%;
-        height: 25px;
-        border-radius: 4px;
-        border: none;
-        font-size: 13px;
-        padding-left: 5px;
-        margin-bottom: 5px;
+    
+    .main-contents nav form p{
+        margin:5px;
     }
-
-    .main-contents .button {}
-
-    .main-contents .button:hover {}
 
     /*section*/
     .article-list {
         display: flex;
         position: relative;
-        background-color: darkgoldenrod;
+        background-color: #eaeaea;
         width: 580px;
-        margin-bottom:5px;
+        margin:0 0 5px 10px;
     }
 
     .article-list img {
@@ -202,7 +322,6 @@
     .article-supplement {
         margin: auto 0 auto 60px;
         padding-top: 18px;
-        background-color: dodgerblue;
         width: 100%;
     }
     
@@ -213,7 +332,6 @@
     .favorite-count {
         display: flex;
         line-height: 30px;
-        background-color: aquamarine;
     }
 
     .favorite-count p:first-child {
@@ -225,38 +343,53 @@
     /*--記事投稿画面--*/
     /*category*/
     .add-container {
-        background-color: chocolate;
+        background-color: #eaeaea;
         min-width: 250px;
-        height: 300px;
+        height: 380px;
         margin-right: 10px;
+        padding:25px 0;
         postion: -webkit-sticky;
         position: sticky;
         top: 60px;
     }
 
-    .add-article-parts div {
+    .add-btn-container{
         display: flex;
         justify-content: space-between;
         height: 40px;
         padding: 10px 20px;
     }
+    
+    .add-btn-container.btn-flat-logo{
+        background-color:#eaeaea;
+        border-radius:0;
+        color:#454545;
+        font-weight:normal;
+        transition: .2s;
+    }
 
-    .add-article-parts div:hover {
-        background-color: darkcyan;
+    .add-btn-container.btn-flat-logo:hover {
+        background-color: #ca0000;
+        color:#eaeaea;
         cursor: pointer;
     }
 
     .add-category {
-        margin-top: 20px;
-        margin-left: 20px;
+        padding-left:20px;
+        margin-top:25px;
     }
 
     .add-category p {
         margin: 6px 0;
     }
+    
+    .add-category .input{
+        margin-bottom:25px;
+    }
 
-    .add-category .button {
-        display: block;
+    .add-category .btn-flat-logo {
+        display:block;
+        margin-top:10px;
         height: 40px;
         width: 100px;
         border: none;
@@ -265,22 +398,27 @@
     /*記事記載エリア*/
     .article-post-form {
         display: flex;
-        background-color: beige;
         padding: 0 10%;
+        margin-top:30px;
     }
 
     .article-post-form .title-text {
         height: 50px;
         width: 60%;
-        margin: auto;
+        margin: 10px auto;
         font-size: 25px;
         font-weight: bold;
     }
     
+    .article-post-form .material-icons{
+        color:#454545;
+    }
+    
     .text-contents {
-        background-color: cadetblue;
-        width: 100%;
+        background-color: #eaeaea;
+        width: 1200px;
         margin: 0 auto 0 0;
+        padding-left:10px;
     }
 
     .text-contents input {
@@ -333,10 +471,10 @@
     /*--フレンド募集画面--*/
     /*募集書き込み*/
     .friend-post-form {
-        background-color: aqua;
+        background-color: #454545;
         max-width: 800px;
         margin: 30px auto 50px auto;
-        padding:auto;
+        padding:10px 20px;
     }
 
     .user-name {
@@ -352,18 +490,18 @@
     }
 
     .user-name p {
-        background-color: darksalmon;
-        margin-left: 30px;
+        margin-left: 10px;
+        font-size:18px;
         line-height: 50px;
     }
 
     .friend-post-select {
-        background-color: deeppink;
         display: flex;
     }
 
     .friend-post-select p {
         margin-bottom: 5px;
+        color:#eaeaea;
     }
 
     .friend-post-select div {
@@ -372,26 +510,19 @@
 
     .friend-post-form textarea {
         display: block;
-        max-width: 700%;
-        min-width: 700px;
         margin: 0 auto 5px;
+        max-width: 95%;
+        min-width: 95%;
+        height: 100px;
         padding: 10px;
     }
 
-    .friend-post-button {
-        display: block;
-        margin-left: 30px;
-    }
-
-    .friend-post-button:hover {}
-
     /*投稿メッセージ一覧*/
     .friend-message-container {
-        background-color: blueviolet;
-        border-bottom: 1px solid #000;
+        background-color: #eaeaea;
         max-width: 800px;
         margin: 0 auto 15px;
-        padding-left: 30px;
+        padding: 20px;
     }
 
     /*アイコンの段*/
@@ -413,7 +544,6 @@
         display: flex;
         justify-content: space-between;
         width: 150px;
-        background-color: cadetblue;
         line-height: 50px;
     }
     
@@ -433,32 +563,32 @@
     }
 
     .friend-message-purpose {
-        background-color: blue;
+        /*background-color: #ca0000;*/
+        border-radius:3px;
         margin-right: 30px;
         padding: 0 15px;
     }
 
     /*メッセージ本文エリア*/
     .friend-message-container > p {
-        background-color: chartreuse;
-        max-width: 600px;
+        background-color: #fff;
         margin-bottom: 10px;
-        padding: 10px;
+        padding: 20px 10px;
         white-space: pre-wrap;
+        border-radius:3px;
     }
 
     /*--設定画面--*/
     /*共通部分*/
     .setting {
-        background-color: aqua;
         width: 800px;
         margin: 30px auto 0;
     }
 
     .setting .form-container {
-        background-color: aquamarine;
+        background-color: #eaeaea;
         margin-bottom: 20px;
-        border-bottom: 1px solid #000;
+        padding:20px;
     }
 
     .setting .form-container > p {
@@ -502,43 +632,28 @@
     }
 
     /*ログアウト・削除*/
-    .setting > div p {
-        background-color: coral;
-        width: 150px;
-        height: 40px;
-        line-height: 40px;
-        margin-bottom: 30px;
-        text-align: center;
-        border-radius: 3px;
-    }
-
-    .setting > div p:hover {
-        background-color: burlywood;
-    }
+    
 
     /*--マイページ--*/
     .mypage-container {
         display: flex;
-        background-color: chocolate;
         max-width: 1000px;
         padding:auto;
         margin: 30px auto 0;
     }
 
     .profile-area {
-        background-color: darkviolet;
-        height: 450px;
-        padding: 0 15px;
+        background-color: #eaeaea;
+        padding: 10px 15px;
         width: 40%;
         min-width:230px;
     }
 
     .mypage-profile {
-        background-color: azure;
+        background-color: #fff;
         margin: 15px 0;
         padding: 10px;
-        border: 1px solid #000;
-        border-radius: 5px;
+        border-radius: 3px;
     }
     
     .mypage-profile p{
@@ -548,7 +663,6 @@
     .article-data {
         display: flex;
         justify-content: space-around;
-        background-color: aquamarine;
         height: 40px;
         margin: 30px 0;
     }
@@ -560,7 +674,8 @@
     .my-articles-area {
         height: 40px;
         min-width:250px;
-        background-color: dodgerblue;
+        margin:0 0 10px 10px;
+        background-color: #454545;
     }
     
     .my-articles-area p {
@@ -574,87 +689,46 @@
         line-height: 40px;
     }
 
-    .to-setting {
-        background-color: forestgreen;
-        width: 180px;
-        height: 30px;
-        text-align: center;
-        border-radius: 5px;
-    }
-
-    .to-setting:hover {
-        background-color: aqua;
-        cursor: pointer;
-    }
-
-    .to-setting p {
-        line-height: 30px;
-    }
-
     /*--記事詳細画面--*/
     /*記事詳細全体*/
-    .report-button-area{
-        position:absolute;
-        z-index:1;
-        width:150px;
-    }
     
     .article-container {
-        background-color: blueviolet;
+        background-color: #eaeaea;
         max-width: 1000px;
-        margin: auto auto 30px auto;
+        margin: 30px auto;
         padding: 30px;
-    }
-
-    /*ユーザー・記事情報上段*/
-    .article-head {
-        display: flex;
-        justify-content: space-between;
-        background-color: aqua;
-        height: 50px;
-        margin-bottom: 30px;
-    }
-
-    /*ユーザー情報・更新日*/
-    .article-head-data {
-        display: flex;
-        background-color: forestgreen;
-    }
-
-    .article-head-data  p {
-        margin-left: 30px;
-        line-height:50px;
     }
 
     .article-title {
         font-size: 35px;
-        margin-bottom: 10px;
+        margin: 17px 0;
+        line-height:40px;
     }
 
     /*記事タグといいねアイコン*/
     .article-tag-container {
         display: flex;
-        background-color: darkturquoise;
+        position:relative;
         height: 30px;
         margin-bottom: 20px;
     }
 
     .article-tag-container p {
+        background-color:#454545;
+        color:#eaeaea;
         display: inline-block;
-        margin: 0 10px 15px 0;
+        border-radius:3px;
         padding: 0 20px;
-        background-color: crimson;
+        margin:0;
         line-height: 30px;
     }
 
     .article-favorite {
-        background-color: fuchsia;
         margin-left: 90px;
     }
 
     .article-text {
         text-align: center;
-        background-color: darkseagreen;
         padding: 15px;
     }
 
@@ -678,10 +752,9 @@
 
     /*コメント一覧*/
     .comment-list-container {
-        background-color: dodgerblue;
+        background-color: #eaeaea;
         max-width: 1000px;
         margin: auto auto 10px;
-        border-bottom: 1px solid #000;
         padding: 10px 20px;
     }
 
@@ -700,16 +773,16 @@
 
     .comment-text {
         white-space: pre-wrap;
+        padding:0 10px;
+        background-color:#fff;
     }
 
     /*コメント投稿*/
     .comment-post-form {
-        background-color: firebrick;
+        background-color: #454545;
         max-width: 1000px;
         margin: 45px auto;
         padding: 20px;
-        margin: 45px auto;
-        text-align: center
     }
 
     .comment-post-form textarea {
@@ -717,11 +790,11 @@
         min-width: 95%;
         height: 100px;
         padding: 10px;
-        margin-bottom: 10px;
+        margin: 0 23px 10px;
     }
 
     .unregister-comment-container {
-        background-color: darkorange;
+        background-color: #eaeaea;
         width: 500px;
         padding :15px;
         margin: 45px auto;
@@ -730,6 +803,15 @@
 
     .unregister-comment-container p {
         margin-bottom: 10px;
+    }
+    
+    .unregister-comment-container a{
+        background-color:#ca0000;
+        display:block;
+        font-weight:normal;
+        color:#eaeaea;
+        height:30px;
+        line-height:30px;
     }
     
     .paginationWrap {
@@ -768,19 +850,10 @@
         background-color: #e1e7f0;
         border-radius: 40px;
     }
-
-    /*「報告する」の表示*/
-    .report-button-area{
-        background-color:darkorange;
-    }
     
     .report-button{
         line-height:35px;
         text-align:center;
-     }
-    
-     .report-button:hover{
-        background-color:red;
      }
 
     /*モーダルウィンドウ*/
@@ -798,21 +871,20 @@
 
     .modal-content {
         position: absolute;
-        background-color: white;
+        background-color: #eaeaea;
         width: 700px;
-        height: 300px;
+        height: 330px;
+        padding:10px 0;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
 
     .modal-content > input {
-        background-color: aquamarine;
         margin-left: 640px;
     }
 
     .modal-content-header {
-        background-color: coral;
         display: flex;
         justify-content: space-between;
         margin: 15px;
@@ -824,7 +896,6 @@
     }
 
     .check_lb {
-        background-color: aqua;
         display: block;
         padding: 8px;
         margin: 8px;

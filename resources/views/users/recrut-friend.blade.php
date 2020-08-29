@@ -2,65 +2,47 @@
 
 @section('content')
 
-<div class="message-box">
-    <ul>
-        @error('report_content')
-            <li>{{ $message }}</li>
-        @enderror
-        
-        @error('psid')
-            <li>{{ $message }}</li>
-        @enderror
-        
-        @error('friend-message')
-            <li>{{ $message }}</li>
-        @enderror
-        
-        @if(Session::has('info'))
-            <li>{{ Session('info') }}</li>
-        @endif
-    </ul>
-</div>
+@include('layouts.message-box')
 
 @auth
-<form class="friend-post-form" action="{{ url('/recrut-friend') }}" method="post">
-    {{ csrf_field() }}
-    <div class="user-name">
-        <img src="/user-icons/{{ Auth::user() -> icon }}" alt="">
-        <p>{{ Auth::user() -> name }}</p>
-    </div>
-    <div class="friend-post-select">
-        <div class="">
-            <p>目的</p>
-            <select name="purpose" id="">
-                <option value="1">フレンド募集</option>
-                <option value="2">協力</option>
-                <option value="3">対戦</option>
-                <option value="4">強盗</option>
-                <option value="5">カジノ</option>
-            </select>
+    <form class="friend-post-form material" action="{{ url('/recrut-friend') }}" method="post">
+        {{ csrf_field() }}
+        <div class="user-name">
+            <img src="/storage/user-icons/{{ Auth::user() -> icon }}" alt="">
+            <p class="white">{{ Auth::user() -> name }}</p>
         </div>
-        <div class="">
-            <p>PSID</p>
-            <input type="text" name="psid" placeholder="PSID" value="{{ Auth::user() -> psid }}">
+        <div class="friend-post-select">
+            <div class="">
+                <p>目的</p>
+                <select name="purpose" class="input">
+                    <option value="1">フレンド募集</option>
+                    <option value="2">協力</option>
+                    <option value="3">対戦</option>
+                    <option value="4">強盗</option>
+                    <option value="5">カジノ</option>
+                </select>
+            </div>
+            <div>
+                <p>PSID</p>
+                <input type="text" name="psid" class="input" placeholder="PSID" value="{{ Auth::user() -> psid }}">
+            </div>
+            <div>
+                <p>PSID表示期間</p>
+                <select name="expiration-date" class="input">
+                    <option value="0">表示しない</option>
+                    <option value="86400">24時間</option>
+                    <option value="259200" selected>3日間</option>
+                    <option value="604800">7日間</option>
+                    <option value="2592000">30日間</option>
+                </select>
+            </div>
         </div>
-        <div class="">
-            <p>PSID表示期間</p>
-            <select name="expiration-date" id="">
-                <option value="0">表示しない</option>
-                <option value="86400">24時間</option>
-                <option value="259200" selected>3日間</option>
-                <option value="604800">7日間</option>
-                <option value="2592000">30日間</option>
-            </select>
-        </div>
-    </div>
-    <textarea name="friend-message" placeholder="メッセージ">{{ old('friend-message') }}</textarea>
-    <input class="friend-post-button" type="submit" value="投稿">
-</form>
+        <textarea name="friend-message" placeholder="メッセージ">{{ old('friend-message') }}</textarea>
+        <input class="btn-flat-logo friend" type="submit" value="投稿">
+    </form>
 @else
     <div class="unregister-comment-container">
-        <p>あなたも仲間を募集迂してみませんか？</p>
+        <p>あなたも仲間を募集してみませんか？</p>
         <p><a href="/register">登録</a></p>
         <p><a href="/login">ログイン</a></p>
     </div>
@@ -70,7 +52,7 @@
 @foreach($recruiting_friend as $friend)
     <span hidden id="target-content-keyId-{{ $i }}">{{ $friend -> id }}</span>
     
-    <div class="friend-message-container">
+    <div class="friend-message-container material">
         <div class="message-head">
             <div class="user-name">
                 <a href="/mypage/{{ $friend -> user -> id }}">
@@ -81,8 +63,9 @@
             <div class="report-area">
                 <div class="message-report">
                     <p class="post-date">{{ date('m月d日 G時i分',strtotime($friend -> created_at)) }}</p>
-                    <p id="report-icon">
+                    <p onclick="reportIcon(this)">
                         <i class="material-icons">more_horiz</i>
+                        <i class="flag">0</i>
                     </p>
                 </div>
                 <div class="report-button-area">
@@ -98,7 +81,6 @@
         
         <div class="friend-message-data">
             <p class="friend-message-purpose">{{ $friend -> purpose -> purpose_name  }}</p>
-            <p>test</p>
             @if(time() < $friend -> expiration_date)
                 <p class="friend-message-psid">PSID : {{ $friend -> psid }}</p>
             @else
