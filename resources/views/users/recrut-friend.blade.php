@@ -58,7 +58,9 @@
                 <a href="/mypage/{{ $friend -> user -> id }}">
                     <img src="/storage/user-icons/{{ $friend -> user -> icon }}" alt="ユーザーアイコン">
                 </a>
-                <p>{{ $friend -> user -> name }}</p>
+                <p>
+                    <a href="/mypage/{{ $friend -> user -> id }}">{{ $friend -> user -> name }}</a>
+                </p>
             </div>
             <div class="report-area">
                 <div class="message-report">

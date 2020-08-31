@@ -4,7 +4,7 @@
     <div class="main-contents">
         <nav class="material">
             <a href="/home"><p>最新記事</p></a><br>
-            <a href="/home/weekly"><p>今種の人気記事</p></a><br>
+            <a href="/home/weekly"><p>今週の人気記事</p></a><br>
             <a href="/home/favo"><p>お気に入り</p></a>
             <a href="/recrut-friend"><p>フレンド募集</p></a>
             
@@ -30,6 +30,9 @@
         </nav>
         <section>
             @include('layouts.article-list',['article_data' => $article_data])
+            <div class="pagination">
+                {{ $article_data->links() }}
+            </div>
         </section>
     </div>
 @endsection

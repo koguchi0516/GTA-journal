@@ -12,7 +12,7 @@ use App\User;
 class RecruitFriendController extends Controller
 {
     public function recrutShow(){
-        $recruiting_friend = RecruitingFriend::all()->sortByDesc('created_at');
+        $recruiting_friend = RecruitingFriend::all() -> sortByDesc('created_at');//simplePaginate(2);なぜかできない
         return view('users.recrut-friend',compact('recruiting_friend'));
     }
     

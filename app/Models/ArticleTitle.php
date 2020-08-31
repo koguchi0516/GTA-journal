@@ -18,6 +18,10 @@ class ArticleTitle extends Model
         return $this -> hasMany('App\Models\FavoriteArticle');
     }
     
+    public function report(){
+        return $this -> hasOne('App\Models\Report');
+    }
+    
     public static $article_post_rule = [
         'category' => 'required',
         'title' => 'required|max:255',

@@ -15,7 +15,7 @@ class MyPageController extends Controller
     public function showMyPage($user_id){
         $user_data = User::find($user_id);
         $article_title = new ArticleTitle;
-        $article_data = $article_title -> where('user_id',$user_id) -> orderBy('updated_at','desc') -> get();
+        $article_data = $article_title -> where('user_id',$user_id) -> orderBy('updated_at','desc') -> simplePaginate(2);
         $favo_title_id = $article_title -> where('user_id',$user_id) -> select('id') -> get() -> toArray();
         $favo_total = 0;
         $favo_count = 0;

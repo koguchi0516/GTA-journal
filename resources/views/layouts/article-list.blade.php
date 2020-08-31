@@ -4,9 +4,9 @@
             <img src="/storage/user-icons/{{ $data -> user -> icon }}" alt="icon">
         </a>
         <div class="article-supplement">
-            <a href="/article/{{ $data['id'] }}">
-                <h2>{{ $data['title'] }}</h2>
-            </a>
+            <h2>
+                <a href="/article/{{ $data['id'] }}">{{ $data['title'] }}</a>
+            </h2>
             <div class="favorite-count">
                 <p>{{ date('Y/n/j G:i',strtotime($data['updated_at'])) }}</p>
                 <i class="material-icons heart">favorite</i>

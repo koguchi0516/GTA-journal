@@ -13,26 +13,27 @@ use App\User;
 class HomeController extends Controller
 {
     public function showHome(){
-        $article_data = ArticleTitle::orderBy('updated_at','desc') -> get();
+        $article_data = ArticleTitle::orderBy('updated_at','desc') -> simplePaginate(2);
         return view('users.home',compact('article_data'));
     }
     
     public function showHomeWeekly(){
-        print('週間のいいねランキング');
-    //     $week_ago = date('y-m-d G:i:s',strtotime('-1 week',time()));
-    //     $favo_title_id = FavoriteArticle::where('updated_at','>',$week_ago) -> select('article_title_id') -> orderBy('article_title_id', 'desc') -> get() -> toArray();
-    //     $favo_title_id = array_column($favo_title_id,'article_title_id');
-    //     $test = [];
-    //     $article_data = [];
+        $week_ago = date('y-m-d G:i:s',strtotime('-1 week',time()));
+        $favo_title_id = ArticleTitle::where('updated_at','>',$week_ago) -> withCount('favoriteArticle') -> orderBy('favoriteArticle_count','desc') -> paginate(2);
         
-    //     foreach($favo_title_id as $val){
-    //         if(!in_array($val,$test)) $test[] = $val;
-    //     }
+        print_r($favo_title_id);
+        // $favo_title_id = array_column($favo_title_id,'article_title_id');
+        // $test = [];
+        // $article_data = [];
         
-    //     $article_data = ArticleTitle::find($test) -> join('favoriteArticle','article_titles.id','=','favorite_articles.article_title_id') -> orderBy('');
+        // foreach($favo_title_id as $val){
+        //     if(!in_array($val,$test)) $test[] = $val;
+        // }
         
-    //     print_r($article_data);
-    //     return view('users.home',compact('article_data'));
+        // $article_data = ArticleTitle::find($test) -> join('favoriteArticle','article_titles.id','=','favorite_articles.article_title_id') -> orderBy('');
+        
+        // print_r($article_data);
+        // return view('users.home',compact('article_data'));
     }
     
     public function showHomeFavo(){
@@ -41,7 +42,7 @@ class HomeController extends Controller
         $article_data = ArticleTitle::select('article_titles.*')
         -> join('favorite_articles','article_titles.id','=','favorite_articles.article_title_id')
         -> where('favorite_articles.user_id',Auth::user() -> id)
-        -> orderBy('favorite_articles.created_at','desc') -> get();
+        -> orderBy('favorite_articles.created_at','desc') -> simplePaginate(2);
         
         return view('users.home',compact('article_data'));
     }
@@ -61,13 +62,13 @@ class HomeController extends Controller
     }
     
     public function linkChcategory(Request $request,$category_id){
-        $article_data = ArticleTitle::where('category_id',$category_id) -> get();
+        $article_data = ArticleTitle::where('category_id',$category_id) -> simplePaginate(2);
         return view('users.home',compact('article_data'));
     }
     
     public function searchCategory(Request $request){
         $category_id = $request -> input('category');
-        $article_data = ArticleTitle::where('category_id',$category_id) -> get();
+        $article_data = ArticleTitle::where('category_id',$category_id) -> simplePaginate(2);
         return view('users.home',compact('article_data'));
     }
     

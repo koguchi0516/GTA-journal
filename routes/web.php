@@ -54,11 +54,13 @@ Route::get('/delete/{content_type}/{content_id}','Users\ArticleTextController@de
 Route::get('/logout','LogoutController@logout');
 
 /*管理画面*/
+// home表示・報告一覧表示・凍結中ユーザー一覧表示
 Route::get('/admin/home','Admin\AdminHomeController@adminHome');
-Route::get('/admin/report/list','Admin\AdminHomeController@reportList');
-Route::get('/admin/report/user','Admin\AdminHomeController@reportUser');
-Route::get('/admin/report/article','Admin\AdminHomeController@reportArticle');
-Route::get('/admin/report/comment','Admin\AdminHomeController@reportComment');
+Route::get('/admin/list','Admin\AdminHomeController@reportList');
+Route::get('/admin/user-list','Admin\AdminHomeController@reportUser');
+
+// 報告記事詳細表示・報告コメント詳細表示
+Route::get('/admin/report/{report_id}','Admin\AdminHomeController@reportDetail');
 
 Auth::routes();
 Route::get('/index', 'HomeController@index')->name('home');

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class FavoriteArticle extends Model
 {
     public function articleTitle(){
-        return $this -> belongsTo('App\Models\FavoriteArticle');
+        return $this -> belongsTo('App\Models\ArticleTitle');
     }
+    
 }

@@ -38,9 +38,12 @@
                 <div class="article-list">
                     <p>投稿はありません</p>
                 </div>
-            @endif
-            
+            @else
             @include('layouts.article-list',['article_data' => $data['article_data']])
+            <div class="pagination">
+                {{ $data['article_data']->links() }}
+            </div>
+            @endif
         </section>
         
     </div>

@@ -1,5 +1,18 @@
 @charset 'utf-8';
 
+/*共通*/
+.admin-title{
+    background-color:#454545;
+    color:#eaeaea;
+    max-width:600px;
+    margin:auto;
+    line-height:50px;
+    font-size:20px;
+    text-align:center;
+    border-radius:3px;
+    margin-bottom:5px;
+}
+
 /*ホーム画面*/
 .report-header{
     margin-bottom:30px;
@@ -73,4 +86,16 @@
 .report-user-data p{
     line-height:50px;
     margin:0 0 10px 10px;
+}
+
+/*報告コメント詳細*/
+.comment-list-container.admin{
+    margin-top:50px;
+}
+
+.admin-comment-link{
+    margin:10px 0;
+}
+
+.admin-comment-link p{
 }

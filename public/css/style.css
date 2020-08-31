@@ -56,7 +56,7 @@
     .white{
         color:#eaeaea;
     }
-    
+
     .input {
         width: 90%;
         height: 32px;
@@ -202,6 +202,20 @@
         margin:20px 0;
         width:150px;
         text-align:center;
+    }
+
+    /*ページネーション*/
+    .pagination{
+        display:flex;
+        margin-top:10px;
+    }
+    
+    .pagination ul{
+        margin:auto;
+    }
+    
+    .page-link{
+        margin-right:15px;
     }
     
     /*header-container*/
@@ -815,10 +829,10 @@
     }
     
     .paginationWrap {
-    display: flex;
-    justify-content: center;
-    margin-top: 38px;
-    margin-bottom: 40px;
+        display: flex;
+        justify-content: center;
+        margin-top: 38px;
+        margin-bottom: 40px;
     }
     
     .paginationWrap ul.pagination {

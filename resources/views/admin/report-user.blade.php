@@ -1,8 +1,9 @@
 @extends('layouts.admin-header')
 
 @section('content')
+    <p class="admin-title">凍結中ユーザー</p>
     <div class="report-container material">
-        <a href="xxx" class="report-user-data">
+        <a href="" class="report-user-data">
             <img src="/storage/user-icons/default-icon.jpg"></img>
             <p>user_name</p>
         </a>
