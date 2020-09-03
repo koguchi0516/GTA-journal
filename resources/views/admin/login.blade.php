@@ -11,14 +11,14 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="form-group row">
-                            <label for="user_code" class="col-md-4 col-form-label text-md-right">ユーザID</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">管理者名</label>
                             
                             <div class="col-md-6">
-                                <input id="user_code" type="text" class="form-control{{ $errors->has('user_code') ? ' is-invalid' : '' }}" name="user_code" value="{{ old('user_code') }}" required autofocus>
+                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
                                
-                                @if ($errors->has('user_code'))
+                                @if ($errors->has('name'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('user_code') }}</strong>
+                                        <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -37,19 +37,6 @@
                                 @enderror
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        入力を登録する
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -63,5 +50,5 @@
         </div>
     </div>
 </div>
-<p>ユーザーログイン</p>
+<p>管理者ログイン</p>
 @endsection

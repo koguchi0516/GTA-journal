@@ -2,20 +2,10 @@
 
 @section('content')
 
-    <p class="admin-title">報告者</p>
-    
-    <div class="report-container material">
-        <a href="/mypage/{{ $data['report']['user_id'] }}" class="report-user-data">
-            <img src="/storage/user-icons/{{ $data['report'] -> user -> icon }}"></img>
-            <p>{{ $data['report'] -> user -> name }}</p>
-        </a>
-        <div class="report-list-data">
-            <p>このユーザーからの報告数 : {{ $data['report_count'] }}件</p>
-        </div>
-    </div>
+    @include('layouts.admin-report-user',['data' => $data])
     
     @if(Session::has('info-'.$data['report_id']))
-        @include('layouts.message-box',['report_id' => $data['report_id']])
+        @include('layouts.admin-message-box',['report_id' => $data['report_id']])
     @else
         <div class="comment-list-container admin material">
             <div class="message-head">

@@ -99,3 +99,8 @@
 
 .admin-comment-link p{
 }
+
+/*フレンドコメント*/
+.friend-message-container.admin{
+    margin-top:50px;
+}

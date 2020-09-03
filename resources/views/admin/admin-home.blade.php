@@ -5,13 +5,13 @@
     
     <div class="admin-data">
         <p>ユーザー数</p>
-        <p>xxx人</p>
+        <p>{{ $user_count }}人</p>
     </div>
     
     <a href="/admin/user-list">
         <div class="admin-data border">
             <p>凍結中ユーザー</p>
-            <p>xx人</p>
+            <p>{{ $suspended_count }}人</p>
         </div>
     </a>
     

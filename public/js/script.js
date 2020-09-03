@@ -79,7 +79,6 @@ function addText(ele) {
         textArea = document.createElement('textarea'),
         inputImg = document.createElement('input');
 
-    console.log(idCounter);
     parentDiv.setAttribute('class', 'h3-tag-container');
     parentDiv.id = `post-item-${idCounter}`;
     iconI.setAttribute('class', 'material-icons');

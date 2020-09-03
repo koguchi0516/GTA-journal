@@ -8,11 +8,15 @@ use App\Models\Report;
 use App\Models\ArticleTitle;
 use App\Models\Comment;
 use App\Models\RecruitingFriend;
+use App\User;
+use App\Models\SuspendingUser;
 
 class AdminHomeController extends Controller
 {
     public function adminHome(){
-        return view('admin.admin-home');
+        $user_count = User::count();
+        $suspended_count = SuspendingUser::count();
+        return view('admin.admin-home',compact('user_count','suspended_count'));
     }
     
     public function reportList(){
@@ -35,22 +39,28 @@ class AdminHomeController extends Controller
         
         switch($report -> content_type){
             case 1:
-                $target_content = ArticleTitle::find($report -> user_id);
+                $article_title = ArticleTitle::find($report -> target_id);
+                if($article_title == Null){
+                    Session() -> flash('info-'.$report_id,'記事削除済み');
+                    return view('admin.report-article',compact('data'));
+                }else{
+                    return redirect('/article/'.$article_title -> id);
+                }
                 break;
                 
             case 2:
                 $comment = Comment::find($report -> target_id);
-                if($comment == Null) $request -> Session() -> flash('info-'.$report_id,'削除済み');
+                if($comment == Null) $request -> Session() -> flash('info-'.$report_id,'コメント削除済み');
                 if($comment !== Null) $data ['comment'] = $comment;
                 return view('admin.report-comment',compact('data'));
                 break;
                 
             case 3:
-                $target_content = RecruitingFriend::find($report -> user_id);
+                $friend = RecruitingFriend::find($report -> target_id);
+                if($friend == Null) $request -> Session() -> flash('info-'.$report_id,'フレンド募集メッセージ削除済み');
+                return view('admin.report-recrut-friend',compact('data','friend'));
                 break;
         }
-        print_r($target_content);
-        
     }
     
 }

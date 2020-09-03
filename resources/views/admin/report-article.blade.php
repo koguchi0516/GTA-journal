@@ -1,5 +1,11 @@
 @extends('layouts.admin-header')
 
 @section('content')
-<p>報告記事</p>
+
+    @include('layouts.admin-report-user',['data' => $data])
+
+    @if(Session::has('info-'.$data['report_id']))
+        @include('layouts.admin-message-box',['report_id' => $data['report_id']])
+    @endif
+
 @endsection

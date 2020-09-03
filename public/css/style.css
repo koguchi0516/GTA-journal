@@ -1,6 +1,6 @@
 @charset 'utf-8';
 
-@media screen and (min-width: 481px) {
+@media screen and (min-width: 801px) {
 
     /*PC用コード*/
     body {
@@ -286,7 +286,6 @@
     .main-contents nav {
         width: 300px;
         padding: 25px 0;
-        font-size: 15px;
         background-color:#eaeaea;
     }
 
@@ -352,8 +351,6 @@
         margin-right: 30px;
     }
 
-    .favorite-count i {}
-
     /*--記事投稿画面--*/
     /*category*/
     .add-container {
@@ -401,12 +398,16 @@
         margin-bottom:25px;
     }
 
-    .add-category .btn-flat-logo {
-        display:block;
+    .article-button-container .btn-flat-logo {
         margin-top:10px;
         height: 40px;
         width: 100px;
         border: none;
+    }
+    
+    .article-button-container{
+        display:flex;
+        justify-content:space-around;
     }
 
     /*記事記載エリア*/

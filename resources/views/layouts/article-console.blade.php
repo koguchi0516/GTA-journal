@@ -22,6 +22,8 @@
             <option value="4">洋服</option>
             <option value="5">不動産</option>
         </select>
+    </div>
+    <div class="article-button-container">
         <input class="btn-flat-logo" type="submit" value="{{ $display }}">
         <input class="btn-flat-logo" type="submit" name='{{ $aim }}' value="{{ $message }}">
     </div>

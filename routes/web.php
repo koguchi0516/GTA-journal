@@ -16,12 +16,14 @@ Route::get('/', function () {
 });
 
 /*ホーム画面*/
-Route::get('/home','Users\HomeController@showHome');
-Route::get('/home/weekly','Users\HomeController@showHomeWeekly');
-Route::get('/home/favo','Users\HomeController@showHomeFavo');
-Route::post('/home/user','Users\HomeController@searchUser');
-Route::get('/home/category/{category_id}','Users\HomeController@linkChcategory');
-Route::post('/home/category','Users\HomeController@searchCategory');
+Route::group(['prefix' => 'home'], function() {
+    Route::get('/','Users\HomeController@showHome');
+    Route::get('/weekly','Users\HomeController@showHomeWeekly');
+    Route::get('/favo','Users\HomeController@showHomeFavo');
+    Route::post('/user','Users\HomeController@searchUser');
+    Route::get('/category/{category_id}','Users\HomeController@linkChcategory');
+    Route::post('/category','Users\HomeController@searchCategory');
+});
 
 /*マイーページ*/
 Route::get('/mypage/{user_id}','Users\MyPageController@showMyPage');
@@ -53,11 +55,25 @@ Route::get('/delete/{content_type}/{content_id}','Users\ArticleTextController@de
 /*ログアウト*/
 Route::get('/logout','LogoutController@logout');
 
-/*管理画面*/
+//管理画面
 // home表示・報告一覧表示・凍結中ユーザー一覧表示
-Route::get('/admin/home','Admin\AdminHomeController@adminHome');
-Route::get('/admin/list','Admin\AdminHomeController@reportList');
-Route::get('/admin/user-list','Admin\AdminHomeController@reportUser');
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
+Route::get('/home','Admin\AdminHomeController@adminHome');
+Route::get('/list','Admin\AdminHomeController@reportList');
+Route::get('/user-list','Admin\AdminHomeController@reportUser');
+});
+
+//管理者用認証
+Route::group(['prefix' => 'admin',], function () { //teachesディレクトリをここで指定しておく←意味聞く
+Route::get('login', 'AuthAdmin\LoginController@showLoginForm')->name('admin_auth.login');
+Route::post('login', 'AuthAdmin\LoginController@login')->name('admin_auth.login');
+Route::post('logout', 'AuthAdmin\LoginController@logout')->name('admin_auth.logout');
+
+Route::post('password/email', 'AuthAdmin\ForgotPasswordController@sendResetLinkEmail')->name('admin_auth.password.email');
+Route::get('password/reset', 'AuthAdmin\ForgotPasswordController@showLinkRequestForm')->name('admin_auth.password.request');
+Route::post('password/reset', 'AuthAdmin\ResetPasswordController@reset')->name('admin_auth.password.update');
+Route::get('password/reset/{token}', 'AuthAdmin\ResetPasswordController@showResetForm')->name('admin_auth.password.reset');
+});
 
 // 報告記事詳細表示・報告コメント詳細表示
 Route::get('/admin/report/{report_id}','Admin\AdminHomeController@reportDetail');

@@ -19,21 +19,8 @@ class HomeController extends Controller
     
     public function showHomeWeekly(){
         $week_ago = date('y-m-d G:i:s',strtotime('-1 week',time()));
-        $favo_title_id = ArticleTitle::where('updated_at','>',$week_ago) -> withCount('favoriteArticle') -> orderBy('favoriteArticle_count','desc') -> paginate(2);
-        
-        print_r($favo_title_id);
-        // $favo_title_id = array_column($favo_title_id,'article_title_id');
-        // $test = [];
-        // $article_data = [];
-        
-        // foreach($favo_title_id as $val){
-        //     if(!in_array($val,$test)) $test[] = $val;
-        // }
-        
-        // $article_data = ArticleTitle::find($test) -> join('favoriteArticle','article_titles.id','=','favorite_articles.article_title_id') -> orderBy('');
-        
-        // print_r($article_data);
-        // return view('users.home',compact('article_data'));
+        $article_data = ArticleTitle::where('updated_at','>',$week_ago) -> withCount('favoriteArticle') -> orderBy('favorite_article_count','desc') -> simplePaginate(2);
+        return view('users.home',compact('article_data'));
     }
     
     public function showHomeFavo(){
