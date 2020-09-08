@@ -12,8 +12,9 @@ use App\User;
 
 class HomeController extends Controller
 {
-    public function showHome(){
-        $article_data = ArticleTitle::orderBy('updated_at','desc') -> simplePaginate(2);
+    public function showHome(Request $request){
+        if(Session('admin') !== 1) $request -> Session() -> put('admin',0);
+        $article_data = ArticleTitle::orderBy('updated_at','desc') -> simplePaginate(5);
         return view('users.home',compact('article_data'));
     }
     

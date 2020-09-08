@@ -61,6 +61,10 @@ class User extends Authenticatable
         return $this -> masMany('App\Models\Report');
     }
     
+    public function suspendingUser(){
+        return $this -> hasOne('App\Models\SuspendingUser');
+    }
+    
     /*
     *バリデーションルール
     */

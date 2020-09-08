@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\ArticleTitle;
 use App\Models\FavoriteArticle;
 use App\User;
+use App\Models\SuspendingUser;
 
 class MyPageController extends Controller
 {
@@ -30,6 +31,11 @@ class MyPageController extends Controller
             'article_data' => $article_data,
             'favo_total' => $favo_total,
         ];
+        
+        if(Session('admin') == 1){
+            $suspend_check = SuspendingUser::where('user_id',$user_id) -> exists();
+            return view('admin.report-user-page',compact('data','suspend_check'));
+        }
         return view('users.my-page',compact('data'));
     }
 }

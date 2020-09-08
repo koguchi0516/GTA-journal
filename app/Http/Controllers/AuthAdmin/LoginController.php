@@ -4,6 +4,8 @@ namespace App\Http\Controllers\AuthAdmin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -44,15 +46,16 @@ class LoginController extends Controller
     // ここまで、以下追加
     
     public function showLoginForm(){
-    return view('admin.login'); //ログインページ
+    return view('admin.login');
     }
     
     protected function guard(){
-    return Auth::guard('admin'); //管理者用のguardに変更
+    return Auth::guard('admin');
     }
     
     public function logout(Request $request){
     $this->guard()->logout();
-    return redirect('/admin/login'); //ログアウト後の遷移先
+    $request->session()->flush();
+    return redirect('/admin/login');
     }
 }

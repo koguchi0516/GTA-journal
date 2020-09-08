@@ -1,6 +1,7 @@
 @extends('layouts.header')
 
 @section('content')
+
     <div class="main-contents">
         <nav class="material">
             <a href="/home"><p>最新記事</p></a><br>

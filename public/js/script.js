@@ -42,7 +42,7 @@ function openBtn(ele){
         postTargetContentId = document.getElementById('target_content_id'),
         modal = document.getElementById('modal');
         
-    postTargetContentId.value = reportId;
+    if(reportId !== '') postTargetContentId.value = reportId;
     modal.style.display = 'block';
 }
 

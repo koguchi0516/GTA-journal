@@ -63,5 +63,4 @@
         </div>
     </div>
 </div>
-<p>ユーザーログイン</p>
 @endsection

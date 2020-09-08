@@ -18,7 +18,8 @@ class CreateReportsTable extends Migration
             $table->string('user_id')->comments('報告者ID');
             $table->integer('target_id')->comments('対象記事ID');
             $table->integer('content_type')->comments('ジャンル判定');
-            $table->integer('report_content')->comments('報告内容');
+            $table->integer('article_title_id')->nullable()->comments('コメント先記事ID');
+            $table->integer('reason_id')->comments('報告理由');
             $table->timestamps();
         });
     }

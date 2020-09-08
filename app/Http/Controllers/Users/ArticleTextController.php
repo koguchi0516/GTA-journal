@@ -14,6 +14,7 @@ use App\Models\Comment;
 use App\Http\Controllers\Users\Route;
 use App\Models\FavoriteArticle;
 use App\Models\RecruitingFriend;
+use App\Models\SuspendingUser;
 
 class ArticleTextController extends Controller
 {
@@ -42,11 +43,21 @@ class ArticleTextController extends Controller
             'comments' => $comments,
             'favo_article' => $favo_article,
         ];
+        if(Session('admin') == 1){
+            $data = array_merge($data,Session('data'));
+            return view('admin.report-article',compact('data','contents','content_types'));
+        }
         
         return view('users.article',compact('data','contents','content_types'));
     }
     
-    public function favoArticle($article_title_id){
+    public function favoArticle(Request $request,$article_title_id){
+        $suspend = SuspendingUser::where('user_id',Auth::user() -> id) -> exists();
+        if($suspend){
+            $request -> Session() -> flash('info','現在このアカウントでいいねはできません');
+            return back();
+        }
+        
         $favo_article = FavoriteArticle::where('user_id',Auth::user() -> id) -> where('article_title_id',$article_title_id) -> first();
         
         if($favo_article == Null){
@@ -62,6 +73,12 @@ class ArticleTextController extends Controller
     }
     
     public function toComment(Request $request,$article_title_id){
+        $suspend = SuspendingUser::where('user_id',Auth::user() -> id) -> exists();
+        if($suspend){
+            $request -> Session() -> flash('info','現在このアカウントでコメントはできません');
+            return back();
+        }
+        
         $this -> validate($request,Comment::$comment_rule);
         
         $comment = new Comment;
@@ -83,11 +100,14 @@ class ArticleTextController extends Controller
                 Comment::where('article_title_id',$content_id) -> delete();
                 
                 $img_count = ImgTag::where('article_title_id',$content_id) -> pluck('img_content');
+                
                 for($i = 0 ; $i < count($img_count) ; $i++){
                 $delete_name = storage_path().'/app/public/article-imgs/'.$img_count[$i];
                 \File::delete($delete_name);
                 }
+                
                 ImgTag::where('article_title_id',$content_id) -> delete();
+                if(Session('admin') == 1) return redirect('/admin/report/'.Session('report_id'));
                 return redirect('/mypage/'.Auth::user() -> id);
                 break;
                 

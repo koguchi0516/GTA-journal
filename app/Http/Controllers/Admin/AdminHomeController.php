@@ -13,9 +13,10 @@ use App\Models\SuspendingUser;
 
 class AdminHomeController extends Controller
 {
-    public function adminHome(){
+    public function adminHome(Request $request){
         $user_count = User::count();
         $suspended_count = SuspendingUser::count();
+        $request -> Session() -> put('admin',1);
         return view('admin.admin-home',compact('user_count','suspended_count'));
     }
     
@@ -25,12 +26,14 @@ class AdminHomeController extends Controller
     }
     
     public function reportUser(){
-        return view('admin.report-user');
+        $suspends = SuspendingUser::all();
+        return view('admin.report-user',compact('suspends'));
     }
     
     public function reportDetail(Request $request,$report_id){
         $report = Report::find($report_id);
         $report_count = Report::where('user_id',$report -> user_id) -> count();
+        $request -> Session() -> put('report_id',$report_id);
         $data = [
             'report' => $report,
             'report_id' => $report_id,
@@ -44,6 +47,7 @@ class AdminHomeController extends Controller
                     Session() -> flash('info-'.$report_id,'記事削除済み');
                     return view('admin.report-article',compact('data'));
                 }else{
+                    $request -> Session() -> put('data',$data);
                     return redirect('/article/'.$article_title -> id);
                 }
                 break;
@@ -51,7 +55,10 @@ class AdminHomeController extends Controller
             case 2:
                 $comment = Comment::find($report -> target_id);
                 if($comment == Null) $request -> Session() -> flash('info-'.$report_id,'コメント削除済み');
-                if($comment !== Null) $data ['comment'] = $comment;
+                if($comment !== Null){
+                    $data ['comment'] = $comment;
+                    $request -> Session() -> put('data',$data);
+                }
                 return view('admin.report-comment',compact('data'));
                 break;
                 
@@ -61,6 +68,11 @@ class AdminHomeController extends Controller
                 return view('admin.report-recrut-friend',compact('data','friend'));
                 break;
         }
+    }
+    
+    public function release(Request $request,$user_id){
+        SuspendingUser::where('user_id',$user_id) -> delete();
+        return back();
     }
     
 }

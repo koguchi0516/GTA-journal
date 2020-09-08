@@ -34,7 +34,9 @@
                 <p>{{ $data['comment']['comment_content'] }}</p>
             </div>
             <div class="admin-comment-link">
-                <p><a href="/article/{{ $data['report'] -> target_id }}">該当記事 : {{ $data['report'] -> articleTitle -> title}}</a></p>
+                <p>
+                    <a href="/article/{{ $data['report'] -> article_title_id }}">該当記事 : {{ $data['report'] -> articleTitleId -> title }}</a>
+                </p>
             </div>
         </div>
     @endif

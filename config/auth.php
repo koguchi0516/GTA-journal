@@ -41,12 +41,12 @@ return [
             'provider' => 'users',
         ],
         
-        'user' => [/*勝手に追加*/
+        'user' => [//追加
             'driver' => 'session',
             'provider' => 'users',
         ],
         
-        'admin' => [
+        'admin' => [//追加
             'driver' => 'session',
             'provider' => 'admins',
         ],

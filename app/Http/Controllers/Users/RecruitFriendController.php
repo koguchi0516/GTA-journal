@@ -8,15 +8,21 @@ use App\Models\RecruitingFriend;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\Models\SuspendingUser;
 
 class RecruitFriendController extends Controller
 {
-    public function recrutShow(){
+    public function recrutShow(Request $request){
         $recruiting_friend = RecruitingFriend::all() -> sortByDesc('created_at');//simplePaginate(2);なぜかできない
+        $suspend = SuspendingUser::where('user_id',Auth::user() -> id) -> exists();
+        if($suspend) $request -> Session() -> flash('info','現在このアカウントでフレンド募集はできません');
         return view('users.recrut-friend',compact('recruiting_friend'));
     }
     
     public function recrutMessage(Request $request){
+        $suspend = SuspendingUser::where('user_id',Auth::user() -> id) -> exists();
+        if($suspend) return back();
+        
         $timestamp = time();
         $this -> validate($request,RecruitingFriend::$recruit_friend_rule);
         

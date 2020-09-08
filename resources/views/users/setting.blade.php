@@ -68,11 +68,11 @@
     </form>
 
     <div>
-        <a class="setting btn-flat-logo" href="logout"><p>ログアウト</p></a>
+        <a class="setting btn-flat-logo" href="/logout"><p>ログアウト</p></a>
     </div>
 
     <di>
-        <p class="setting btn-flat-logo">アカウント削除</p>
+        <a class="setting btn-flat-logo" href="/deleteAccount/{{ Auth::user() -> id }}"><p>アカウント削除</p></a>
     </div>
 
 </div>

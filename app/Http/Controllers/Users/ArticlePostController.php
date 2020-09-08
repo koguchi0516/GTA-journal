@@ -10,15 +10,21 @@ use App\Models\Ptag;
 use App\Models\ImgTag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\SuspendingUser;
 
 class ArticlePostController extends Controller{
     
     public function showArticlePost(Request $request){
+        $suspend = SuspendingUser::where('user_id',Auth::user() -> id) -> exists();
+        if($suspend) $request -> Session() -> flash('info','現在このアカウントで記事投稿はできません');
         return view('users.article-post');
     }
     
     
     public function showEditArticle(Request $request,$article_title_id){
+        $suspend = SuspendingUser::where('user_id',Auth::user() -> id) -> exists();
+        if($suspend) $request -> Session() -> flash('info','現在このアカウントで記事更新はできません');
+        
         $title_data = ArticleTitle::find($article_title_id);
         $contents = H3Tag::where('article_title_id',$article_title_id) -> select('h3_content','turn') -> get() -> toArray();
         $contents = array_merge($contents , Ptag::where('article_title_id',$article_title_id) -> select('p_content','turn') -> get() -> toArray());
@@ -36,8 +42,11 @@ class ArticlePostController extends Controller{
         return view('users.article-edit',compact('content_types','contents','title_data'));
     }
     
-        
+    
     public function articlePost(Request $request){
+        $suspend = SuspendingUser::where('user_id',Auth::user() -> id) -> exists();
+        if($suspend) return back();
+        
         $request -> Session() -> forget('last_post_num');
         $request -> Session() -> forget('post_num');
         $request -> Session() -> forget('post_type');

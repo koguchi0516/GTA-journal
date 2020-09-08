@@ -6,17 +6,7 @@
     @foreach($reports as $report)
         <div class="report-container material">
             <a class="report-title" href="/admin/report/{{ $report -> id }}">
-                @if($report -> report_content == 1)
-                    <p>社会的に不適切</p>
-                @elseif($report -> report_content == 2)
-                    <p>法令違反</p>
-                @elseif($report -> report_content == 3)
-                    <p>スパムの疑い</p>
-                @elseif($report -> report_content == 4)
-                    <p>宣伝行為</p>
-                @else
-                    <p>それ以外</p>
-                @endif
+                <p>{{ $report -> reason -> reason }}</p>
             </a>
             
             <div class="report-list-data">
@@ -27,7 +17,13 @@
                 @else
                     <p>type : フレンド募集</p>
                 @endif
-                <p>対象ユーザーID : {{ $report -> user -> user_code }}</p>
+                
+                
+                @if($report -> user_id == 0)
+                    <p>報告ユーザーID : 未登録</p>
+                @else
+                    <p>報告ユーザーID : {{ $report -> user['user_code'] }}</p>
+                @endif
             </div>
         </div>
     @endforeach

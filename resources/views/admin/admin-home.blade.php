@@ -3,6 +3,10 @@
 @section('content')
 <div class="admin-home-container material">
     
+    <a href="/admin/logout">
+        ログアウト
+    </a>
+    
     <div class="admin-data">
         <p>ユーザー数</p>
         <p>{{ $user_count }}人</p>

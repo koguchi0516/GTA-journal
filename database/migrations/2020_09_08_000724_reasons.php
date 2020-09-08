@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSuspendingUsersTable extends Migration
+class Reasons extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateSuspendingUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('suspending_users', function (Blueprint $table) {
+        Schema::create('reasons', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('user_id')->comments('対象ユーザーID');
-            $table->integer('reason_id')->comments('凍結理由');
+            $table->string('reason');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateSuspendingUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('suspending_users');
+        Schema::dropIfExists('reasons');
     }
 }
