@@ -4,7 +4,6 @@
 
     @include('layouts.admin-report-user',['data' => $data])
     
-    
     @if(Session::has('info-'.$data['report_id']))
         @include('layouts.admin-message-box',['report_id' => $data['report_id']])
     @else
@@ -27,7 +26,7 @@
                         </p>
                     </div>
                     <div class="report-button-area">
-                                <a href="/delete/friend/{{ $friend -> id }}"><p class="report-button">削除</p></a>
+                        <p class="report-button" id="friend-{{ $friend -> id }}" onclick="checkOpenBtn(this)">削除</p>
                     </div>
                 </div>
             </div>
@@ -39,5 +38,7 @@
             <p>{{ $friend -> friend_message}}</p>
         </div>
     @endif
+    
+    @include('layouts.check-modal')
 
 @endsection

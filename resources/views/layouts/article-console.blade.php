@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="add-category">
-        <p>カテゴリ</p>
+        <p class="pc">カテゴリ</p>
         <select class="input" name="category">
             <option value="1">ストーリー</option>
             <option value="2">オンラインセッション</option>

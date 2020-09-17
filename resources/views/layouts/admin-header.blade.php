@@ -1,38 +1,43 @@
 <!DOCTYPE html>
 <html lang="ja">
-
     <head>
         <meta charset="UTF-8">
-        <!--viewport-->
+        
+        <!-- Viewport -->
         <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
-        <!--google-->
+        
+        <!-- Fonts -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Coda+Caption:wght@800&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap" rel="stylesheet">
-        <!--css-->
+        
+        <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/style-reset.css') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-        <!--js-->
+        <link rel="stylesheet" href="{{ asset('css/style-mobile.css') }}">
+        
+        <!-- Scripts -->
         <script src="{{ asset('js/script.js') }}"></script>
-        <title>grand theft auto JOURNAL</title>
+        
+        <title>grand theft auto JOURNAL management</title>
     </head>
 
     <body>
-        <div class="header-sticky">
-            <div class="register-header report-header">
-                <div class="header-container">
-                    <a href="/admin/home">
-                        <h1>grand theft auto <span class="red">JOURNAL</span> management</h1>
+        <div class="header-container">
+            <a href="/admin/home">
+                <h1>grand theft auto <span class="red">JOURNAL</span> management</h1>
+            </a>
+            <div class="header-menu">
+                <form action="/home/user" class="admin-form" method="post">
+                    {{ csrf_field() }}
+                    <input class="input" type="text" name='user-data' placeholder="表示名・ユーザーID"><br>
+                    <input class="btn-flat-logo admin-home" type="submit" value="検索">
+                    <a href="/admin/logout">
+                        <p class="btn-flat-logo admin-header">ログアウト</p>
                     </a>
-                    <div class="header-menu">
-                        <form action="" class="admin-form" method="post">
-                            {{ csrf_field() }}
-                            <input class="input" type="text" name='user-data' placeholder="表示名・ユーザーID"><br>
-                            <input class="btn-flat-logo admin-home" type="submit" value="検索">
-                        </form>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
         

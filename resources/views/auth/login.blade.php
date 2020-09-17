@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.header')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header">ログイン</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
@@ -52,6 +52,9 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
+                                <button type="submit" class="btn btn-primary" onclick="autoFill()">
+                                    自動入力
+                                </button>
                                 <button type="submit" class="btn btn-primary">
                                     ログイン
                                 </button>

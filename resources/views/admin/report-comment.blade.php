@@ -24,9 +24,7 @@
                         </p>
                     </div>
                     <div class="report-button-area">
-                        <a href="/delete/comment/{{ $data['comment'] -> id }}">
-                            <p class="report-button">削除</p>
-                        </a>
+                        <p class="report-button" id="comment-{{ $data['comment']['id'] }}" onclick="checkOpenBtn(this)">削除</p>
                     </div>
                 </div>
             </div>
@@ -40,5 +38,7 @@
             </div>
         </div>
     @endif
+    
+    @include('layouts.check-modal')
 
 @endsection

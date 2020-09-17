@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
 use App\Admin;
 
 class RegisterController extends Controller
@@ -30,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/home';//変更
+    protected $redirectTo = '/admin/home';
 
     /**
      * Create a new controller instance.
@@ -39,12 +38,12 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:admin');//変更
+        $this->middleware('guest:admin');
     }
     
-    public function showRegisterForm()//追加
+    public function showRegisterForm()
     {
-    return view('admin.register'); //登録フォーム
+    return view('admin.register');
     }
 
     /**
@@ -56,7 +55,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255','unique:admins'],//変更
+            'name' => ['required', 'string', 'max:255','unique:admins'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -71,13 +70,13 @@ class RegisterController extends Controller
     {
         return Admin::create([
             'name' => $data['name'],
-            'password' => Hash::make($data['password']),//変更
+            'password' => Hash::make($data['password']),
         ]);
     }
     
     protected function guard()
     {
-    return Auth::guard('admin'); //管理者用のguardを設定
+    return Auth::guard('admin');
     }
     
 }

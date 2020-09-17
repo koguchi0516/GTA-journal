@@ -29,9 +29,7 @@
                             </p>
                         </div>
                         <div class="report-button-area">
-                            <a href="/delete/article/{{ $data['title_data'] -> id }}">
-                                <p class="report-button">削除</p>
-                            </a>
+                            <p class="report-button" id="article-{{ $data['title_data']['id'] }}" onclick="checkOpenBtn(this)">削除</p>
                         </div>
                     </div>
                 </div>
@@ -73,15 +71,6 @@
                         <div class="report-area">
                             <div class="message-report">
                                 <p class="post-date">{{ date('m月d日 G時i分',strtotime($comment -> updated_at)) }}</p>
-                                <p onclick="reportIcon(this)">
-                                    <i class="material-icons">more_horiz</i>
-                                    <i class="flag">0</i>
-                                </p>
-                            </div>
-                            <div class="report-button-area">
-                                <a href="/delete/comment/{{ $comment -> id }}">
-                                    <p class="report-button">削除</p>
-                                </a>
                             </div>
                         </div>
                     </div>
@@ -93,6 +82,7 @@
         @endif
         
         @include('layouts.modal',['article_title_id'=>$data['title_data']['id']])
+        @include('layouts.check-modal')
     @endif
 
 @endsection

@@ -1,15 +1,14 @@
 @charset 'utf-8';
-
 @media screen and (min-width: 801px) {
 
-    /*PC用コード*/
+    /*PC用箇所*/
+    .mobile{
+        display:none;
+    }
+    
     body {
         background-color:#f2f2f2;
         font-family: 'Sawarabi Gothic', sans-serif;
-    }
-    
-    section{
-        /**/
     }
 
     h1 {
@@ -203,6 +202,11 @@
         width:150px;
         text-align:center;
     }
+    
+    .report-button.check{
+        width:150px;
+        margin:20px auto;
+    }
 
     /*ページネーション*/
     .pagination{
@@ -317,7 +321,7 @@
     .article-list {
         display: flex;
         position: relative;
-        background-color: #eaeaea;
+        background-color: #f2f2f2;
         width: 580px;
         margin:0 0 5px 10px;
     }
@@ -645,10 +649,7 @@
         padding: 10px;
         font-size:15px;
     }
-
-    /*ログアウト・削除*/
     
-
     /*--マイページ--*/
     .mypage-container {
         display: flex;
@@ -706,7 +707,6 @@
 
     /*--記事詳細画面--*/
     /*記事詳細全体*/
-    
     .article-container {
         background-color: #eaeaea;
         max-width: 1000px;
@@ -894,9 +894,14 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
+    
+    .modal-content > p{
+        margin-left:10px;
+    }
 
     .modal-content > input {
-        margin-left: 640px;
+        width: 70px;
+        margin-left:600px;
     }
 
     .modal-content-header {
@@ -914,6 +919,14 @@
         display: block;
         padding: 8px;
         margin: 8px;
+    }
+    
+    .check-contain{
+        margin-top:50px;
+    }
+    
+    #check-no:hover{
+        cursor:pointer;
     }
 
 }

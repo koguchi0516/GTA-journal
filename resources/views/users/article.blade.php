@@ -28,9 +28,7 @@
                             <a href="/edit/{{ $data['title_data'] -> id }}">
                                 <p class="report-button">編集</p>
                             </a>
-                            <a href="/delete/article/{{ $data['title_data'] -> id }}">
-                                <p class="report-button">削除</p>
-                            </a>
+                            <p class="report-button" id="article-{{ $data['title_data']['id'] }}" onclick="checkOpenBtn(this)">削除</p>
                         @endif
                     @endauth                    
                 </div>
@@ -93,9 +91,7 @@
                         <p class="report-button" id="comment-{{ $comment -> id }}" onclick="openBtn(this)">報告</p>
                         @auth
                             @if($comment -> user_id == Auth::user() -> id)
-                                <a href="/delete/comment/{{ $comment -> id }}">
-                                    <p class="report-button">削除</p>
-                                </a>
+                                <p class="report-button" id="comment-{{ $comment -> id }}" onclick="checkOpenBtn(this)">削除</p>
                             @endif
                         @endauth                    
                     </div>
@@ -127,5 +123,6 @@
 @endauth
 
 @include('layouts.modal',['article_title_id'=>$data['title_data']['id']])
+@include('layouts.check-modal')
 
 @endsection

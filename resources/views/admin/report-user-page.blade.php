@@ -7,7 +7,7 @@
     <div class="mypage-container">
         <div class="profile-area material">
             @if($suspend_check)
-                <div class="">
+                <div>
                     <p>凍結中</p>
                 </div>
             @endif
@@ -15,25 +15,23 @@
                 <img src="/storage/user-icons/{{ $data['user_data'] -> icon }}" alt="">
                 <p>{{ $data['user_data'] -> name }}</p>
                 
-            <div class="report-area">
-                <div class="message-report">
-                    <p onclick="reportIcon(this)">
-                        <i class="material-icons">more_horiz</i>
-                        <i class="flag">0</i>
-                    </p>
+                <div class="report-area">
+                    <div class="message-report">
+                        <p onclick="reportIcon(this)">
+                            <i class="material-icons">more_horiz</i>
+                            <i class="flag">0</i>
+                        </p>
+                    </div>
+                    <div class="report-button-area">
+                        @if($suspend_check)
+                            <p class="report-button"><a href="/release/{{ $data['user_data'] -> id }}">凍結解除</a></p>
+                        @else
+                            <p class="report-button" onclick="openBtn(this)">アカウント停止</p>
+                        @endif
+                        
+                        <p class="report-button" onclick="userDelete()">アカウント削除</p>
+                    </div>
                 </div>
-                <div class="report-button-area">
-                    @if($suspend_check)
-                        <p class="report-button"><a href="/release/{{ $data['user_data'] -> id }}">凍結解除</a></p>
-                    @else
-                        <p class="report-button" onclick="openBtn(this)">アカウント停止</p>
-                    @endif
-                    <a href="/deleteAccount/{{ $data['user_data'] -> id }}">
-                        <p class="report-button">アカウント削除</p>
-                    </a>
-                </div>
-            </div>
-                
             </div>
             
             <div class="id-display">
@@ -103,6 +101,8 @@
                 <input class="btn-flat-logo" type="submit" value="送信">
             </form>
         </div>
+        
+        @include('layouts.delete-user-check',['user_id' => $data['user_data'] -> id])
         
     </div>
 @endsection

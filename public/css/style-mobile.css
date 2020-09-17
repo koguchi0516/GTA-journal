@@ -1,22 +1,21 @@
 @charset 'utf-8';
-
 @media screen and (max-width: 800px) {
 
-    /*PC用コード*/
+    /*Mobile用箇所*/
+    .pc{
+        display:none;
+    }
+    
     body {
         background-color:#f2f2f2;
         font-family: 'Sawarabi Gothic', sans-serif;
     }
     
-    section{
-        /**/
-    }
-
     h1 {
         font-size: 17px;
-        line-height: 50px;
+        line-height: 40px;
         font-family: 'Coda Caption', sans-serif;
-        letter-spacing: -2px;
+        letter-spacing: -1.5px;
         color:#eaeaea;
     }
 
@@ -91,16 +90,12 @@
         color:#ca0000;
     }
     
-    .article-favorite .article-heart{
-        font-size:40px;
-        position:absolute;
-        top:50%;
-        left:15%;
-        transform:translateY(-50%);
-    }
-
     .material-icons:hover {
         cursor: pointer;
+    }
+    
+    .material-icons.mobile{
+        color:#eaeaea;
     }
     
     textarea{
@@ -133,13 +128,6 @@
     .flag{
         display:none;
     }
-    
-    /*.menu-sticky{*/
-    /*    postion: -webkit-sticky;*/
-    /*    position: sticky;*/
-    /*    top: 60px;*/
-    /*    z-index:200;*/
-    /*}*/
     
     .report-button-area{
         background-color:#454545;
@@ -212,33 +200,21 @@
         margin-right:15px;
     }
     
-    /*header-container*/
+    /*ヘッダー*/
     .header-container {
-        display: flex;
-        position: relative;
-        height: 50px;
+        text-align:center;
+        position:relative;
+        height: 40px;
         background-color: #454545;
         width: 100%;
-        /*padding-right:70px;*/
-        justify-content: space-between;
         box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
     }
-
-    .header-container img {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 32px;
-        border-radius: 50%;
-    }
-
-    .header-container img:hover {
-        cursor: pointer;
-    }
     
-    .header-menu {
-        display:flex;
-        position: relative;
+    .material-icons.mobile{
+        position:absolute;
+        line-height:40px;
+        top:0;
+        left:0;
     }
 
     #open-menu {
@@ -276,6 +252,10 @@
     }
 
     /*nev*/
+    #mobile-menu{
+        display:none;
+    }
+    
     .main-contents nav {
         width: 100%;
         padding: 25px 0;
@@ -349,7 +329,7 @@
     .add-container {
         background-color: #eaeaea;
         width: 100%;
-        padding:10px 0;
+        padding:0 0 10px 0;
     }
 
     .add-btn-container{
@@ -403,7 +383,7 @@
         postion: -webkit-sticky;
         position: sticky;
         z-index:500;
-        top: 0; /*固定する位置*/
+        top: 0;
     }
     
     .article-button-container{
@@ -417,7 +397,7 @@
     }
 
     .article-post-form .title-text {
-        height: 50px;
+        height: 45px;
         width: 100%;
         margin: 10px auto;
         font-size: 15px;
@@ -440,7 +420,6 @@
         width: 100%;
         margin: 10px 0;
         padding-left: 10px;
-        /*font-size: 22px;*/
     }
 
     .text-contents textarea {
@@ -451,7 +430,7 @@
     }
     
     .h3-tag {
-        height: 45px;
+        height: 40px;
     }
 
     .text-contents .post-img {
@@ -472,14 +451,14 @@
     }
     
     .edit-img-container{
-        min-width:300px;
-        min-height:200px;
-        margin:10px;
+        width:150px;
+        height:100px;
+        margin-top:10px;
     }
     
     .edit-img{
-        max-width:300px;
-        max-height:200px;
+        max-width:150px;
+        max-height:100px;
     }
 
     /*--フレンド募集画面--*/
@@ -493,24 +472,19 @@
 
     .user-name {
         display: flex;
-        height: 50px;
-        margin-bottom: 10px;
+        height: 40px;
     }
 
     .user-name img {
-        width: 50px;
-        height: 50px;
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
     }
 
     .user-name p {
         margin-left: 10px;
-        font-size:18px;
-        line-height: 50px;
-    }
-
-    .friend-post-select {
-        /*display: flex;*/
+        font-size:15px;
+        line-height: 30px;
     }
 
     .friend-post-select p {
@@ -543,8 +517,7 @@
     .message-head {
         display: flex;
         justify-content: space-between;
-        height: 50px;
-        margin-bottom: 10px;
+        height: 40px;
     }
 
     .friend-message-container img {
@@ -558,11 +531,12 @@
         display: flex;
         justify-content: space-between;
         width: 150px;
-        line-height: 50px;
+        line-height: 30px;
     }
     
     .post-date{
         font-size:13px;
+        line-height:30px;
     }
 
     /*目的とPSID*/
@@ -577,7 +551,6 @@
     }
 
     .friend-message-purpose {
-        /*background-color: #ca0000;*/
         border-radius:3px;
         margin-right: 30px;
         padding: 0 15px;
@@ -645,9 +618,6 @@
         font-size:15px;
     }
 
-    /*ログアウト・削除*/
-    
-
     /*--マイページ--*/
     .mypage-container {
         /*display: flex;*/
@@ -687,17 +657,18 @@
     
     .my-articles-area {
         text-align:center;
-        height: 20px;
+        height: 30px;
         width:90%;
         margin:10px auto;
         background-color: #454545;
     }
     
     .my-articles-area p {
-        line-height: 20px;
+        line-height: 30px;
         text-align: center;
         font-size: 15px;
         width: 100%;
+        font-size:18px;
     }
 
     .article-data p {
@@ -706,24 +677,22 @@
 
     /*--記事詳細画面--*/
     /*記事詳細全体*/
-    
     .article-container {
         background-color: #eaeaea;
         max-width: 1000px;
         margin: 30px auto;
-        padding: 30px;
+        padding: 10px;
     }
 
     .article-title {
-        font-size: 35px;
-        margin: 17px 0;
-        line-height:40px;
+        font-size: 18px;
+        margin-bottom:10px;
+        line-height:23px;
     }
 
     /*記事タグといいねアイコン*/
     .article-tag-container {
         display: flex;
-        position:relative;
         height: 30px;
         margin-bottom: 20px;
     }
@@ -737,32 +706,31 @@
         margin:0;
         line-height: 30px;
     }
-
-    .article-favorite {
-        margin-left: 90px;
+    
+    .article-heart{
+        margin-left:10px;
     }
 
     .article-text {
         text-align: center;
-        padding: 15px;
     }
 
     .article-text h3 {
         text-align: left;
-        font-size: 25px;
+        font-size: 20px;
         margin: 30px 0 10px;
     }
 
     .article-text p {
         text-align: left;
-        font-size: 17px;
+        font-size: 14px;
         margin: 21px 0;
         white-space: pre-wrap;
     }
 
     .article-text img {
         margin: 10px 0;
-        max-width: 70%;
+        max-width: 100%;
     }
 
     /*コメント一覧*/
@@ -790,14 +758,15 @@
         white-space: pre-wrap;
         padding:0 10px;
         background-color:#fff;
+        height:auto;
     }
 
     /*コメント投稿*/
     .comment-post-form {
         background-color: #454545;
         max-width: 1000px;
-        margin: 45px auto;
-        padding: 20px;
+        margin: 30px auto;
+        padding: 10px;
     }
 
     .comment-post-form textarea {
@@ -805,7 +774,7 @@
         min-width: 95%;
         height: 100px;
         padding: 10px;
-        margin: 0 23px 10px;
+        margin: 0 10px 10px;
     }
 
     .unregister-comment-container {
@@ -899,8 +868,8 @@
     }
 
     .modal-content > input {
-        vertical-align:middle;
-        margin-left: 50%;
+        width:50%;
+        margin:auto;
     }
 
     .modal-content-header {
@@ -918,6 +887,10 @@
         display: block;
         padding: 8px;
         margin: 8px;
+    }
+    
+    .pc{
+        display:none;
     }
 
 }

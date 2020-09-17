@@ -11,7 +11,7 @@ use App\Models\RecruitingFriend;
 use App\User;
 use App\Models\SuspendingUser;
 
-class AdminHomeController extends Controller
+class HomeController extends Controller
 {
     public function adminHome(Request $request){
         $user_count = User::count();

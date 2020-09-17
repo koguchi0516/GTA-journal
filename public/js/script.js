@@ -1,8 +1,24 @@
+// モーダル削除
 window.onload = function (){
     var closeBtn = document.getElementById('closeBtn'),
-        reportIcon = document.getElementById('report-icon'),
         modal = document.getElementById('modal'),
-        menu = document.getElementById('menu-accordion');
+        checkNo = document.getElementById('check-no'),
+        checkCloseBtn = document.getElementById('CheckCloseBtn'),
+        checkModal = document.getElementById('check-modal');
+        
+    window.addEventListener('click', function (e) {
+        if (e.target == checkModal) {
+            checkModal.style.display = 'none';
+        }
+    })
+        
+    checkCloseBtn.addEventListener('click', function () {
+    checkModal.style.display = 'none';
+    })
+        
+    checkNo.addEventListener('click', function () {
+    checkModal.style.display = 'none';
+    })
 
     closeBtn.addEventListener('click', function () {
     modal.style.display = 'none';
@@ -15,6 +31,39 @@ window.onload = function (){
     })
 }
 
+// 報告モーダル表示
+function openBtn(ele){
+    var reportId = ele.id,
+        postTargetContentId = document.getElementById('target_content_id'),
+        modal = document.getElementById('modal');
+
+    if(reportId !== '') postTargetContentId.value = reportId;
+    modal.style.display = 'block';
+}
+
+// 削除確認モーダル表示
+function checkOpenBtn(ele){
+    var checkId = ele.id.split('-'),
+        modal = document.getElementById('check-modal'),
+        checkContentId = document.getElementById('check_content_id'),
+        deleteUrl = document.getElementById('delete-url');
+        
+    deleteUrl.href = deleteUrl.href + checkId[0] + '/' +checkId[1];
+    modal.style.display = 'block';
+}
+
+function userDelete(){
+    var modal = document.getElementById('check-modal');
+    modal.style.display = 'block';
+}
+
+//自動ログイン
+function autoFill(){
+    document.getElementById('user_code').value = 'test-id';
+    document.getElementById('password').value = '11111111';
+}
+
+// 投稿内容のメニュー（報告、削除、編集）
 function reportIcon(ele){
     var flag = ele.children[1].innerText,
         brother = ele.parentNode,
@@ -30,6 +79,30 @@ function reportIcon(ele){
         }
 }
 
+// pcメニュー
+function menuOpen(){
+    if (document.getElementById('menu_click').value == 'Close') {
+        document.getElementById('menu-accordion').style.display = 'none';
+        document.getElementById('menu_click').value = 'Open'
+    } else {
+        document.getElementById('menu-accordion').style.display = 'block';
+        document.getElementById('menu_click').value = 'Close';
+    }
+}
+
+// mobileメニュー
+function mobileMenu(){
+    if (document.getElementById('mobile-menu-flag').value == 'Close') {
+        document.getElementById('mobile-menu').style.display = 'none';
+        document.getElementById('mobile-menu-flag').value = 'Open'
+    } else {
+        document.getElementById('mobile-menu').style.display = 'block';
+        document.getElementById('mobile-menu-flag').value = 'Close'
+    }
+}
+
+
+// 記事投稿パーツ削除
 function postDelete(ele) {
     var deleteNum = ele.id.substr(12),
         textContents = document.getElementById('text-contents'),
@@ -37,27 +110,7 @@ function postDelete(ele) {
     textContents.removeChild(deleteItem);
 }
 
-function openBtn(ele){
-    var reportId = ele.id,
-        postTargetContentId = document.getElementById('target_content_id'),
-        modal = document.getElementById('modal');
-        
-    if(reportId !== '') postTargetContentId.value = reportId;
-    modal.style.display = 'block';
-}
-
-function menuOpen() {
-    if (document.getElementById('menu_click').value == 'Close') {
-        document.getElementById('menu-accordion').style.display = 'none';
-        document.getElementById('menu_click').value = 'Open'
-        document.getElementById('open-menu').textContent = 'arrow_drop_down';
-    } else {
-        document.getElementById('menu-accordion').style.display = 'block';
-        document.getElementById('menu_click').value = 'Close'
-        document.getElementById('open-menu').textContent = 'arrow_drop_up';
-    }
-}
-
+// 記事投稿パーツ追加
 function addText(ele) {
     var lastPostNum = document.getElementById('last-post-num').value,
         idCounter;

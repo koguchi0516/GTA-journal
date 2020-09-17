@@ -23,6 +23,7 @@
                 <input type="radio" name="report_content" value="5">それ以外でGTA journalにふさわしくない（ガイドライン違反）
             </label>
         </div>
+        
         <input type="hidden" name="target_content_id" id="target_content_id" value="">
         <input class="btn-flat-logo" type="submit" value="送信">
     </form>

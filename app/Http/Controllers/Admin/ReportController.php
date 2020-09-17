@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Report;
@@ -15,7 +16,7 @@ use App\Models\ImgTag;
 use App\Models\FavoriteArticle;
 use App\Models\RecruitingFriend;
 
-class AdminController extends Controller
+class ReportController extends Controller
 {
     public function showAdmin(Request $request){}
     
@@ -76,42 +77,37 @@ class AdminController extends Controller
         return back();
     }
     
+    
     public function deleteAccount(Request $request,$user_id){
         $suspending_user = SuspendingUser::where('user_id',$user_id) -> get();
-        if(is_array($suspending_user)){
-        //     // $request -> Session() -> flash('info','凍結ユーザーのみ削除可能です');
-        //     // return back();
-            print('空っぽ');
-            exit();
+
+        $user = User::find($user_id);
+        if($user -> icon !== 'default-icon.jpg'){
+            $delete_img = storage_path().'/app/public/user-icons/'.$user -> icon;
+            \File::delete($delete_img);
         }
-        print('入ってるよ');
-        // $user = User::find($user_id);
-        // if($user -> icon !== 'default-icon.jpg'){
-        //     $delete_img = storage_path().'/app/public/user-icons/'.$user -> icon;
-        //     \File::delete($delete_img);
-        // }
         
-        // $article_title = new ArticleTitle;
-        // $article_title_id = $article_title -> where('user_id',$user_id) -> pluck('id');
+        $article_title = new ArticleTitle;
+        $article_title_id = $article_title -> where('user_id',$user_id) -> pluck('id');
         
-        // $img_tag = ImgTag::whereIn('article_title_id',$article_title_id) -> get();
-        // if(isset($img_tag)){
-        //     foreach($img_tag as $val){
-        //         $delete_img = storage_path().'/app/public/article-imgs/'.$val -> img_content;
-        //         \File::delete($delete_img);
-        //     }
-        // }
+        $img_tag = ImgTag::whereIn('article_title_id',$article_title_id) -> get();
+        if(isset($img_tag)){
+            foreach($img_tag as $val){
+                $delete_img = storage_path().'/app/public/article-imgs/'.$val -> img_content;
+                \File::delete($delete_img);
+            }
+        }
         
-        // RecruitingFriend::where('user_id',$user_id) -> delete();
-        // H3Tag::whereIn('article_title_id',$article_title_id) -> delete();
-        // Ptag::whereIn('article_title_id',$article_title_id) -> delete();
-        // ImgTag::whereIn('article_title_id',$article_title_id) -> delete();
-        // FavoriteArticle::whereIn('article_title_id',$article_title_id) -> orWhere('user_id',$user_id) -> delete();
-        // SuspendingUser::where('user_id',$user_id)-> delete();
-        // Report::where('user_id',$user_id) -> delete();
-        // $article_title -> where('user_id',$user_id) -> delete();
-        // $user -> find($user_id) -> delete();
+        RecruitingFriend::where('user_id',$user_id) -> delete();
+        H3Tag::whereIn('article_title_id',$article_title_id) -> delete();
+        Ptag::whereIn('article_title_id',$article_title_id) -> delete();
+        ImgTag::whereIn('article_title_id',$article_title_id) -> delete();
+        FavoriteArticle::whereIn('article_title_id',$article_title_id) -> orWhere('user_id',$user_id) -> delete();
+        SuspendingUser::where('user_id',$user_id)-> delete();
+        Report::where('user_id',$user_id) -> delete();
+        $article_title -> where('user_id',$user_id) -> delete();
+        $user -> find($user_id) -> delete();
         
-        // return redirect('/admin/home');
+        return redirect('/admin/home');
     }
 }

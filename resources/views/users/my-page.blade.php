@@ -1,6 +1,9 @@
 @extends('layouts.header')
 
 @section('content')
+
+    @include('layouts.message-box')
+
     <div class="mypage-container">
         <div class="profile-area material">
             <div class="user-name">
@@ -16,6 +19,12 @@
                     <p>PSID : {{ $data['user_data'] -> psid }}</p>
                 @endif
             </div>
+            
+            @auth
+                @if(Auth::user() -> id == $data['user_data'] -> id)
+                    <p class="mobile"><a href="/setting">設定</a></p>
+                @endif
+            @endauth
             
             @if($data['user_data'] -> profile)
                 <div class="mypage-profile">

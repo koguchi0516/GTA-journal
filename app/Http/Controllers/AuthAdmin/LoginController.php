@@ -43,8 +43,6 @@ class LoginController extends Controller
         return 'name';
     }
     
-    // ここまで、以下追加
-    
     public function showLoginForm(){
     return view('admin.login');
     }

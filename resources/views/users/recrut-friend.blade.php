@@ -74,7 +74,7 @@
                     <p class="report-button" id="friend-{{ $friend -> id }}" onclick="openBtn(this)">報告</p>
                     @auth
                         @if($friend -> user -> id == Auth::user() -> id)
-                            <a href="/delete/friend/{{ $friend -> id }}"><p class="report-button">削除</p></a>
+                            <p class="report-button" id="friend-{{ $friend -> id }}" onclick="checkOpenBtn(this)">削除</p>
                         @endif
                     @endauth 
                 </div>
@@ -94,6 +94,11 @@
     @php $i++; @endphp
 @endforeach
 
+    <div class="pagination">
+        {{ $recruiting_friend->links() }}
+    </div>
+
 @include('layouts.modal',['article_title_id'=>'friend_report'])
+@include('layouts.check-modal')
 
 @endsection
