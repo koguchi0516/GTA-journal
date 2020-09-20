@@ -20,12 +20,6 @@
                 @endif
             </div>
             
-            @auth
-                @if(Auth::user() -> id == $data['user_data'] -> id)
-                    <p class="mobile"><a href="/setting">設定</a></p>
-                @endif
-            @endauth
-            
             @if($data['user_data'] -> profile)
                 <div class="mypage-profile">
                     <p>{{ $data['user_data'] -> profile }}</p>

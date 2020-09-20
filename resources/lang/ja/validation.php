@@ -84,7 +84,7 @@ return [
         'string'  => ':attribute は :max 文字以下のみ有効です',
         'array'   => ':attribute は :max 個以下のみ有効です',
     ],
-    'mimes'                => ':attribute は :values タイプのみ有効です',
+    'mimes'                => '画像は :values タイプのみ有効です',
     'mimetypes'            => ':attribute は :values タイプのみ有効です',
     'min'                  => [
         'numeric' => ':attribute は :min 以上のみ有効です',
@@ -97,7 +97,8 @@ return [
     'numeric'              => ':attribute は数字のみ有効です',
     'present'              => ':attribute が存在しません',
     'regex'                => ':attribute 無効な値です',
-    'required'             => ':attribute は必須です',
+    // 'required'             => ':attribute は必須です',
+    'required'             => '未入力の項目があります',
     'required_if'          => ':attribute は :other が :value には必須です',
     'required_unless'      => ':attribute は :other が :values でなければ必須です',
     'required_with'        => ':attribute は :values が入力されている場合は必須です',

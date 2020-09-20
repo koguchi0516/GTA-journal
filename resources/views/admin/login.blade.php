@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header">管理者ログイン</div>
 
                 <div class="card-body">
                     <form method="POST" action="/admin/login">
@@ -39,9 +39,8 @@
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    ログイン
-                                </button>
+                                <button type="submit" class="btn btn-flat-logo" onclick="autoFillAdmin()">自動入力</button>
+                                <button type="submit" class="btn btn-flat-logo">ログイン</button>
                             </div>
                         </div>
                     </form>

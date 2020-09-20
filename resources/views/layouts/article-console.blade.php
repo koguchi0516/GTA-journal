@@ -15,13 +15,7 @@
     </div>
     <div class="add-category">
         <p class="pc">カテゴリ</p>
-        <select class="input" name="category">
-            <option value="1">ストーリー</option>
-            <option value="2">オンラインセッション</option>
-            <option value="3">乗り物</option>
-            <option value="4">洋服</option>
-            <option value="5">不動産</option>
-        </select>
+        @include('layouts.select-category')
     </div>
     <div class="article-button-container">
         <input class="btn-flat-logo" type="submit" value="{{ $display }}">

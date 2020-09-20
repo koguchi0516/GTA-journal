@@ -81,7 +81,6 @@ return [
     |
     */
 
-    // 'locale' => 'js',
     'locale' => 'ja',
 
     /*

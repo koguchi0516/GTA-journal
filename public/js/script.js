@@ -63,6 +63,12 @@ function autoFill(){
     document.getElementById('password').value = '11111111';
 }
 
+//管理者自動ログイン
+function autoFillAdmin(){
+    document.getElementById('name').value = 'test-admin';
+    document.getElementById('password').value = '11111111';
+}
+
 // 投稿内容のメニュー（報告、削除、編集）
 function reportIcon(ele){
     var flag = ele.children[1].innerText,

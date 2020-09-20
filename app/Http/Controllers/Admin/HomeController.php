@@ -21,12 +21,12 @@ class HomeController extends Controller
     }
     
     public function reportList(){
-        $reports = Report::all() -> sortByDesc('created_at');
+        $reports = Report::orderBy('created_at','desc') -> simplePaginate(20);
         return view('admin.report-list',compact('reports'));
     }
     
     public function reportUser(){
-        $suspends = SuspendingUser::all();
+        $suspends = SuspendingUser::orderBy('created_at','desc') -> simplePaginate(10);
         return view('admin.report-user',compact('suspends'));
     }
     
@@ -65,6 +65,7 @@ class HomeController extends Controller
             case 3:
                 $friend = RecruitingFriend::find($report -> target_id);
                 if($friend == Null) $request -> Session() -> flash('info-'.$report_id,'フレンド募集メッセージ削除済み');
+                $request -> Session() -> put('data',$data);
                 return view('admin.report-recrut-friend',compact('data','friend'));
                 break;
         }

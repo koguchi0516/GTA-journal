@@ -27,5 +27,9 @@
             </div>
         </div>
     @endforeach
+    
+    <div class="pagination">
+        {{ $reports->links() }}
+    </div>
 
 @endsection

@@ -157,7 +157,7 @@
     }
     
     .report-button-area p{
-        color:#eaeaea;
+        color:#eaeaea
     }
     
     .report-button:hover{
@@ -166,10 +166,10 @@
      }
     
     /*ボタン*/
-    .btn-flat-logo {
+    .btn-flat-logo,
+    .page-link{
         position: relative;
         display: inline-block;
-        font-weight: bold;
         padding: 5px 10px;
         text-decoration: none;
         color: #FFF;
@@ -178,7 +178,8 @@
         border-radius:3px;
     }
     
-    .btn-flat-logo:hover {
+    .btn-flat-logo:hover,
+    .page-link:hover{
         background: #ca0000;
     }
     
@@ -231,6 +232,7 @@
         width: 100%;
         justify-content: space-around;
         box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+        /*border-radius:0;*/
     }
 
     .header-container img {
@@ -867,6 +869,10 @@
     }
     
     .report-button{
+        position:relative;
+        width:150px;
+        left:50%;
+        transform:translateX(-57%);
         line-height:35px;
         text-align:center;
      }

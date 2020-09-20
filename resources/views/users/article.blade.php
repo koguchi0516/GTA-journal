@@ -15,7 +15,7 @@
             
             <div class="report-area">
                 <div class="message-report">
-                    <p class="post-date">{{ date('Y/n/j G:i',strtotime($data['title_data'] -> updated_at)) }}</p>
+                    <p class="post-date">{{ date('m月d日 G時i分',strtotime($data['title_data'] -> updated_at)) }}</p>
                     <p onclick="reportIcon(this)">
                         <i class="material-icons">more_horiz</i>
                         <i class="flag">0</i>

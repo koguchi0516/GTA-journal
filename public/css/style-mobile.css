@@ -148,11 +148,11 @@
      }
     
     /*ボタン*/
-    .btn-flat-logo {
+    .btn-flat-logo,
+    .page-link{
         position: relative;
         display: inline-block;
         font-size:14px;
-        font-weight: bold;
         padding: 5px 10px;
         text-decoration: none;
         color: #FFF;
@@ -161,7 +161,8 @@
         border-radius:3px;
     }
     
-    .btn-flat-logo:hover {
+    .btn-flat-logo:hover,
+    .page-link:hover{
         background: #ca0000;
     }
     
@@ -779,7 +780,7 @@
 
     .unregister-comment-container {
         background-color: #eaeaea;
-        width: 500px;
+        width: 100%;
         padding :15px;
         margin: 45px auto;
         text-align: center
@@ -836,6 +837,10 @@
     }
     
     .report-button{
+        position:relative;
+        width:150px;
+        left:50%;
+        transform:translateX(-57%);
         line-height:35px;
         text-align:center;
      }

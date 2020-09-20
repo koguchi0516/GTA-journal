@@ -21,13 +21,8 @@
             <form action="/home/category" method="post">
                 {{ csrf_field() }}
                 <p>カテゴリ検索</p>
-                <select class="input" name="category">
-                    <option value="1">ストーリー</option>
-                    <option value="2">オンライン</option>
-                    <option value="3">乗り物</option>
-                    <option value="4">洋服</option>
-                    <option value="5">不動産</option>
-                </select><br>
+                    @include('layouts.select-category')
+                <br>
                 <input class="btn-flat-logo" type="submit" value="検索">
             </form>
         </nav>
@@ -43,9 +38,12 @@
             @endif
             
             @include('layouts.article-list',['article_data' => $article_data])
-            <div class="pagination">
-                {{ $article_data->links() }}
-            </div>
+            
+            @if(!isset($page))
+                <div class="pagination">
+                    {{ $article_data->links() }}
+                </div>
+            @endif
         </section>
     </div>
 @endsection

@@ -13,7 +13,7 @@ use App\Category;
 class HomeController extends Controller
 {
     public function showHome(Request $request){
-        if(Session('admin') !== 1) $request -> Session() -> put('admin',0);//管理者、ユーザー識別方法確認
+        if(Session('admin') !== 1) $request -> Session() -> put('admin',0);
         $article_data = ArticleTitle::orderBy('updated_at','desc') -> simplePaginate(20);
         $home_type = '最新記事';
         return view('users.home',compact('article_data','home_type'));
@@ -21,9 +21,10 @@ class HomeController extends Controller
     
     public function showHomeWeekly(){
         $week_ago = date('y-m-d G:i:s',strtotime('-1 week',time()));
-        $article_data = ArticleTitle::where('updated_at','>',$week_ago) -> withCount('favoriteArticle') -> orderBy('favorite_article_count','desc') -> simplePaginate(20);
+        $article_data = ArticleTitle::where('updated_at','>',$week_ago) -> withCount('favoriteArticle') -> orderBy('favorite_article_count','desc') -> take(20) -> get();
         $home_type = '今週の人気記事';
-        return view('users.home',compact('article_data','home_type'));
+        $page = 1;
+        return view('users.home',compact('article_data','home_type','page'));
     }
     
     public function showHomeFavo(){

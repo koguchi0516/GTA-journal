@@ -42,6 +42,7 @@ class ArticleTextController extends Controller
             'comments' => $comments,
             'favo_article' => $favo_article,
         ];
+        
         if(Session('admin') == 1){
             $data = array_merge($data,Session('data'));
             return view('admin.report-article',compact('data','contents','content_types'));

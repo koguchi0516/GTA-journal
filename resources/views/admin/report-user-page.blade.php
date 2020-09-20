@@ -28,7 +28,6 @@
                         @else
                             <p class="report-button" onclick="openBtn(this)">アカウント停止</p>
                         @endif
-                        
                         <p class="report-button" onclick="userDelete()">アカウント削除</p>
                     </div>
                 </div>
