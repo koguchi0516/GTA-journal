@@ -12,8 +12,8 @@ class AdminsTableSeeder extends Seeder
     public function run()
     {
         $data = [
-            'name' => 'test-admin',
-            'password' => Hash::make('11111111'),
+            'name' => 'koguchi-0516',
+            'password' => Hash::make('k.61507991'),
         ];
         DB::table('admins') -> updateOrInsert($data);
     }

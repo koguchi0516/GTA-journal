@@ -17,7 +17,7 @@ class PurposesTableSeeder extends Seeder
         DB::table('purposes')->updateOrInsert($data);
         
         $data = [
-            'purpose_name' => '協力',
+            'purpose_name' => 'ジョブ仲間募集',
         ];
         DB::table('purposes')->updateOrInsert($data);
         
@@ -32,7 +32,12 @@ class PurposesTableSeeder extends Seeder
         DB::table('purposes')->updateOrInsert($data);
         
         $data = [
-            'purpose_name' => 'カジノ',
+            'purpose_name' => 'ボイスチャット',
+        ];
+        DB::table('purposes')->updateOrInsert($data);
+        
+        $data = [
+            'purpose_name' => 'その他',
         ];
         DB::table('purposes')->updateOrInsert($data);
     }

@@ -11,7 +11,7 @@ window.onload = function (){
             checkModal.style.display = 'none';
         }
     })
-        
+    
     checkCloseBtn.addEventListener('click', function () {
     checkModal.style.display = 'none';
     })
@@ -59,21 +59,21 @@ function userDelete(){
 
 //自動ログイン
 function autoFill(){
-    document.getElementById('user_code').value = 'test-id';
-    document.getElementById('password').value = '11111111';
+    document.getElementById('user_code').value = 'shohei-0516';
+    document.getElementById('password').value = 'koguchi0516';
 }
 
 //管理者自動ログイン
 function autoFillAdmin(){
-    document.getElementById('name').value = 'test-admin';
-    document.getElementById('password').value = '11111111';
+    document.getElementById('name').value = 'koguchi-0516';
+    document.getElementById('password').value = 'k.61507991';
 }
 
 // 投稿内容のメニュー（報告、削除、編集）
 function reportIcon(ele){
     var flag = ele.children[1].innerText,
         brother = ele.parentNode,
-        parent = brother.parentNode;
+        parent = brother.parentNode,
         target = parent.children[1];
         
         if(flag == 0){
@@ -87,26 +87,34 @@ function reportIcon(ele){
 
 // pcメニュー
 function menuOpen(){
+    var icon = document.getElementById('open-menu'),
+        menuAccordion = document.getElementById('menu-accordion'),
+        menuClick = document.getElementById('menu_click');
+        
     if (document.getElementById('menu_click').value == 'Close') {
-        document.getElementById('menu-accordion').style.display = 'none';
-        document.getElementById('menu_click').value = 'Open'
+        icon.textContent = 'arrow_drop_down';
+        menuAccordion.style.display = 'none';
+        menuClick.value = 'Open'
     } else {
-        document.getElementById('menu-accordion').style.display = 'block';
-        document.getElementById('menu_click').value = 'Close';
+        icon.textContent = 'arrow_drop_up';
+        menuAccordion.style.display = 'block';
+        menuClick.value = 'Close';
     }
 }
 
 // mobileメニュー
 function mobileMenu(){
-    if (document.getElementById('mobile-menu-flag').value == 'Close') {
-        document.getElementById('mobile-menu').style.display = 'none';
-        document.getElementById('mobile-menu-flag').value = 'Open'
+    var flag = document.getElementById('mobile-menu-flag'),
+        mobileMenu = document.getElementById('mobile-menu');
+    
+    if (flag.value == 'Close') {
+        mobileMenu.style.display = 'none';
+        flag.value = 'Open'
     } else {
-        document.getElementById('mobile-menu').style.display = 'block';
-        document.getElementById('mobile-menu-flag').value = 'Close'
+        mobileMenu.style.display = 'block';
+        flag.value = 'Close'
     }
 }
-
 
 // 記事投稿パーツ削除
 function postDelete(ele) {
@@ -154,7 +162,6 @@ function addText(ele) {
     postNum.setAttribute('name', 'post-num[]');
     postNum.setAttribute('value', `${idCounter}`);
 
-
     switch (ele.id) {
         case 'addH3':
             inputText.setAttribute('class', 'h3-tag text');
@@ -162,26 +169,21 @@ function addText(ele) {
             inputText.setAttribute('placeholder', '見出し');
             inputText.setAttribute('name', `post-${idCounter}`);
             inputHidden.setAttribute('value', 'h3');
-
             parentDiv.appendChild(inputText);
-
             break;
         case 'addP':
             textArea.setAttribute('class', 'p-tag');
             textArea.setAttribute('name', `post-${idCounter}`);
             textArea.setAttribute('placeholder', '本文');
             inputHidden.setAttribute('value', 'p');
-
             parentDiv.appendChild(textArea);
-
             break;
         case 'addImg':
             inputHidden.setAttribute('value', 'img');
-
             parentDiv.appendChild(inputImg);
-
             break;
     }
+    
     parentDiv.appendChild(inputHidden);
     parentDiv.appendChild(postNum);
     iconP.appendChild(iconI);

@@ -71,11 +71,11 @@
         <a class="setting btn-flat-logo" href="/logout"><p>ログアウト</p></a>
     </div>
 
-    <di>
+    <div>
         <p class="setting btn-flat-logo" onclick="userDelete()">アカウント削除</p>
     </div>
 
     @include('layouts.delete-user-check',['user_id' => Auth::user() -> id])
-
+    
 </div>
 @endsection

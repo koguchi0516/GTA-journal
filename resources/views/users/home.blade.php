@@ -6,10 +6,12 @@
 
     <div class="main-contents">
         <nav class="material pc">
-            <a href="/home"><p>最新記事</p></a><br>
-            <a href="/home/weekly"><p>今週の人気記事</p></a><br>
+            <a href="/home"><p>最新記事</p></a>
             <a href="/home/favo"><p>お気に入り</p></a>
             <a href="/recrut-friend"><p>フレンド募集</p></a>
+            <a href="/home/popular/hot"><p>急上昇記事</p></a>
+            <a href="/home/popular/weekly"><p>過去7日間の人気記事</p></a>
+            <a href="/home/popular/month"><p>過去30日間の人気記事</p></a>
             
             <form action="/home/user" method="post">
                 {{ csrf_field() }}
@@ -28,7 +30,7 @@
         </nav>
         <section>
             <div class="my-articles-area">
-                <p class="white">{{ $home_type }}</p>
+                <p class="s1">{{ $home_type }}</p>
             </div>
             
             @if(count($article_data) == 0)
@@ -39,11 +41,9 @@
             
             @include('layouts.article-list',['article_data' => $article_data])
             
-            @if(!isset($page))
                 <div class="pagination">
                     {{ $article_data->links() }}
                 </div>
-            @endif
         </section>
     </div>
 @endsection

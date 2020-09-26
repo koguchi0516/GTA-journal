@@ -4,7 +4,9 @@
 
     @include('layouts.message-box')
     
-    @include('layouts.admin-report-user',['data' => $data])
+    @if(count($data) == 6)
+        @include('layouts.admin-report-user',['data' => $data])
+    @endif
     
     @if(Session::has('info-'.$data['report_id']))
         @include('layouts.admin-message-box',['report_id' => $data['report_id']])
@@ -14,10 +16,10 @@
         <div class="article-container material">
             <div class="message-head">
                     <div class="user-name">
-                        <a href="/mypage/{{ $data['title_data'] -> user -> id }}">
+                        <a class="user-data" href="/mypage/{{ $data['title_data'] -> user -> id }}">
                             <img src="/storage/user-icons/{{ $data['title_data'] -> user -> icon }}" alt="icon">
+                            <p>{{ $data['title_data'] -> user -> name }}</p>
                         </a>
-                        <p>{{ $data['title_data'] -> user -> name }}</p>
                     </div>
                     
                     <div class="report-area">
@@ -83,6 +85,7 @@
         
         @include('layouts.modal',['article_title_id'=>$data['title_data']['id']])
         @include('layouts.check-modal')
+        
     @endif
 
 @endsection

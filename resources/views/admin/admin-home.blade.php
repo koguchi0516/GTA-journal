@@ -7,22 +7,22 @@
         
         <div class="admin-data">
             <p>ユーザー数</p>
-            <p>{{ $user_count }}人</p>
+            <p>{{ $data['user_count'] }}人</p>
         </div>
         
-        <a href="/admin/user-list">
-            <div class="admin-data">
+        <div class="admin-data">
+            <a href="/admin/user-list">
                 <p>凍結中ユーザー</p>
-                <p>{{ $suspended_count }}人</p>
-            </div>
-        </a>
+            </a>
+            <p>{{ $data['suspended_count'] }}人</p>
+        </div>
         
-        <a href="/admin/list">
-            <div class="admin-data">
+        <div class="admin-data">
+            <a href="/admin/list">
                 <p>報告一覧</p>
-                <p></p>
-            </div>
-        </a>
+            </a>
+            <p>{{ $data['report_count'] }}件</p>
+        </div>
         
     </div>
 @endsection

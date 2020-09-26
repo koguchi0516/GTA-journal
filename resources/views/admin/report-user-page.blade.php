@@ -24,11 +24,11 @@
                     </div>
                     <div class="report-button-area">
                         @if($suspend_check)
-                            <p class="report-button"><a href="/release/{{ $data['user_data'] -> id }}">凍結解除</a></p>
+                            <p class="report-button admin"><a href="/release/{{ $data['user_data'] -> id }}">凍結解除</a></p>
                         @else
-                            <p class="report-button" onclick="openBtn(this)">アカウント停止</p>
+                            <p class="report-button admin" onclick="openBtn(this)">アカウント停止</p>
                         @endif
-                        <p class="report-button" onclick="userDelete()">アカウント削除</p>
+                        <p class="report-button admin" onclick="userDelete()">アカウント削除</p>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
 
         <section>
             <div class="my-articles-area">
-                <p class="white">{{ $data['user_data'] -> name }}の投稿</p>
+                <p class="s1">{{ $data['user_data'] -> name }}の投稿</p>
             </div>
             
             @if(count($data['article_data']) == 0)

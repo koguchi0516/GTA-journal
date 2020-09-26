@@ -14,10 +14,14 @@ use App\Models\SuspendingUser;
 class HomeController extends Controller
 {
     public function adminHome(Request $request){
-        $user_count = User::count();
-        $suspended_count = SuspendingUser::count();
+        $data = [
+            'user_count' => User::count(),
+            'suspended_count' => SuspendingUser::count(),
+            'report_count' => Report::count(),
+        ];
+        
         $request -> Session() -> put('admin',1);
-        return view('admin.admin-home',compact('user_count','suspended_count'));
+        return view('admin.admin-home',compact('data'));
     }
     
     public function reportList(){

@@ -19,12 +19,24 @@ class HomeController extends Controller
         return view('users.home',compact('article_data','home_type'));
     }
     
-    public function showHomeWeekly(){
-        $week_ago = date('y-m-d G:i:s',strtotime('-1 week',time()));
-        $article_data = ArticleTitle::where('updated_at','>',$week_ago) -> withCount('favoriteArticle') -> orderBy('favorite_article_count','desc') -> take(20) -> get();
-        $home_type = '今週の人気記事';
-        $page = 1;
-        return view('users.home',compact('article_data','home_type','page'));
+    public function popularArticle($period){
+        switch($period){
+            case'hot':
+                $updated_at = date('y-m-d G:i:s',strtotime('-1 day',time()));
+                $home_type = '急上昇記事';
+                break;
+            case'weekly':
+                $updated_at = date('y-m-d G:i:s',strtotime('-1 week',time()));
+                $home_type = '過去7日間の人気記事';
+                break;
+            case'month':
+                $updated_at = date('y-m-d G:i:s',strtotime('-1 month',time()));
+                $home_type = '過去30日間の人気記事';
+                break;
+        }
+        
+        $article_data = ArticleTitle::where('updated_at','>',$updated_at) -> withCount('favoriteArticle') -> orderBy('favorite_article_count','desc') -> simplePaginate(20);
+        return view('users.home',compact('article_data','home_type'));
     }
     
     public function showHomeFavo(){

@@ -130,11 +130,12 @@
     }
     
     .report-button-area{
+        margin-left:50px;
         background-color:#454545;
         display:none;
         position:absolute;
         z-index:1;
-        width:150px;
+        width:100px;
         border-radius:3px;
     }
     
@@ -146,6 +147,30 @@
         background-color:#ca0000;
         transition: .4s;
      }
+     
+    .s1 {
+	color: #454545;
+	font-size: 24px;
+	display: flex;
+	align-items: center;
+    }
+    
+    .s1:before,
+    .s1:after {
+    	content: "";
+    	flex-grow: 1;
+    	height: .5px;
+    	background: #454545;
+    	display: block;
+    }
+    
+    .s1:before {
+    	margin-right: .4em;
+    }
+    
+    .s1:after {
+    	margin-left: .4em;
+    }
     
     /*ボタン*/
     .btn-flat-logo,
@@ -182,7 +207,7 @@
     }
     
     .setting.btn-flat-logo{
-        margin:20px 0;
+        margin:10px 0 0 10px;
         width:150px;
         text-align:center;
     }
@@ -569,14 +594,14 @@
     /*--設定画面--*/
     /*共通部分*/
     .setting {
-        width: 800px;
+        width: 100%;
         margin: 30px auto 0;
     }
 
     .setting .form-container {
         background-color: #eaeaea;
-        margin-bottom: 20px;
-        padding:20px;
+        margin-bottom: 10px;
+        padding:10px;
     }
 
     .setting .form-container > p {
@@ -603,8 +628,8 @@
 
     /*アイコン*/
     .setting img {
-        width: 150px;
-        height: 150px;
+        width: 70px;
+        height: 70px;
         border-radius: 50%;
         margin-bottom: 10px;
         object-fit: cover;
@@ -657,18 +682,13 @@
     }
     
     .my-articles-area {
-        text-align:center;
-        height: 30px;
         width:90%;
         margin:10px auto;
-        background-color: #454545;
     }
     
     .my-articles-area p {
         line-height: 30px;
         text-align: center;
-        font-size: 15px;
-        width: 100%;
         font-size:18px;
     }
 
@@ -689,6 +709,10 @@
         font-size: 18px;
         margin-bottom:10px;
         line-height:23px;
+    }
+    
+    .user-data{
+        display:flex;
     }
 
     /*記事タグといいねアイコン*/
@@ -838,9 +862,9 @@
     
     .report-button{
         position:relative;
-        width:150px;
+        width:100px;
         left:50%;
-        transform:translateX(-57%);
+        transform:translateX(-50%);
         line-height:35px;
         text-align:center;
      }
@@ -866,6 +890,10 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+    }
+    
+    .radio-contain input{
+        margin-right:5px;
     }
     
     .modal label{

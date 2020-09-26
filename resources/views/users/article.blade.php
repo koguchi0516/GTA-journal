@@ -7,10 +7,10 @@
 <div class="article-container material">
     <div class="message-head">
             <div class="user-name">
-                <a href="/mypage/{{ $data['title_data'] -> user -> id }}">
+                <a class="user-data" href="/mypage/{{ $data['title_data'] -> user -> id }}">
                     <img src="/storage/user-icons/{{ $data['title_data'] -> user -> icon }}" alt="icon">
+                    <p>{{ $data['title_data'] -> user -> name }}</p>
                 </a>
-                <p>{{ $data['title_data'] -> user -> name }}</p>
             </div>
             
             <div class="report-area">

@@ -12,7 +12,7 @@ use App\Models\SuspendingUser;
 class RecruitFriendController extends Controller
 {
     public function recrutShow(Request $request){
-        $recruiting_friend = RecruitingFriend::orderBy('created_at','asc') -> simplePaginate(20);
+        $recruiting_friend = RecruitingFriend::orderBy('created_at','desc') -> simplePaginate(20);
         if(Auth::check()){
             $suspend = SuspendingUser::where('user_id',Auth::user() -> id) -> exists();
             if($suspend) $request -> Session() -> flash('info','現在このアカウントでフレンド募集はできません');

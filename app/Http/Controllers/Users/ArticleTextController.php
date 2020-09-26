@@ -44,7 +44,7 @@ class ArticleTextController extends Controller
         ];
         
         if(Session('admin') == 1){
-            $data = array_merge($data,Session('data'));
+            if(Session('data') !== Null)$data = array_merge($data,Session('data'));
             return view('admin.report-article',compact('data','contents','content_types'));
         }
         

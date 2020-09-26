@@ -18,7 +18,7 @@ Route::get('/', function () {
 //ホーム画面
 Route::group(['prefix' => 'home'], function() {
     Route::get('/','Users\HomeController@showHome');
-    Route::get('/weekly','Users\HomeController@showHomeWeekly');
+    Route::get('/popular/{period}','Users\HomeController@popularArticle');
     Route::get('/favo','Users\HomeController@showHomeFavo');
     Route::post('/user','Users\HomeController@searchUser');
     Route::get('/category/{category_id}','Users\HomeController@linkChcategory');

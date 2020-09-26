@@ -34,7 +34,7 @@
 
         <section>
             <div class="my-articles-area">
-                <p class="white">{{ $data['user_data'] -> name }}の投稿</p>
+                <p class="s1">{{ $data['user_data'] -> name }}の投稿</p>
             </div>
             
             @if(count($data['article_data']) == 0)
