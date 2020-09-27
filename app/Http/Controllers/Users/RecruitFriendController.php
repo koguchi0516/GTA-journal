@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Models\SuspendingUser;
+use App\Rules\AlphaNumHalf;
 
 class RecruitFriendController extends Controller
 {
@@ -26,6 +27,7 @@ class RecruitFriendController extends Controller
         
         $timestamp = time();
         $this -> validate($request,RecruitingFriend::$recruit_friend_rule);
+        $request -> validate(['psid' => ['required','between:3,16','alpha_dash',new AlphaNumHalf]]);
         
         $user_id = Auth::user() -> id;
         $purpose = $request -> input('purpose');

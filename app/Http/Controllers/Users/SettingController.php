@@ -8,6 +8,7 @@ use Input;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Rules\AlphaNumHalf;
 
 class SettingController extends Controller
 {
@@ -75,7 +76,7 @@ class SettingController extends Controller
         if($new_psid == ''){
             $users -> psid = '';
         }else{
-            $this->validate($request,user::$change_psid_rule);
+            $request -> validate(['change-psid' => ['required','between:3,16','alpha_dash',new AlphaNumHalf]]);
             $users -> psid = $new_psid;
         }
         $users ->save();

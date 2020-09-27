@@ -10,11 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 //ホーム画面
 Route::group(['prefix' => 'home'], function() {
     Route::get('/','Users\HomeController@showHome');
@@ -33,8 +28,8 @@ Route::get('/recrut-friend','Users\RecruitFriendController@recrutShow');
 Route::post('/recrut-friend','Users\RecruitFriendController@recrutMessage');
 
 //設定画面
-Route::get('/setting','Users\SettingController@showSettingPage')->middleware('auth');
-Route::post('/setting','Users\SettingController@settingHandle')->middleware('auth');
+Route::get('/setting','Users\SettingController@showSettingPage');
+Route::post('/setting','Users\SettingController@settingHandle');
 
 //記事詳細画
 Route::get('/article/{article_title_id}','Users\ArticleTextController@showArticle');

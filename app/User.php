@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Rules\Psid;
 use Illuminate\Support\Facades;
 use Illuminate\Database\Eloquent\Models;
+use App\Rules\AlphaNumHalf;
 
 class User extends Authenticatable
 {
@@ -74,10 +75,6 @@ class User extends Authenticatable
         
     public static $change_name_rule = [
         'change-name' => 'required|max:255'
-    ];
-        
-    public static $change_psid_rule = [
-        'change-psid' => 'required|between:3,16|alpha_dash'
     ];
     
     public static $change_profile_rule = [

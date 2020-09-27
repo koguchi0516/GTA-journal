@@ -16,7 +16,6 @@ return [
       | これらの規則の中には、サイズ規則などの複数のバージョンがあります。
       | これらのメッセージのそれぞれをここで微調整してください。
     */
-
     'accepted'             => ':attribute が未承認です',
     'active_url'           => ':attribute は有効なURLではありません',
     'after'                => ':attribute は :date より後の日付にしてください',

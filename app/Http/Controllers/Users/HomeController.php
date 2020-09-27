@@ -23,15 +23,15 @@ class HomeController extends Controller
         switch($period){
             case'hot':
                 $updated_at = date('y-m-d G:i:s',strtotime('-1 day',time()));
-                $home_type = '急上昇記事';
+                $home_type = 'Daily';
                 break;
             case'weekly':
                 $updated_at = date('y-m-d G:i:s',strtotime('-1 week',time()));
-                $home_type = '過去7日間の人気記事';
+                $home_type = 'Weekly';
                 break;
             case'month':
                 $updated_at = date('y-m-d G:i:s',strtotime('-1 month',time()));
-                $home_type = '過去30日間の人気記事';
+                $home_type = 'Monthly';
                 break;
         }
         

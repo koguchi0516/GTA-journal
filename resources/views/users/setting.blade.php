@@ -14,7 +14,7 @@
             </div>
             <input type="file" name="newIcon">
             <div class="setting-button">
-                <input type="submit" value="変更" class="btn-flat-logo" name="setting-subbmit">
+                <input type="submit" value="アイコン" class="btn-flat-logo" name="setting-subbmit">
             </div>
         </div>
         
@@ -23,12 +23,12 @@
             
             <input type="text" class="change-name input" name="change-name" value="{{ Auth::user()->name }}">
             <div class="setting-button">
-                <input type="submit" value="変更" class="btn-flat-logo" name="setting-subbmit">
+                <input type="submit" value="表示名" class="btn-flat-logo" name="setting-subbmit">
             </div>
         </div>
 
         <div class="form-container material">
-            <p>PSID（未入力で削除できます）</p>
+            <p>PSID（未入力で削除）</p>
             
             @if(!Auth::user()->psid)
                 <input type="text" class="change-psid  input" name="change-psid" placeholder="公開するPSID">
@@ -37,7 +37,7 @@
             @endif
             
             <div class="setting-button">
-                <input type="submit" value="変更" class="btn-flat-logo" name="setting-subbmit">
+                <input type="submit" value="PSID" class="btn-flat-logo" name="setting-subbmit">
             </div>
         </div>
 
@@ -51,7 +51,7 @@
             @endif
             
             <div class="setting-button">
-                <input type="submit" value="変更" class="btn-flat-logo" name="setting-subbmit">
+                <input type="submit" value="プロフィール" class="btn-flat-logo" name="setting-subbmit">
             </div>
         </div>
 
@@ -62,7 +62,7 @@
             <input type="password" class="input" name="new-password1" class="new-password1" placeholder="新しいパスワード">
             <input type="password" class="input" name="new-password2" class="new-password2" placeholder="新しいパスワード(確認用)">
             <div class="setting-button">
-                <input type="submit" value="変更" class="btn-flat-logo" name="setting-subbmit">
+                <input type="submit" value="パスワード" class="btn-flat-logo" name="setting-subbmit">
             </div>
         </div>
     </form>

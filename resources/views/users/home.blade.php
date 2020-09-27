@@ -6,12 +6,12 @@
 
     <div class="main-contents">
         <nav class="material pc">
-            <a href="/home"><p>最新記事</p></a>
             <a href="/home/favo"><p>お気に入り</p></a>
             <a href="/recrut-friend"><p>フレンド募集</p></a>
-            <a href="/home/popular/hot"><p>急上昇記事</p></a>
-            <a href="/home/popular/weekly"><p>過去7日間の人気記事</p></a>
-            <a href="/home/popular/month"><p>過去30日間の人気記事</p></a>
+            <a href="/home"><p>最新記事</p></a>
+            <a href="/home/popular/hot"><p>Daily</p></a>
+            <a href="/home/popular/weekly"><p>Weekly</p></a>
+            <a href="/home/popular/month"><p>Monthly</p></a>
             
             <form action="/home/user" method="post">
                 {{ csrf_field() }}

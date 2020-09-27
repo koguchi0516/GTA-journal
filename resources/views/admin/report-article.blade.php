@@ -39,9 +39,7 @@
             <h2 class="article-title">{{ $data['title_data'] -> title }}</h2>
             <div class="article-tag-container">
                 <div class="article-tags">
-                    <a href="/home/category/{{ $data['title_data']['category_id'] }}">
                         <p>{{ $data['title_data'] -> category -> category_name }}</p>
-                    </a>
                 </div>
             </div>
         

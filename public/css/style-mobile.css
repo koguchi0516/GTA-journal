@@ -273,10 +273,6 @@
         background-color: #ca0000;
     }
 
-    /*navとsectionの親要素*/
-    .main-contents {
-    }
-
     /*nev*/
     #mobile-menu{
         display:none;
@@ -293,8 +289,8 @@
         color:#454545;
         padding-left: 25px;
         display: inline-block;
-        height: 40px;
-        line-height:40px;
+        height: 30px;
+        line-height:30px;
         width: 100%;
         transition: .4s;
     }
