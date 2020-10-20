@@ -9,18 +9,13 @@
         {{ csrf_field() }}
         <div class="user-name">
             <img src="/storage/user-icons/{{ Auth::user() -> icon }}" alt="">
-            <p class="white">{{ Auth::user() -> name }}</p>
+            <p class="white"># {{ Auth::user() -> user_code }}</p>
         </div>
         <div class="friend-post-select">
             <div class="">
                 <p>目的</p>
                 <select name="purpose" class="input">
-                    <option value="1">フレンド募集</option>
-                    <option value="2">ジョブ仲間募集</option>
-                    <option value="3">対戦</option>
-                    <option value="4">強盗</option>
-                    <option value="5">ボイスチャット</option>
-                    <option value="6">その他</option>
+                    @include('layouts.friend-category')
                 </select>
             </div>
             <div>
@@ -49,6 +44,16 @@
     </div>
 @endauth
 
+<form clacc="" action="/recrut-friend/search" method="post">
+    {{ csrf_field() }}
+    <div class="friend-search-container">
+        <select name="purpose" class="friend-search">
+            @include('layouts.friend-category')
+        </select>
+        <input class="btn-flat-logo" type="submit" value="検索">
+    </div>
+</form>
+
 @php $i = 0; @endphp
 @foreach($recruiting_friend as $friend)
     <span hidden id="target-content-keyId-{{ $i }}">{{ $friend -> id }}</span>
@@ -60,7 +65,7 @@
                     <img src="/storage/user-icons/{{ $friend -> user -> icon }}" alt="ユーザーアイコン">
                 </a>
                 <p>
-                    <a href="/mypage/{{ $friend -> user -> id }}">{{ $friend -> user -> name }}</a>
+                    <a href="/mypage/{{ $friend -> user -> id }}"># {{ $friend -> user -> user_code }}</a>
                 </p>
             </div>
             <div class="report-area">

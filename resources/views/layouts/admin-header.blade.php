@@ -12,14 +12,14 @@
         <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap" rel="stylesheet">
         
         <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('css/style-reset.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/style-mobile.css') }}">
+        <link rel="stylesheet" href="/css/app.css">
+        <link rel="stylesheet" href="/css/style-reset.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/admin.css">
+        <link rel="stylesheet" href="/css/style-mobile.css">
         
         <!-- Scripts -->
-        <script src="{{ asset('js/script.js') }}"></script>
+        <script src="/js/script.js"></script>
         
         <title>grand theft auto JOURNAL management</title>
     </head>

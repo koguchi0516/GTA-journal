@@ -9,6 +9,8 @@ use App\Models\ArticleTitle;
 use App\Models\FavoriteArticle;
 use App\User;
 use App\Category;
+use App\Admin;
+use App\Rules\AlphaNumHalf;
 
 class HomeController extends Controller
 {
@@ -51,10 +53,10 @@ class HomeController extends Controller
     }
     
     public function searchUser(Request $request){
-        $this -> validate($request,['user-data' => 'required']);
+        $this -> validate($request,['user-data' => new AlphaNumHalf]);
         $user_data = $request -> input('user-data');
         $user_id = User::where('user_code',$user_data) -> value('id');
-        if($user_id == Null) $user_id = User::where('name',$user_data) -> value('id');
+        // if($user_id == Null) $user_id = User::where('name',$user_data) -> value('id');
         
         if(isset($user_id)){
             return redirect('/mypage/'.$user_id);

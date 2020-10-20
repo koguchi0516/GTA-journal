@@ -167,7 +167,9 @@ return [
         'friend-message' => 'メッセージ',
         'psid' => 'PSID',
         'newIcon' => 'アイコン',
-        'user-data' => '表示名・ユーザーID',
+        'user-data' => 'ユーザーID',
+        'user_code' => 'ユーザーID',
+        'password' => 'パスワード',
         ],
 
 ];

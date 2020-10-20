@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Rules\AlphaNumHalf;
 
 class RegisterController extends Controller
 {
@@ -50,7 +51,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'user_code' => ['required', 'string','max:25','unique:users'],
+            'user_code' => ['required', 'string','max:25','unique:users',new AlphaNumHalf],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }

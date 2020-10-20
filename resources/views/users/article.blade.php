@@ -9,7 +9,7 @@
             <div class="user-name">
                 <a class="user-data" href="/mypage/{{ $data['title_data'] -> user -> id }}">
                     <img src="/storage/user-icons/{{ $data['title_data'] -> user -> icon }}" alt="icon">
-                    <p>{{ $data['title_data'] -> user -> name }}</p>
+                    <p># {{ $data['title_data'] -> user -> user_code }}</p>
                 </a>
             </div>
             
@@ -69,6 +69,11 @@
     </div>
 </div>
 
+<div class="comment-icon">
+    <i class="material-icons article-comment">forum</i>
+    <p>コメント</p>
+</div>
+
 @if(!empty($data['comments']))
     @foreach($data['comments'] as $comment)
         <div class="comment-list-container material">
@@ -77,7 +82,7 @@
                     <a href="/mypage/{{ $comment -> user -> id }}">
                         <img src="/storage/user-icons/{{ $comment -> user -> icon }}" alt="icon">
                     </a>
-                    <p>{{ $comment -> user -> name }}</p>
+                    <p># {{ $comment -> user -> user_code }}</p>
                 </div>
                 <div class="report-area">
                     <div class="message-report">
@@ -109,7 +114,7 @@
         {{ csrf_field() }}
         <div class="user-name">
             <img src="/storage/user-icons/{{ Auth::user() -> icon }}" alt="icon">
-            <p class="white">{{ Auth::user() -> name }}</p>
+            <p class="white">#{{ Auth::user() -> user_code }}</p>
         </div>
         <textarea name="comment-post"></textarea>
         <input type="submit" class="btn-flat-logo" value="コメント">

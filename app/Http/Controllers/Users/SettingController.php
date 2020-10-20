@@ -50,15 +50,13 @@ class SettingController extends Controller
         $new_icon = $request -> file('newIcon');
         
         if($users -> icon !== 'default-icon.jpg'){
-            $delete_name = storage_path().'/app/public/user-icons/'.$users -> icon;
-            \File::delete($delete_name);
+            \Storage::delete($users->icon);
         }
         
-        $new_icon_name = Auth::user() -> user_code. '-icon' . '.' .$new_icon -> getClientOriginalExtension();
-        $target_path = 'public/user-icons';
-        $new_icon -> storeAs($target_path,$new_icon_name);
-        
-        $users -> icon = $new_icon_name;
+        // $new_icon_name = Auth::user() -> user_code. '-icon' . '.' .$new_icon -> getClientOriginalExtension();
+        $target_path = 'users/' . Auth::user()->user_code;
+        $new_icon_path = $new_icon -> store($target_path,['ACL' => 'public-read']);
+        $users -> icon = $new_icon_path;
         $users -> save();
         $request -> Session() -> flash('info','アイコンを変更しました');
     }

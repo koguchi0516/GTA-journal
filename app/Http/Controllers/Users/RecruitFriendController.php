@@ -46,4 +46,10 @@ class RecruitFriendController extends Controller
         $request -> Session() -> flash('info','投稿しました');
         return back();
     }
+    
+    public function friendSearch(Request $request){
+        $purpose = $request -> input('purpose');
+        $recruiting_friend = RecruitingFriend::where('purpose_id',$purpose) -> orderBy('created_at','desc') -> simplePaginate(20);
+        return view('users.recrut-friend',compact('recruiting_friend'));
+    }
 }

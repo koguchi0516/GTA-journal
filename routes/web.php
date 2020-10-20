@@ -10,8 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
 //ホーム画面
 Route::group(['prefix' => 'home'], function() {
+    Route::get('/','Users\HomeController@showHome');
     Route::get('/','Users\HomeController@showHome');
     Route::get('/popular/{period}','Users\HomeController@popularArticle');
     Route::get('/favo','Users\HomeController@showHomeFavo');
@@ -25,30 +28,31 @@ Route::get('/mypage/{user_id}','Users\MyPageController@showMyPage');
 
 //フレンド募集画面
 Route::get('/recrut-friend','Users\RecruitFriendController@recrutShow');
-Route::post('/recrut-friend','Users\RecruitFriendController@recrutMessage');
+Route::post('/recrut-friend','Users\RecruitFriendController@recrutMessage')->middleware('auth');
+Route::post('/recrut-friend/search','Users\RecruitFriendController@friendSearch');
 
 //設定画面
-Route::get('/setting','Users\SettingController@showSettingPage');
-Route::post('/setting','Users\SettingController@settingHandle');
+Route::get('/setting','Users\SettingController@showSettingPage')->middleware('auth');
+Route::post('/setting','Users\SettingController@settingHandle')->middleware('auth');
 
 //記事詳細画
 Route::get('/article/{article_title_id}','Users\ArticleTextController@showArticle');
 Route::post('/article/{article_title_id}','Users\ArticleTextController@toComment');
-Route::get('/favo/{article_title_id}','Users\ArticleTextController@favoArticle');
+Route::get('/favo/{article_title_id}','Users\ArticleTextController@favoArticle')->middleware('auth');
 
 //記事投稿・編集画面
-Route::get('/article-post','Users\ArticlePostController@showArticlePost');
-Route::post('/article-post','Users\ArticlePostController@articlePost');
-Route::get('/edit/{article_title_id}','Users\ArticlePostController@showEditArticle');
- 
+Route::get('/article-post','Users\ArticlePostController@showArticlePost')->middleware('auth');
+Route::post('/article-post','Users\ArticlePostController@articlePost')->middleware('auth');
+Route::get('/edit/{article_title_id}','Users\ArticlePostController@showEditArticle')->middleware('auth');
+
 //報告
 Route::post('/report/{article_title_id}','Admin\ReportController@report');
 
 //投稿削除・編集
-Route::get('/delete/{content_type}/{content_id}','Users\ArticleTextController@deleteComment');
+Route::get('/delete/{content_type}/{content_id}','Users\ArticleTextController@deleteComment')->middleware('auth');
 
 //ログアウト
-Route::get('/logout','LogoutController@logout');
+Route::get('/logout','LogoutController@logout')->middleware('auth');
 
 //アカウント凍結・削除
 Route::post('/suspend','Admin\ReportController@suspend');
@@ -74,4 +78,4 @@ Route::get('/logout', 'AuthAdmin\LoginController@logout')->name('admin_auth.logo
 Route::get('/admin/report/{report_id}','Admin\HomeController@reportDetail');
 
 Auth::routes();
-Route::get('/index', 'HomeController@index')->name('home');
+// Route::get('/index', 'HomeController@index')->name('home');

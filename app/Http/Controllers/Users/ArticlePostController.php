@@ -9,8 +9,9 @@ use App\Models\H3Tag;
 use App\Models\Ptag;
 use App\Models\ImgTag;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+// use Illuminate\Support\Facades\Storage;
 use App\Models\SuspendingUser;
+use Storage;
 
 class ArticlePostController extends Controller{
     
@@ -163,15 +164,29 @@ class ArticlePostController extends Controller{
     
     public function imgPost($data){
         $img_tag = new imgTag;
-        $img = $data['posts'][$data['i']]; 
-        $img_name = Auth::user() -> user_code . '-' .$data['lastId'] . '-' . $data['i'] . '.' . $img -> getClientOriginalExtension();
-        $target_path = 'public/article-imgs';
-        $img -> storeAs($target_path,$img_name);
+        $disk = Storage::disk('s3');
+        
+        $img = $data['posts'][$data['i']];
+        $img_name = 'article-imgs/' . Auth::user() -> user_code . '-' .$data['lastId'] . '-' . $data['i'] . '.' . $img -> getClientOriginalExtension();
+        $disk->put($img_name,$img,'public');
+        
+        $url = $disk->url($img_name);
         
         $img_tag -> article_title_id = $data['lastId'];
         $img_tag -> turn = $data['i'];
         $img_tag -> img_content = $img_name;
         $img_tag-> save();
+        
+        // ローカル環境
+        // $img = $data['posts'][$data['i']]; 
+        // $img_name = Auth::user() -> user_code . '-' .$data['lastId'] . '-' . $data['i'] . '.' . $img -> getClientOriginalExtension();
+        // $target_path = 'public/article-imgs';
+        // $img -> storeAs($target_path,$img_name);
+        
+        // $img_tag -> article_title_id = $data['lastId'];
+        // $img_tag -> turn = $data['i'];
+        // $img_tag -> img_content = $img_name;
+        // $img_tag-> save();
     }
     
 }

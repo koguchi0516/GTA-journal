@@ -10,7 +10,7 @@
         <div class="form-container material">
             <p>アイコン</p>
             <div>
-                <img src="/storage/user-icons/{{ Auth::user()->icon }}" alt="">
+                <img src="{{ Storage::url(Auth::user()->icon) }}" alt="">
             </div>
             <input type="file" name="newIcon">
             <div class="setting-button">

@@ -25,7 +25,7 @@ class AlphaNumHalf implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/^[!-~]+$/', $value);//追記
+        return preg_match('/^[a-zA-Z0-9_-]+$/', $value);//追記
     }
 
     /**
@@ -35,6 +35,6 @@ class AlphaNumHalf implements Rule
      */
     public function message()
     {
-        return ':attribute は半角英数字で入力してください';//追記
+        return ':attribute は半角英数字記号("-","_")で入力してください';//追記
     }
 }
