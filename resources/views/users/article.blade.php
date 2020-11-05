@@ -8,7 +8,7 @@
     <div class="message-head">
             <div class="user-name">
                 <a class="user-data" href="/mypage/{{ $data['title_data'] -> user -> id }}">
-                    <img src="/storage/user-icons/{{ $data['title_data'] -> user -> icon }}" alt="icon">
+                    <img src="{{ Storage::url($data['title_data'] -> user -> icon) }}" alt="icon">
                     <p># {{ $data['title_data'] -> user -> user_code }}</p>
                 </a>
             </div>
@@ -80,7 +80,7 @@
             <div class="message-head">
                 <div class="user-name">
                     <a href="/mypage/{{ $comment -> user -> id }}">
-                        <img src="/storage/user-icons/{{ $comment -> user -> icon }}" alt="icon">
+                        <img src="{{ Storage::url($data['title_data'] -> user -> icon) }}" alt="icon">
                     </a>
                     <p># {{ $comment -> user -> user_code }}</p>
                 </div>
@@ -113,7 +113,7 @@
     <form method="post" action="/article/{{ $data['title_data'] -> id }}" class="comment-post-form material">
         {{ csrf_field() }}
         <div class="user-name">
-            <img src="/storage/user-icons/{{ Auth::user() -> icon }}" alt="icon">
+            <img src="{{ Storage::url(Auth::user() -> icon) }}" alt="icon">
             <p class="white">#{{ Auth::user() -> user_code }}</p>
         </div>
         <textarea name="comment-post"></textarea>

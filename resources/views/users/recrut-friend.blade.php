@@ -8,7 +8,7 @@
     <form class="friend-post-form material" action="{{ url('/recrut-friend') }}" method="post">
         {{ csrf_field() }}
         <div class="user-name">
-            <img src="/storage/user-icons/{{ Auth::user() -> icon }}" alt="">
+            <img src="{{ Storage::url(Auth::user() -> icon) }}" alt="">
             <p class="white"># {{ Auth::user() -> user_code }}</p>
         </div>
         <div class="friend-post-select">
@@ -62,7 +62,7 @@
         <div class="message-head">
             <div class="user-name">
                 <a href="/mypage/{{ $friend -> user -> id }}">
-                    <img src="/storage/user-icons/{{ $friend -> user -> icon }}" alt="ユーザーアイコン">
+                    <img src="{{ Storage::url($friend -> user -> icon) }}" alt="ユーザーアイコン">
                 </a>
                 <p>
                     <a href="/mypage/{{ $friend -> user -> id }}"># {{ $friend -> user -> user_code }}</a>

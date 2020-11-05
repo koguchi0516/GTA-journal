@@ -50,7 +50,7 @@
                         <div class="header-menu pc">
                             <a href="/article-post" class="btn-flat-logo header">記事投稿</a>
                             <a href="/mypage/{{ Auth::user() -> id }}" class="head-img-linl">
-                                <img src="/storage/user-icons/{{ Auth::user() -> icon }}" alt="icon">
+                                <img src="{{ Storage::url(Auth::user() -> icon) }}" alt="icon">
                             </a>
                             <i class="material-icons open-menu" id="open-menu" onclick="menuOpen()">arrow_drop_down</i>
                         </div>
@@ -106,6 +106,7 @@
             </div>
             
             @yield('content')
+            
         </body>
     </html>
 @endif

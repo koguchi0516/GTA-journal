@@ -12,44 +12,47 @@ use App\Rules\AlphaNumHalf;
 
 class RecruitFriendController extends Controller
 {
-    public function recrutShow(Request $request){
-        $recruiting_friend = RecruitingFriend::orderBy('created_at','desc') -> simplePaginate(20);
+    public function recrutShow(Request $request)
+    {
+        $recruiting_friend = RecruitingFriend::orderBy('created_at','desc')->simplePaginate(20);
         if(Auth::check()){
-            $suspend = SuspendingUser::where('user_id',Auth::user() -> id) -> exists();
-            if($suspend) $request -> Session() -> flash('info','現在このアカウントでフレンド募集はできません');
+            $suspend = SuspendingUser::where('user_id',Auth::user()->id)->exists();
+            if($suspend) $request->Session()->flash('info','現在このアカウントでフレンド募集はできません');
         }
         return view('users.recrut-friend',compact('recruiting_friend'));
     }
     
-    public function recrutMessage(Request $request){
-        $suspend = SuspendingUser::where('user_id',Auth::user() -> id) -> exists();
+    public function recrutMessage(Request $request)
+    {
+        $suspend = SuspendingUser::where('user_id',Auth::user()->id)->exists();
         if($suspend) return back();
         
         $timestamp = time();
-        $this -> validate($request,RecruitingFriend::$recruit_friend_rule);
-        $request -> validate(['psid' => ['required','between:3,16','alpha_dash',new AlphaNumHalf]]);
+        $this->validate($request,RecruitingFriend::$recruit_friend_rule);
+        $request->validate(['psid' => ['required','between:3,16','alpha_dash',new AlphaNumHalf]]);
         
-        $user_id = Auth::user() -> id;
-        $purpose = $request -> input('purpose');
-        $psid = $request -> input('psid');
+        $user_id = Auth::user()->id;
+        $purpose = $request->input('purpose');
+        $psid = $request->input('psid');
         $expiration_date = $timestamp + $request -> input('expiration-date');
-        $friend_message = $request -> input('friend-message');
+        $friend_message = $request->input('friend-message');
         
         $recruiting_friend = new RecruitingFriend;
-        $recruiting_friend -> user_id = $user_id;
-        $recruiting_friend -> purpose_id = $purpose;
-        $recruiting_friend -> psid = $psid;
-        $recruiting_friend -> expiration_date = $expiration_date;
-        $recruiting_friend -> friend_message = $friend_message;
-        $recruiting_friend -> save();
+        $recruiting_friend->user_id = $user_id;
+        $recruiting_friend->purpose_id = $purpose;
+        $recruiting_friend->psid = $psid;
+        $recruiting_friend->expiration_date = $expiration_date;
+        $recruiting_friend->friend_message = $friend_message;
+        $recruiting_friend->save();
         
-        $request -> Session() -> flash('info','投稿しました');
+        $request->Session()->flash('info','投稿しました');
         return back();
     }
     
-    public function friendSearch(Request $request){
-        $purpose = $request -> input('purpose');
-        $recruiting_friend = RecruitingFriend::where('purpose_id',$purpose) -> orderBy('created_at','desc') -> simplePaginate(20);
+    public function friendSearch(Request $request)
+    {
+        $purpose = $request->input('purpose');
+        $recruiting_friend = RecruitingFriend::where('purpose_id',$purpose)->orderBy('created_at','desc')->simplePaginate(20);
         return view('users.recrut-friend',compact('recruiting_friend'));
     }
 }

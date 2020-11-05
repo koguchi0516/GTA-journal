@@ -11,7 +11,7 @@
             <div class="message-head">
                 <div class="user-name">
                     <a href="/mypage/{{ $friend -> user -> id }}">
-                        <img src="/storage/user-icons/{{ $friend -> user -> icon }}" alt="ユーザーアイコン">
+                        <img src="{{ Storage::url($friend -> user -> icon) }}" alt="ユーザーアイコン">
                     </a>
                     <p>
                         <a href="/mypage/{{ $friend -> user -> id }}">{{ $friend -> user -> name }}</a>

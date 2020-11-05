@@ -35,6 +35,6 @@ class AlphaNumHalf implements Rule
      */
     public function message()
     {
-        return ':attribute は半角英数字記号("-","_")で入力してください';//追記
+        return ':attribute は半角英数字・記号("-","_")で入力してください';//追記
     }
 }

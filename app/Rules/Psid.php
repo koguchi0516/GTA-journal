@@ -27,7 +27,7 @@ class Psid implements Rule
     {
         return preg_match('/^[a-zA-Z0-9]{3,16}+$/', $value);
     }
-
+    
     /**
      * Get the validation error message.
      *

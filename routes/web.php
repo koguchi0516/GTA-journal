@@ -11,10 +11,8 @@
 |
 */
 
-
 //ホーム画面
 Route::group(['prefix' => 'home'], function() {
-    Route::get('/','Users\HomeController@showHome');
     Route::get('/','Users\HomeController@showHome');
     Route::get('/popular/{period}','Users\HomeController@popularArticle');
     Route::get('/favo','Users\HomeController@showHomeFavo');
@@ -62,20 +60,23 @@ Route::get('/release/{user_id}','Admin\HomeController@release');
 //管理画面
 // home表示・報告一覧表示・凍結中ユーザー一覧表示
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
-Route::get('/home','Admin\HomeController@adminHome');
-Route::get('/list','Admin\HomeController@reportList');
-Route::get('/user-list','Admin\HomeController@reportUser');
+    Route::get('/home','Admin\HomeController@adminHome');
+    Route::get('/list','Admin\HomeController@reportList');
+    Route::get('/user-list','Admin\HomeController@reportUser');
 });
 
 //管理者用認証
 Route::group(['prefix' => 'admin',], function () {
-Route::get('/login', 'AuthAdmin\LoginController@showLoginForm')->name('admin_auth.login');
-Route::post('/login', 'AuthAdmin\LoginController@login')->name('admin_auth.login');
-Route::get('/logout', 'AuthAdmin\LoginController@logout')->name('admin_auth.logout');
+    Route::get('/login', 'AuthAdmin\LoginController@showLoginForm')->name('admin_auth.login');
+    Route::post('/login', 'AuthAdmin\LoginController@login')->name('admin_auth.login');
+    Route::get('/logout', 'AuthAdmin\LoginController@logout')->name('admin_auth.logout');
 });
 
 //報告記事詳細表示・報告コメント詳細表示
 Route::get('/admin/report/{report_id}','Admin\HomeController@reportDetail');
 
-Auth::routes();
-// Route::get('/index', 'HomeController@index')->name('home');
+Auth::routes([
+    'verify'   => false,
+    'register' => true,
+    'reset'    => false,
+]);

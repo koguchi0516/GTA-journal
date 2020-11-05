@@ -13,7 +13,8 @@ use App\Models\SuspendingUser;
 
 class HomeController extends Controller
 {
-    public function adminHome(Request $request){
+    public function adminHome(Request $request)
+    {
         $data = [
             'user_count' => User::count(),
             'suspended_count' => SuspendingUser::count(),
@@ -24,19 +25,22 @@ class HomeController extends Controller
         return view('admin.admin-home',compact('data'));
     }
     
-    public function reportList(){
-        $reports = Report::orderBy('created_at','desc') -> simplePaginate(20);
+    public function reportList()
+    {
+        $reports = Report::orderBy('created_at','desc')->simplePaginate(20);
         return view('admin.report-list',compact('reports'));
     }
     
-    public function reportUser(){
-        $suspends = SuspendingUser::orderBy('created_at','desc') -> simplePaginate(10);
+    public function reportUser()
+    {
+        $suspends = SuspendingUser::orderBy('created_at','desc')->simplePaginate(10);
         return view('admin.report-user',compact('suspends'));
     }
     
-    public function reportDetail(Request $request,$report_id){
+    public function reportDetail(Request $request,$report_id)
+    {
         $report = Report::find($report_id);
-        $report_count = Report::where('user_id',$report -> user_id) -> count();
+        $report_count = Report::where('user_id',$report->user_id)->count();
         $request -> Session() -> put('report_id',$report_id);
         $data = [
             'report' => $report,
@@ -46,37 +50,42 @@ class HomeController extends Controller
         
         switch($report -> content_type){
             case 1:
-                $article_title = ArticleTitle::find($report -> target_id);
+                $article_title = ArticleTitle::find($report->target_id);
                 if($article_title == Null){
-                    Session() -> flash('info-'.$report_id,'記事削除済み');
+                    Session()->flash('info-'.$report_id,'記事削除済み');
                     return view('admin.report-article',compact('data'));
                 }else{
-                    $request -> Session() -> put('data',$data);
-                    return redirect('/article/'.$article_title -> id);
+                    $request->Session()->put('data',$data);
+                    return redirect('/article/'.$article_title->id);
                 }
                 break;
                 
             case 2:
-                $comment = Comment::find($report -> target_id);
+                $comment = Comment::find($report->target_id);
                 if($comment == Null) $request -> Session() -> flash('info-'.$report_id,'コメント削除済み');
                 if($comment !== Null){
                     $data ['comment'] = $comment;
-                    $request -> Session() -> put('data',$data);
+                    $request->Session()->put('data',$data);
                 }
                 return view('admin.report-comment',compact('data'));
                 break;
                 
             case 3:
-                $friend = RecruitingFriend::find($report -> target_id);
-                if($friend == Null) $request -> Session() -> flash('info-'.$report_id,'フレンド募集メッセージ削除済み');
-                $request -> Session() -> put('data',$data);
+                $friend = RecruitingFriend::find($report->target_id);
+                if($friend == Null) $request -> Session()->flash('info-'.$report_id,'フレンド募集メッセージ削除済み');
+                $request->Session()->put('data',$data);
                 return view('admin.report-recrut-friend',compact('data','friend'));
+                break;
+                
+            default:
+                abort(500);
                 break;
         }
     }
     
-    public function release(Request $request,$user_id){
-        SuspendingUser::where('user_id',$user_id) -> delete();
+    public function release(Request $request,$user_id)
+    {
+        SuspendingUser::where('user_id',$user_id)->delete();
         return back();
     }
     

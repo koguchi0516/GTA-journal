@@ -15,7 +15,7 @@ class Admin extends Authenticatable
      *
      * @var array
      */
-        protected $fillable = [//カラム名変更
+        protected $fillable = [
         'name','password',
     ];
     

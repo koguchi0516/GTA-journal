@@ -8,7 +8,7 @@
         <nav class="material pc">
             <a href="/home/favo"><p>お気に入り</p></a>
             <a href="/recrut-friend"><p>フレンド募集</p></a>
-            <a href="/home"><p>最新記事</p></a>
+            <a href="/home"><p>新着記事</p></a>
             <a href="/home/popular/hot"><p>Daily</p></a>
             <a href="/home/popular/weekly"><p>Weekly</p></a>
             <a href="/home/popular/month"><p>Monthly</p></a>
@@ -16,7 +16,7 @@
             <form action="/home/user" method="post">
                 {{ csrf_field() }}
                 <p>ユーザー検索</p>
-                <input class="input" type="text" name='user-data' placeholder="表示名・ユーザーID"><br>
+                <input class="input" type="text" name='user-data' placeholder="ユーザーID"><br>
                 <input class="btn-flat-logo" type="submit" value="検索">
             </form>
             

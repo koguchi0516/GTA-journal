@@ -38,14 +38,12 @@ class User extends Authenticatable
      *
      * @var array
      */
+     
+    // リレーション
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
     
-    
-    /*
-    *リレーション
-    */
     public function recruitingFriend(){
         return $this -> hasMany('App\Models\RecruitingFriend');
     }
@@ -66,9 +64,7 @@ class User extends Authenticatable
         return $this -> hasOne('App\Models\SuspendingUser');
     }
     
-    /*
-    *バリデーションルール
-    */
+    // バリデーション
     public static $change_icon_rule = [
         'newIcon' => 'required|file|max:2048|mimes:jpeg,png,jpg'
     ];

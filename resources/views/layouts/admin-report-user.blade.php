@@ -3,7 +3,7 @@
 @if($data['report'] -> user_id == 0)
     <div class="report-container material">
         <div class="report-user-data">
-            <img src="/storage/user-icons/default-icon.jpg"></img>
+            <img src="{{ Storage::url('default-icon.jpg') }}"></img>
             <p>未登録</p>
         </div>
         <div class="report-list-data">
@@ -13,7 +13,7 @@
 @else
     <div class="report-container material">
         <a href="/mypage/{{ $data['report']['user_id'] }}" class="report-user-data">
-            <img src="/storage/user-icons/{{ $data['report'] -> user -> icon }}"></img>
+            <img src="{{ Storage::url($data['report'] -> user -> icon) }}"></img>
             <p>{{ $data['report'] -> user -> name }}</p>
         </a>
         <div class="report-list-data">

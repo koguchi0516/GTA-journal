@@ -11,7 +11,7 @@
             <div class="message-head">
                 <div class="user-name">
                     <a href="/mypage/{{ $data['comment'] -> user -> id }}">
-                        <img src="/storage/user-icons/{{ $data['comment'] -> user -> icon }}" alt="icon">
+                        <img src="{{ Storage::url($data['comment'] -> user -> icon) }}" alt="icon">
                     </a>
                     <p>{{ $data['comment'] -> user -> name }}</p>
                 </div>

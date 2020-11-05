@@ -1,6 +1,7 @@
 @extends('layouts.header')
 
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -29,7 +30,7 @@
                             <label for="user_code" class="col-md-4 col-form-label text-md-right">ユーザーID</label>
 
                             <div class="col-md-6">
-                                <input id="user_code" type="text" class="form-control @error('user_code') is-invalid @enderror" name="user_code" value="{{ old('user_code') }}" required>
+                                <input id="user_code" type="text" placeholder="半角英数字・記号('-','_')" class="form-control @error('user_code') is-invalid @enderror" name="user_code" value="{{ old('user_code') }}" required>
 
                                 @if ($errors->has('user_code'))
                                     <span class="invalid-feedback" role="alert">
@@ -43,7 +44,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">パスワード</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" placeholder="半角英数字8文字以上" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">

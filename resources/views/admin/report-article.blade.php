@@ -17,7 +17,7 @@
             <div class="message-head">
                     <div class="user-name">
                         <a class="user-data" href="/mypage/{{ $data['title_data'] -> user -> id }}">
-                            <img src="/storage/user-icons/{{ $data['title_data'] -> user -> icon }}" alt="icon">
+                            <img src="{{ Storage::url($data['title_data'] -> user -> icon) }}" alt="icon">
                             <p>{{ $data['title_data'] -> user -> name }}</p>
                         </a>
                     </div>
@@ -64,7 +64,7 @@
                     <div class="message-head">
                         <div class="user-name">
                             <a href="/mypage/{{ $comment -> user -> id }}">
-                                <img src="/storage/user-icons/{{ $comment -> user -> icon }}" alt="icon">
+                                <img src="{{ Storage::url($comment -> user -> icon) }}" alt="icon">
                             </a>
                             <p>{{ $comment -> user -> name }}</p>
                         </div>

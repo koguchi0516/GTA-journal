@@ -17,18 +17,19 @@ use App\Models\SuspendingUser;
 
 class ArticleTextController extends Controller
 {
-    public function showArticle(Request $request,$article_title_id){
+    public function showArticle(Request $request,$article_title_id)
+    {
         $title_data = ArticleTitle::find($article_title_id);
-        $contents = H3Tag::where('article_title_id',$article_title_id) -> select('h3_content','turn') -> get() -> toArray();
-        $contents = array_merge($contents , Ptag::where('article_title_id',$article_title_id) -> select('p_content','turn') -> get() -> toArray());
-        $contents = array_merge($contents , ImgTag::where('article_title_id',$article_title_id) -> select('img_content','turn') -> get() -> toArray());
-        $comments = Comment::where('article_title_id',$article_title_id) -> get();
+        $contents = H3Tag::where('article_title_id',$article_title_id)->select('h3_content','turn')->get()->toArray();
+        $contents = array_merge($contents , Ptag::where('article_title_id',$article_title_id)->select('p_content','turn')->get()->toArray());
+        $contents = array_merge($contents , ImgTag::where('article_title_id',$article_title_id)->select('img_content','turn')->get()->toArray());
+        $comments = Comment::where('article_title_id',$article_title_id)->get();
         $colle = collect($contents);
-        $contents = $colle -> sortBy('turn') -> values();
+        $contents = $colle->sortBy('turn')->values();
         $content_types;
         $favo_article = '';
         
-        if(Auth::check()) $favo_article = FavoriteArticle::where('user_id',Auth::user() -> id) -> where('article_title_id',$article_title_id) -> exists();
+        if(Auth::check()) $favo_article = FavoriteArticle::where('user_id',Auth::user()->id)->where('article_title_id',$article_title_id)->exists();
         
         foreach($contents as $content){
             foreach($content as $kye => $value){
@@ -51,20 +52,21 @@ class ArticleTextController extends Controller
         return view('users.article',compact('data','contents','content_types'));
     }
     
-    public function favoArticle(Request $request,$article_title_id){
-        $suspend = SuspendingUser::where('user_id',Auth::user() -> id) -> exists();
+    public function favoArticle(Request $request,$article_title_id)
+    {
+        $suspend = SuspendingUser::where('user_id',Auth::user()->id)->exists();
         if($suspend){
-            $request -> Session() -> flash('info','現在このアカウントでいいねはできません');
+            $request->Session()->flash('info','現在このアカウントでいいねはできません');
             return back();
         }
         
-        $favo_article = FavoriteArticle::where('user_id',Auth::user() -> id) -> where('article_title_id',$article_title_id) -> first();
+        $favo_article = FavoriteArticle::where('user_id',Auth::user()->id)->where('article_title_id',$article_title_id)->first();
         
         if($favo_article == Null){
         $favo_article = new FavoriteArticle;
-        $favo_article -> user_id = Auth::user() -> id;
-        $favo_article -> article_title_id = $article_title_id;
-        $favo_article -> save();
+        $favo_article->user_id = Auth::user()->id;
+        $favo_article->article_title_id = $article_title_id;
+        $favo_article->save();
         return back();
         }else{
             $favo_article -> delete();
@@ -72,41 +74,43 @@ class ArticleTextController extends Controller
         return back();
     }
     
-    public function toComment(Request $request,$article_title_id){
-        $suspend = SuspendingUser::where('user_id',Auth::user() -> id) -> exists();
+    public function toComment(Request $request,$article_title_id)
+    {
+        $suspend = SuspendingUser::where('user_id',Auth::user()->id)->exists();
         if($suspend){
-            $request -> Session() -> flash('info','現在このアカウントでコメントはできません');
+            $request->Session()->flash('info','現在このアカウントでコメントはできません');
             return back();
         }
         
-        $this -> validate($request,Comment::$comment_rule);
+        $this->validate($request,Comment::$comment_rule);
         
         $comment = new Comment;
-        $comment -> user_id = Auth::user() -> id;
-        $comment -> article_title_id = $article_title_id;
-        $comment -> comment_content = $request -> input('comment-post');
-        $comment -> save();
-        $request -> Session() -> flash('info','コメントを投稿しました');
+        $comment->user_id = Auth::user()->id;
+        $comment->article_title_id = $article_title_id;
+        $comment->comment_content = $request->input('comment-post');
+        $comment->save();
+        $request->Session()->flash('info','コメントを投稿しました');
         return back();
     }
     
-    public function deleteComment(Request $request,$content_type,$content_id){
+    public function deleteComment(Request $request,$content_type,$content_id)
+    {
         switch($content_type){
             case 'article':
                 ArticleTitle::destroy($content_id);
-                H3Tag::where('article_title_id',$content_id) -> delete();
-                Ptag::where('article_title_id',$content_id) -> delete();
-                FavoriteArticle::where('article_title_id',$content_id) -> delete();
-                Comment::where('article_title_id',$content_id) -> delete();
+                H3Tag::where('article_title_id',$content_id)->delete();
+                Ptag::where('article_title_id',$content_id)->delete();
+                FavoriteArticle::where('article_title_id',$content_id)->delete();
+                Comment::where('article_title_id',$content_id)->delete();
                 
-                $img_count = ImgTag::where('article_title_id',$content_id) -> pluck('img_content');
+                $img_count = ImgTag::where('article_title_id',$content_id)->pluck('img_content');
                 
                 for($i = 0 ; $i < count($img_count) ; $i++){
                 $delete_name = storage_path().'/app/public/article-imgs/'.$img_count[$i];
                 \File::delete($delete_name);
                 }
                 
-                ImgTag::where('article_title_id',$content_id) -> delete();
+                ImgTag::where('article_title_id',$content_id)->delete();
                 if(Session('admin') == 1) return redirect('/admin/report/'.Session('report_id'));
                 return redirect('/mypage/'.Auth::user() -> id);
                 break;
@@ -119,7 +123,7 @@ class ArticleTextController extends Controller
                 RecruitingFriend::destroy($content_id);
                 break;
         }
-        $request -> Session() -> flash('info','コメントを削除しました');
+        $request->Session()->flash('info','コメントを削除しました');
         return back();
     }
 }

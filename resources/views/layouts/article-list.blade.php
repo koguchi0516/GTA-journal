@@ -1,7 +1,7 @@
 @foreach($article_data as $data)
     <div class="article-list material">
         <a href="/mypage/{{ $data -> user -> id }}">
-            <img src="/storage/user-icons/{{ $data -> user -> icon }}" alt="icon">
+            <img src="{{ Storage::url($data -> user -> icon) }}" alt="icon">
         </a>
         <div class="article-supplement">
             <h2>
