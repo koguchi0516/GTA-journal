@@ -47,7 +47,7 @@ Route::get('/edit/{article_title_id}','Users\ArticlePostController@showEditArtic
 Route::post('/report/{article_title_id}','Admin\ReportController@report');
 
 //投稿削除・編集
-Route::get('/delete/{content_type}/{content_id}','Users\ArticleTextController@deleteComment')->middleware('auth');
+Route::get('/delete/{content_type}/{content_id}','Users\ArticleTextController@deleteCoctent')->middleware('auth');
 
 //ログアウト
 Route::get('/logout','LogoutController@logout')->middleware('auth');

@@ -9,7 +9,9 @@
             <div class="user-name">
                 <a class="user-data" href="/mypage/{{ $data['title_data'] -> user -> id }}">
                     <img src="{{ Storage::url($data['title_data'] -> user -> icon) }}" alt="icon">
-                    <p># {{ $data['title_data'] -> user -> user_code }}</p>
+                    <p>
+                        # {{ $data['title_data'] -> user -> user_code }}
+                    </p>
                 </a>
             </div>
             
@@ -62,7 +64,7 @@
             @elseif($content_type == 'p_content')
                 <p>{{ $contents[$i]['p_content'] }}</p>
             @else
-                <img src="/storage/article-imgs/{{ $contents[$i]['img_content'] }}"></img>
+                <img src="{{ Storage::url($contents[$i]['img_content']) }}"></img>
             @endif
             @php $i++; @endphp
         @endforeach

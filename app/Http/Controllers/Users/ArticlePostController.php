@@ -15,23 +15,22 @@ use Storage;
 
 class ArticlePostController extends Controller
 {
-    
     public function showArticlePost(Request $request)
     {
-        $suspend = SuspendingUser::where('user_id',Auth::user()->id) -> exists();
-        if($suspend) $request->Session() -> flash('info','現在このアカウントで記事投稿はできません');
+        $suspend = SuspendingUser::where('user_id',Auth::user()->id)->exists();
+        if($suspend) $request->Session()->flash('info','現在このアカウントで記事投稿はできません');
         return view('users.article-post');
     }
     
     public function showEditArticle(Request $request,$article_title_id)
     {
         $suspend = SuspendingUser::where('user_id',Auth::user()->id)->exists();
-        if($suspend) $request -> Session() -> flash('info','現在このアカウントで記事更新はできません');
+        if($suspend) $request->Session()->flash('info','現在このアカウントで記事更新はできません');
         
         $title_data = ArticleTitle::find($article_title_id);
-        $contents = H3Tag::where('article_title_id',$article_title_id) -> select('h3_content','turn')->get()->toArray();
-        $contents = array_merge($contents , Ptag::where('article_title_id',$article_title_id) -> select('p_content','turn')->get()->toArray());
-        $contents = array_merge($contents , ImgTag::where('article_title_id',$article_title_id) -> select('img_content','turn')->get()->toArray());
+        $contents = H3Tag::where('article_title_id',$article_title_id)->select('h3_content','turn')->get()->toArray();
+        $contents = array_merge($contents , Ptag::where('article_title_id',$article_title_id)->select('p_content','turn')->get()->toArray());
+        $contents = array_merge($contents , ImgTag::where('article_title_id',$article_title_id)->select('img_content','turn')->get()->toArray());
         $colle = collect($contents);
         $contents = $colle->sortBy('turn')->values();
         $content_types;
@@ -109,7 +108,7 @@ class ArticlePostController extends Controller
             $article_title->category_id = $category;
             $article_title->save();
             
-            $last_id = $article_title -> id;
+            $last_id = $article_title->id;
             H3Tag::where('article_title_id',$article_title->id)->delete();
             Ptag::where('article_title_id',$article_title->id)->delete();
             $img_count = ImgTag::where('article_title_id',$article_title->id)->pluck('img_content');
@@ -119,9 +118,9 @@ class ArticlePostController extends Controller
                 \File::delete($delete_name);
             }
             
-            ImgTag::where('article_title_id',$article_title -> id) -> delete();
-            $request -> Session() -> flash('info','更新しました');
-        }
+            ImgTag::where('article_title_id',$article_title->id)->delete();
+            $request->Session()->flash('info','更新しました');
+        }                                                           
         
         $data['posts'] = $posts;
         $data['lastId'] = $last_id;
@@ -165,29 +164,15 @@ class ArticlePostController extends Controller
     
     public function imgPost($data){
         $img_tag = new imgTag;
-        $disk = Storage::disk('s3');
-        
         $img = $data['posts'][$data['i']];
-        $img_name = 'article-imgs/' . Auth::user()->user_code . '-' .$data['lastId'] . '-' . $data['i'] . '.' . $img->getClientOriginalExtension();
-        $disk->put($img_name,$img,'public');
-        
-        $url = $disk->url($img_name);
+        $target_path = 'users/' . Auth::user()->user_code . '/articles/article-' . $data['lastId'];
+        $img_name ='turn-' . $data['i'] . '.' . $img->getClientOriginalExtension();
+        $s3_img_path = $img->storeAs($target_path,$img_name,['ACL' => 'public-read']);
         
         $img_tag->article_title_id = $data['lastId'];
         $img_tag->turn = $data['i'];
-        $img_tag->img_content = $img_name;
+        $img_tag->img_content = $s3_img_path;
         $img_tag->save();
-        
-        // ローカル環境
-        // $img = $data['posts'][$data['i']]; 
-        // $img_name = Auth::user() -> user_code . '-' .$data['lastId'] . '-' . $data['i'] . '.' . $img -> getClientOriginalExtension();
-        // $target_path = 'public/article-imgs';
-        // $img -> storeAs($target_path,$img_name);
-        
-        // $img_tag -> article_title_id = $data['lastId'];
-        // $img_tag -> turn = $data['i'];
-        // $img_tag -> img_content = $img_name;
-        // $img_tag-> save();
     }
     
 }

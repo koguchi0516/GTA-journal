@@ -60,8 +60,9 @@ class SettingController extends Controller
             \Storage::delete($users->icon);
         }
         
+        $img_name = $users->user_code . '-icon' . '.' . $new_icon->getClientOriginalExtension();
         $target_path = 'users/' . Auth::user()->user_code;
-        $new_icon_path = $new_icon->store($target_path,['ACL' => 'public-read']);
+        $new_icon_path = $new_icon->storeAs($target_path,$img_name,['ACL' => 'public-read']);
         $users->icon = $new_icon_path;
         $users->save();
         $request->Session()->flash('info','アイコンを変更しました');
