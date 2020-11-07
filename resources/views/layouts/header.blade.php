@@ -32,7 +32,7 @@
                     <div class="unregistered-header">
                         <div class="header-container material">
                             <i class="material-icons mobile" onclick="mobileMenu()">menu</i>
-                            <a href="/home">
+                            <a href="{{ route('home') }}">
                                 <h1>grand theft auto <span class="red">JOURNAL</span></h1>
                             </a>
                             <div class="header-menu pc">
@@ -44,12 +44,12 @@
                 @else
                     <div class="header-container">
                         <i class="material-icons mobile" onclick="mobileMenu()">menu</i>
-                        <a href="/home">
+                        <a href="{{ route('home') }}">
                             <h1>grand theft auto <span class="red">JOURNAL</span></h1>
                         </a>
                         <div class="header-menu pc">
-                            <a href="/article-post" class="btn-flat-logo header">記事投稿</a>
-                            <a href="/mypage/{{ Auth::user() -> id }}" class="head-img-linl">
+                            <a href="{{ route('create_article_page') }}" class="btn-flat-logo header">記事投稿</a>
+                            <a href="{{ route('mypage.',['user_id' => Auth::user() -> id]) }}" class="head-img-linl">
                                 <img src="{{ Storage::url(Auth::user() -> icon) }}" alt="icon">
                             </a>
                             <i class="material-icons open-menu" id="open-menu" onclick="menuOpen()">arrow_drop_down</i>
@@ -60,9 +60,8 @@
             @auth
                 <div class="menu-sticky pc">
                     <div class="icon-nav material" id="menu-accordion">
-                        <a href="/mypage/{{ Auth::user() -> id }}"><p>マイページ</p></a>
-                        <a href="/setting"><p>設定</p></a>
-                        <a href="/logout"><p>ログアウト</p></a>
+                        <a href="{{ route('mypage.',['user_id' => Auth::user() -> id]) }}"><p>マイページ</p></a>
+                        <a href="{{ route('setting') }}"><p>設定</p></a>
                         <input type="hidden" id="menu_click" value="Open">
                     </div>
                 </div>
@@ -72,30 +71,30 @@
                 <nav class="material mobile" id="mobile-menu">
                     <input type="hidden" id="mobile-menu-flag" value="Open">
                     @auth
-                        <a href="/mypage/{{ Auth::user() -> id }}"><p>マイページ</p></a>
-                        <a href="/article-post" class="mobile"><p>記事投稿</p></a>
-                        <a href="/home/favo"><p>お気に入り</p></a>
+                        <a href="{{ route('mypage.',['user_id' => Auth::user() -> id]) }}"><p>マイページ</p></a>
+                        <a href="{{ route('create_article_page') }}" class="mobile"><p>記事投稿</p></a>
+                        <a href="{{ route('my_favo_list') }}"><p>お気に入り</p></a>
                     @else
                         <a href="/register"><p>登録</p></a>
                         <a href="/login"><p>ログイン</p></a>
                     @endauth
-                        <a href="/recrut-friend"><p>フレンド募集</p></a>
-                        <a href="/home"><p>最新記事</p></a>
-                        <a href="/home/popular/hot"><p>Daily</p></a>
-                        <a href="/home/popular/weekly"><p>Weekly</p></a>
-                        <a href="/home/popular/month"><p>Monthly</p></a>
+                        <a href="{{ route('friend_page') }}"><p>フレンド募集</p></a>
+                        <a href="{{ route('home') }}"><p>最新記事</p></a>
+                        <a href="{{ route('popular_articles.',['period' => 'hot']) }}"><p>Daily</p></a>
+                        <a href="{{ route('popular_articles.',['period' => 'weekly']) }}"><p>Weekly</p></a>
+                        <a href="{{ route('popular_articles.',['period' => 'month']) }}"><p>Monthly</p></a>
                     @auth
-                        <a href="/setting"><p>設定</p></a>
+                        <a href="{{ route('setting') }}"><p>設定</p></a>
                     @endauth
                     
-                    <form action="/home/user" method="post">
+                    <form action="{{ route('search_user') }}" method="post">
                         {{ csrf_field() }}
                         <p>ユーザー検索</p>
                         <input class="input" type="text" name='user-data' placeholder="表示名・ユーザーID"><br>
                         <input class="btn-flat-logo" type="submit" value="検索">
                     </form>
                     
-                    <form action="/home/category" method="post">
+                    <form action="{{ route('search_category') }}" method="post">
                         {{ csrf_field() }}
                         <p>カテゴリ検索</p>
                         @include('layouts.select-category')

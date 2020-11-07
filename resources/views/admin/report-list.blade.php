@@ -1,6 +1,9 @@
 @extends('layouts.admin-header')
 
 @section('content')
+
+@include('layouts.message-box')
+
     <p class="admin-title">報告一覧</p>
     
     @foreach($reports as $report)

@@ -63,7 +63,7 @@ class HomeController extends Controller
         // if($user_id == Null) $user_id = User::where('name',$user_data) -> value('id');
         
         if(isset($user_id)){
-            return redirect('/mypage/'.$user_id);
+            return redirect()->route('mypage.',['user_id' => $user_id]);
         }else{
             $request->Session()->flash('info','このユーザーは存在しません');
             return back();
@@ -72,7 +72,6 @@ class HomeController extends Controller
     
     public function linkChcategory(Request $request,$category_id)
     {
-        dd();
         $article_data = ArticleTitle::where('category_id',$category_id)->simplePaginate(20);
         $home_type = 'カテゴリ : '.Category::where('id',$category_id)->value('category_name').' ';
         return view('users.home',compact('article_data','home_type'));

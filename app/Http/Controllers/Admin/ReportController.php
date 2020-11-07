@@ -10,6 +10,7 @@ use App\Models\Comment;
 use App\Models\SuspendingUser;
 use App\User;
 use App\Models\ArticleTitle;
+
 use App\Models\H3Tag;
 use App\Models\Ptag;
 use App\Models\ImgTag;
@@ -18,8 +19,6 @@ use App\Models\RecruitingFriend;
 
 class ReportController extends Controller
 {
-    public function showAdmin(Request $request){}
-    
     public function report(Request $request,$article_title_id)
     {
         $this->validate($request,Report::$report_rule);
@@ -39,6 +38,10 @@ class ReportController extends Controller
             case 'friend':
                 $target_id[0] = 3;
                 break;
+            
+            default:
+                abort(500);
+                break;
         }
         
         $report = new Report;
@@ -57,15 +60,15 @@ class ReportController extends Controller
         
         switch($target_id[0]){
             case ($target_id[0] == 1 || $target_id[0] == 2):
-                return redirect('/article/'.$article_title_id);
+                return redirect()->route('show_article.',['article_title_id' => $article_title_id]);
                 break;
                 
             case 3:
-                return redirect('/recrut-friend');
+                return redirect()->route('friend_page');
                 break;
                 
             default:
-                return redirect('/home');
+                return redirect()->route('home');
                 break;
         }
     }
@@ -79,38 +82,25 @@ class ReportController extends Controller
         return back();
     }
     
-    
     public function deleteAccount(Request $request,$user_id)
     {
-        $suspending_user = SuspendingUser::where('user_id',$user_id)->get();
-
-        $user = User::find($user_id);
-        if($user -> icon !== 'default-icon.jpg'){
-            $delete_img = storage_path().'/app/public/user-icons/'.$user -> icon;
-            \File::delete($delete_img);
-        }
-        
         $article_title = new ArticleTitle;
         $article_title_id = $article_title->where('user_id',$user_id)->pluck('id');
         
-        $img_tag = ImgTag::whereIn('article_title_id',$article_title_id)->get();
-        if(isset($img_tag)){
-            foreach($img_tag as $val){
-                $delete_img = storage_path().'/app/public/article-imgs/'.$val -> img_content;
-                \File::delete($delete_img);
-            }
-        }
+        $user = User::find($user_id);
         
         RecruitingFriend::where('user_id',$user_id) -> delete();
         H3Tag::whereIn('article_title_id',$article_title_id)->delete();
         Ptag::whereIn('article_title_id',$article_title_id)->delete();
         ImgTag::whereIn('article_title_id',$article_title_id)->delete();
         FavoriteArticle::whereIn('article_title_id',$article_title_id)->orWhere('user_id',$user_id)->delete();
+        Comment::where('user_id',$user_id)->delete();
         SuspendingUser::where('user_id',$user_id)->delete();
         Report::where('user_id',$user_id)->delete();
+        \Storage::deletedirectory('users/' . $user->user_code);
         $article_title->where('user_id',$user_id)->delete();
         $user->find($user_id)->delete();
         
-        return redirect('/admin/home');
+        return redirect()->route('home');
     }
 }

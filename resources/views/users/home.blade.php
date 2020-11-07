@@ -6,21 +6,21 @@
 
     <div class="main-contents">
         <nav class="material pc">
-            <a href="/home/favo"><p>お気に入り</p></a>
-            <a href="/recrut-friend"><p>フレンド募集</p></a>
-            <a href="/home"><p>新着記事</p></a>
-            <a href="/home/popular/hot"><p>Daily</p></a>
-            <a href="/home/popular/weekly"><p>Weekly</p></a>
-            <a href="/home/popular/month"><p>Monthly</p></a>
+            <a href="{{ route('my_favo_list') }}"><p>お気に入り</p></a>
+            <a href="{{ route('friend_page') }}"><p>フレンド募集</p></a>
+            <a href="{{ route('home') }}"><p>新着記事</p></a>
+            <a href="{{ route('popular_articles.',['period' => 'hot']) }}"><p>Daily</p></a>
+            <a href="{{ route('popular_articles.',['period' => 'weekly']) }}"><p>Weekly</p></a>
+            <a href="{{ route('popular_articles.',['period' => 'month']) }}"><p>Monthly</p></a>
             
-            <form action="/home/user" method="post">
+            <form action="{{ route('search_user') }}" method="post">
                 {{ csrf_field() }}
                 <p>ユーザー検索</p>
                 <input class="input" type="text" name='user-data' placeholder="ユーザーID"><br>
                 <input class="btn-flat-logo" type="submit" value="検索">
             </form>
             
-            <form action="/home/category" method="post">
+            <form action="{{ route('search_category') }}" method="post">
                 {{ csrf_field() }}
                 <p>カテゴリ検索</p>
                     @include('layouts.select-category')

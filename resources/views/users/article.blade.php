@@ -7,7 +7,7 @@
 <div class="article-container material">
     <div class="message-head">
             <div class="user-name">
-                <a class="user-data" href="/mypage/{{ $data['title_data'] -> user -> id }}">
+                <a class="user-data" href="{{ route('mypage.',['user_id' => $data['title_data'] -> user -> id]) }}">
                     <img src="{{ Storage::url($data['title_data'] -> user -> icon) }}" alt="icon">
                     <p>
                         # {{ $data['title_data'] -> user -> user_code }}
@@ -27,7 +27,7 @@
                     <p class="report-button" id="article-{{ $data['title_data']['id'] }}" onclick="openBtn(this)">報告</p>
                     @auth
                         @if($data['title_data'] -> user_id == Auth::user() -> id)
-                            <a href="/edit/{{ $data['title_data'] -> id }}">
+                            <a href="{{ route('edit_article_page.',['article_title_id' => $data['title_data'] -> id]) }}">
                                 <p class="report-button">編集</p>
                             </a>
                             <p class="report-button" id="article-{{ $data['title_data']['id'] }}" onclick="checkOpenBtn(this)">削除</p>
@@ -41,12 +41,12 @@
     <h2 class="article-title">{{ $data['title_data'] -> title }}</h2>
     <div class="article-tag-container">
         <div class="article-tags">
-            <a href="/home/category/{{ $data['title_data']['category_id'] }}">
+            <a href="{{ route('category_tag.',['category_id' => $data['title_data']['category_id']]) }}">
                 <p>{{ $data['title_data'] -> category -> category_name }}</p>
             </a>
         </div>
         @if(Auth::check())
-            <a href="/favo/{{ $data['title_data']['id'] }}" class="article-favorite">
+            <a href="{{ route('favo_push.',['article_title_id' => $data['title_data']['id']]) }}" class="article-favorite">
                 @if($data['favo_article'] == 0)
                 <i class="material-icons article-heart">favorite_border</i>
                 @else
@@ -81,8 +81,8 @@
         <div class="comment-list-container material">
             <div class="message-head">
                 <div class="user-name">
-                    <a href="/mypage/{{ $comment -> user -> id }}">
-                        <img src="{{ Storage::url($data['title_data'] -> user -> icon) }}" alt="icon">
+                    <a href="{{ route('mypage.',['user_id' => $comment -> user -> id]) }}">
+                        <img src="{{ Storage::url($comment -> user -> icon) }}" alt="icon">
                     </a>
                     <p># {{ $comment -> user -> user_code }}</p>
                 </div>
@@ -112,7 +112,7 @@
 @endif
 
 @auth
-    <form method="post" action="/article/{{ $data['title_data'] -> id }}" class="comment-post-form material">
+    <form method="post" action="{{ route('post_comment.',['article_title_id' => $data['title_data'] -> id]) }}" class="comment-post-form material">
         {{ csrf_field() }}
         <div class="user-name">
             <img src="{{ Storage::url(Auth::user() -> icon) }}" alt="icon">

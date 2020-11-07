@@ -4,7 +4,7 @@
 
     @include('layouts.message-box')
     
-    <form class="article-post-form" action="/article-post" method="post" name="article-post" enctype="multipart/form-data">
+    <form class="article-post-form" action="{{ route('article_post') }}" method="post" name="article-post" enctype="multipart/form-data">
         {{ csrf_field() }}
         
         @include('layouts.article-console',['display'=>'更新','aim'=>'reset','message'=>'リセット'])
@@ -46,7 +46,7 @@
                     @else
                         <div class="h3-tag-container" id="post-item-{{ $i }}">
                             <div class="edit-img-container">
-                                <img class="edit-img" src="/storage/article-imgs/{{ $contents[$i]['img_content'] }}"></img>
+                                <img class="edit-img" src="{{ Storage::url($contents[$i]['img_content']) }}"></img>
                             </div>
                             <input type="file" class="post-img" name="post-{{ $i }}" value="">
                             <input type="hidden" name="type[]" value="img">

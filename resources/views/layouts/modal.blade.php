@@ -1,5 +1,5 @@
 <div id="modal" class="modal">
-    <form action="/report/{{ $article_title_id }}" method="post" class="modal-content material">
+    <form action="{{ route('report.',['article_title_id' => $article_title_id]) }}" method="post" class="modal-content material">
         {{ csrf_field() }}
         <div class="modal-content-header">
             <h3>報告内容を選択</h3>

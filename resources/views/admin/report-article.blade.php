@@ -51,7 +51,7 @@
                     @elseif($content_type == 'p_content')
                         <p>{{ $contents[$i]['p_content'] }}</p>
                     @else
-                        <img src="/storage/article-imgs/{{ $contents[$i]['img_content'] }}"></img>
+                        <img src="{{ Storage::url($contents[$i]['img_content']) }}"></img>
                     @endif
                     @php $i++; @endphp
                 @endforeach

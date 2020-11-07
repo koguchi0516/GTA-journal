@@ -5,7 +5,7 @@
 @include('layouts.message-box')
 
 <div class="setting">
-    <form action="{{ url('/setting') }}" class="setting-form" method="post" enctype="multipart/form-data">
+    <form action="{{ route('setting_change') }}" class="setting-form" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-container material">
             <p>アイコン</p>

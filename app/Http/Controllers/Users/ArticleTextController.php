@@ -14,6 +14,8 @@ use App\Http\Controllers\Users\Route;
 use App\Models\FavoriteArticle;
 use App\Models\RecruitingFriend;
 use App\Models\SuspendingUser;
+use App\Models\Report;
+use App\User;
 
 class ArticleTextController extends Controller
 {
@@ -56,7 +58,7 @@ class ArticleTextController extends Controller
     {
         $suspend = SuspendingUser::where('user_id',Auth::user()->id)->exists();
         if($suspend){
-            $request->Session()->flash('info','現在このアカウントでいいねはできません');
+            $request->Session()->flash('info','現在このアカウントでいいね機能は利用できません');
             return back();
         }
         
@@ -95,12 +97,16 @@ class ArticleTextController extends Controller
     
     private function deleteArticleData($content_id)
     {
+        $user_id = ArticleTitle::where('id',$content_id)->value('user_id');
+        $user_code = User::find($user_id)->value('user_code');
+        
         ArticleTitle::destroy($content_id);
         H3Tag::where('article_title_id',$content_id)->delete();
         Ptag::where('article_title_id',$content_id)->delete();
         FavoriteArticle::where('article_title_id',$content_id)->delete();
         Comment::where('article_title_id',$content_id)->delete();
-        \Storage::deleteDirectory('users/' . Auth::user()->user_code . '/articles/article-' . $content_id);        
+        Report::where('article_title_id',$content_id)->delete();
+        \Storage::deleteDirectory('users/' . $user_code . '/articles/article-' . $content_id);        
     }
     
     public function deleteCoctent(Request $request,$content_type,$content_id)
@@ -111,25 +117,34 @@ class ArticleTextController extends Controller
                 
                 $img_count = ImgTag::where('article_title_id',$content_id)->pluck('img_content');
                 ImgTag::where('article_title_id',$content_id)->delete();
-                if(Session('admin') == 1){
-                    return redirect('/admin/report/'.Session('report_id'));
+                Report::where('target_id',$content_id)->where('content_type','1')->delete();
+                
+                if(Auth::check()){
+                    return redirect()->route('mypage.',['user_id' => Auth::user() -> id]);
                 }
-                return redirect('/mypage/'.Auth::user() -> id);
                 break;
                 
             case 'comment':
                 Comment::destroy($content_id);
+                Report::where('target_id',$content_id)->where('content_type','2')->delete();
                 break;
                 
             case 'friend':
                 RecruitingFriend::destroy($content_id);
+                Report::where('target_id',$content_id)->where('content_type','3')->delete();
                 break;
                 
             default:
                 abort(500);
                 break;
         }
-        $request->Session()->flash('info','コメントを削除しました');
-        return back();
+        
+        $request->Session()->flash('info','コンテンツを削除しました');
+        
+        if(Auth::check()){
+            return redirect()->back();
+        }else{
+            return redirect()->route('admin_report_list');
+        }
     }
 }

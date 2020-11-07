@@ -7,7 +7,7 @@
         <p>アカウントに登録された情報と、投稿が全て削除されます</p>
         
         <div class="check-contain">
-            <a id="delete-url" href="/deleteAccount/{{ $user_id }}">
+            <a id="delete-url" href="{{ route('delete_account.',['delete-account' => $user_id]) }}">
                 <p class="report-button check">はい</p>
             </a>
             <p id="check-no" class="report-button check">いいえ</p>

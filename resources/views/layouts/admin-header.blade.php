@@ -26,13 +26,13 @@
 
     <body>
         <div class="header-container">
-            <a href="/admin/home">
+            <a href="{{ route('admin_page') }}">
                 <h1>grand theft auto <span class="red">JOURNAL</span> management</h1>
             </a>
             <div class="header-menu">
-                <form action="/home/user" class="admin-form" method="post">
+                <form action="{{ route('search_user') }}" class="admin-form" method="post">
                     {{ csrf_field() }}
-                    <input class="input" type="text" name='user-data' placeholder="表示名・ユーザーID"><br>
+                    <input class="input" type="text" name='user-data' placeholder="ユーザーID"><br>
                     <input class="btn-flat-logo admin-home" type="submit" value="検索">
                     <a href="/admin/logout">
                         <p class="btn-flat-logo admin-header">ログアウト</p>

@@ -12,7 +12,7 @@
     </div>
 @else
     <div class="report-container material">
-        <a href="/mypage/{{ $data['report']['user_id'] }}" class="report-user-data">
+        <a href="{{ route('mypage.',['user_id' => $data['report']['user_id']]) }}" class="report-user-data">
             <img src="{{ Storage::url($data['report'] -> user -> icon) }}"></img>
             <p>{{ $data['report'] -> user -> name }}</p>
         </a>

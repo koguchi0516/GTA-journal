@@ -4,7 +4,7 @@
 
     @include('layouts.message-box')
     
-    <form class="article-post-form" action="/article-post" method="post" name="article-post" enctype="multipart/form-data">
+    <form class="article-post-form" action="{{ route('article_post') }}" method="post" name="article-post" enctype="multipart/form-data">
         {{ csrf_field() }}
         
         @include('layouts.article-console',['display'=>'投稿','aim'=>'all-clear','message'=>'クリア'])

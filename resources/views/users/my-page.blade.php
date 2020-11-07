@@ -7,7 +7,7 @@
     <div class="mypage-container">
         <div class="profile-area material">
             <div class="user-name">
-                <img src="/storage/user-icons/{{ $data['user_data'] -> icon }}" alt="">
+                <img src="{{ Storage::url($data['user_data'] -> icon) }}" alt="">
                 <p>{{ $data['user_data'] -> name }}</p>
             </div>
             

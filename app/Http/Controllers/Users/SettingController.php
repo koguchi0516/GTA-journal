@@ -48,10 +48,10 @@ class SettingController extends Controller
                 abort(500);
                 break;
         }
-        return redirect('/setting');
+        return redirect()->route('setting');
     }
     
-    public function changeIcon(Request $request,$users)
+    private function changeIcon(Request $request,$users)
     {
         $this->validate($request,user::$change_icon_rule);
         $new_icon = $request->file('newIcon');
@@ -68,7 +68,7 @@ class SettingController extends Controller
         $request->Session()->flash('info','アイコンを変更しました');
     }
     
-    public function changeName(Request $request,$users)
+    private function changeName(Request $request,$users)
     {
         $this->validate($request,user::$change_name_rule);
         $new_name = $request->input('change-name');
@@ -77,7 +77,7 @@ class SettingController extends Controller
         $request->Session()->flash('info','表示名を変更しました');
     }
     
-    public function changePsid(Request $request,$users)
+    private function changePsid(Request $request,$users)
     {
         $new_psid = $request->input('change-psid');
         if($new_psid == ''){
@@ -90,7 +90,7 @@ class SettingController extends Controller
         $request->Session()->flash('info','PSIDを変更しました');
     }
     
-    public function changeProfile(Request $request,$users)
+    private function changeProfile(Request $request,$users)
     {
         $new_profile = $request->input('change-profile');
         if($new_profile == ''){
@@ -103,7 +103,8 @@ class SettingController extends Controller
         $request->Session()->flash('info','プロフィールを変更しました');
     }
     
-    public function changePassword(Request $request,$users){
+    private function changePassword(Request $request,$users)
+    {
         $old_password = $request->input('old-password');
         
         if(preg_match("/^[a-zA-Z0-9]{3,16}+$/",$old_password)){

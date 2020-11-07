@@ -9,7 +9,6 @@ use App\Models\H3Tag;
 use App\Models\Ptag;
 use App\Models\ImgTag;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Support\Facades\Storage;
 use App\Models\SuspendingUser;
 use Storage;
 
@@ -44,21 +43,37 @@ class ArticlePostController extends Controller
         return view('users.article-edit',compact('content_types','contents','title_data'));
     }
     
+    private function deleteSession($request)
+    {
+        $request-> Session()->forget('last_post_num');
+        $request-> Session()->forget('post_num');
+        $request-> Session()->forget('post_type');
+    }
+    
+    private function deleteOldArticle($last_id)
+    {
+        H3Tag::where('article_title_id',$last_id)->delete();
+        Ptag::where('article_title_id',$last_id)->delete();
+        \Storage::deleteDirectory('users/' . Auth::user()->user_code . '/articles/article-' . $last_id);
+        ImgTag::where('article_title_id',$last_id)->delete();
+    }
+
     public function articlePost(Request $request)
     {
         $suspend = SuspendingUser::where('user_id',Auth::user()->id)->exists();
-        if($suspend) return back();
+        if($suspend){
+            return back();
+        }
         
-        $request->Session()->forget('last_post_num');
-        $request->Session()->forget('post_num');
-        $request->Session()->forget('post_type');
+        $this->deleteSession($request);
+        
         $title_id = $request->input('title-id');
         
         if($request->input('all-clear') !== null){
-            return redirect('/article-post');
+            return redirect()->route('create_article_page');
         }elseif($request->input('reset') !== null){
             $article_title_id = $title_id;
-            return redirect('/edit/'.$article_title_id);
+            return redirect()->route('edit_article_page.',['article_title_id => $article_title_id']);
         }
         
         $request->Session()->flash('last_post_num' , $request->input('last-post-num'));
@@ -100,6 +115,7 @@ class ArticlePostController extends Controller
             $article_title->category_id = $category;
             $article_title->save();
             $last_id = $article_title->id;
+            
             $request->Session()->flash('info','投稿しました');
         }else{
             $article_title = $article_title->where('id',$title_id)->first();
@@ -107,46 +123,29 @@ class ArticlePostController extends Controller
             $article_title->title = $title;
             $article_title->category_id = $category;
             $article_title->save();
+        
+            $last_id = $article_title->id;            
             
-            $last_id = $article_title->id;
-            H3Tag::where('article_title_id',$article_title->id)->delete();
-            Ptag::where('article_title_id',$article_title->id)->delete();
-            $img_count = ImgTag::where('article_title_id',$article_title->id)->pluck('img_content');
+            $this->deleteOldArticle($last_id);
             
-            for($i = 0 ; $i < count($img_count) ; $i++){
-                $delete_name = storage_path().'/app/public/article-imgs/'.$img_count[$i];
-                \File::delete($delete_name);
-            }
-            
-            ImgTag::where('article_title_id',$article_title->id)->delete();
             $request->Session()->flash('info','更新しました');
-        }                                                           
+        }
         
         $data['posts'] = $posts;
         $data['lastId'] = $last_id;
         
         for($i = 0 ; $i < $count ; $i++){
             $data['i'] = $i;
-            switch($post_type[$i]){
-                case 'h3':
-                    $this->h3Post($data);
-                    break;
-                
-                case 'p':
-                    $this->pPost($data);
-                    break;
-                
-                case 'img':
-                    $this->imgPost($data);
-                    break;
-            }
+            $method = $post_type[$i] . 'Post';
+            $this->$method($data);
         }
             $request->Session()->forget('post_num');
             $request->Session()->forget('post_type');
-            return redirect('/article/'.$last_id);
+            return redirect()->route('show_article.',['article_title_id' => $last_id]);
     }
     
-    public function h3Post($data){
+    private function h3Post($data)
+    {
         $h3_tag = new H3Tag;
         $h3_tag->article_title_id = $data['lastId'];
         $h3_tag->turn = $data['i'];
@@ -154,7 +153,8 @@ class ArticlePostController extends Controller
         $h3_tag->save();
     }
     
-    public function pPost($data){
+    private function pPost($data)
+    {
         $p_tag = new Ptag;
         $p_tag->article_title_id = $data['lastId'];
         $p_tag->turn = $data['i'];
@@ -162,7 +162,8 @@ class ArticlePostController extends Controller
         $p_tag->save();
     }
     
-    public function imgPost($data){
+    private function imgPost($data)
+    {
         $img_tag = new imgTag;
         $img = $data['posts'][$data['i']];
         $target_path = 'users/' . Auth::user()->user_code . '/articles/article-' . $data['lastId'];
