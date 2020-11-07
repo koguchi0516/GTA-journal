@@ -325,6 +325,7 @@
         height: 48px;
         width: 48px;
         border-radius: 50%;
+        object-fit: cover;
     }
 
     .article-supplement {
@@ -503,6 +504,7 @@
         width: 30px;
         height: 30px;
         border-radius: 50%;
+        object-fit: cover;
     }
 
     .user-name > p {
@@ -758,8 +760,10 @@
 
     .article-text p {
         text-align: left;
-        font-size: 14px;
+        font-size: 18px;
         margin: 21px 0;
+        letter-spacing: 2,8px;
+        line-height: 29px;
         white-space: pre-wrap;
     }
 
