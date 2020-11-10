@@ -11,8 +11,6 @@
 |
 */
 
-//route修正完了->1行目に赤ポチ
-
 //ホーム画面
 Route::get('/','Users\HomeController@showHome')->name('home');
 Route::get('/popular/{period}','Users\HomeController@popularArticle')->name('popular_articles.');
